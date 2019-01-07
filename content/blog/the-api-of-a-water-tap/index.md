@@ -44,7 +44,7 @@ tap(true, false) // Opening the cold knob
 
 What happens when you open the cold knob all the way? You'd expect to get cold water, and with this function, that is what you would get. But in the physical world, sometimes when I want a glass of water, I open the cold knob and surprisingly get warm water, which is never a nice surprise as I find drinking warm water really unpleasant.
 
-How does that happen? Well, someone used the tap before me and made warm water flow out of it, which then remained in the pipe until I used the tap and released the water. It turns out the tap holds an internal state - the temperate of the water in the pipe - which impacts the output. So it should look more like the following (this time, it's also over-simplified with regards to flow rate):
+How does that happen? Well, someone used the tap before me and made warm water flow out of it, which then remained in the pipe until I used the tap and released the water. It turns out the tap holds an internal state - the temperature of the water in the pipe - which impacts the output. So it should look more like the following (this time, it's also over-simplified with regards to flow rate):
 
 ```javascript
 // Definition
