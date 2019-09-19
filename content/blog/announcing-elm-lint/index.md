@@ -16,7 +16,7 @@ actually a good solution. I think it is, and I hope you will think so too.
 
 I have only released a beta version of the CLI. Current version is 1.0.0-beta3.
 
-Let me know if you have any feedback or questions, either on this article, the package or the CLI tool. My contacts are at the bottom of the article. Also, there happens to be a #elm-lint Slack channel, so you can also comment there.
+Let me know if you have any feedback or questions, either on this article, the package or the CLI tool. My contact details are at the bottom of the article. Also, there happens to be a #elm-lint Slack channel, so you can also comment there.
 
 The feedback I am most interested in:
 
@@ -29,7 +29,7 @@ The feedback I am most interested in:
 - How is the performance? If it's too slow, please tell me the number of modules and number of lines of codes, and how long it took
 - Do you have severe issues with some of the choices `elm-lint` went with? If so, which ones and why?
 - Do you find use cases for custom rules? If so, can you tell me some of them?
-- If you try writing your own rule, let me know how it went for you. What were the hard parts? Were the examples sufficiently helpful?
+- If you try writing your own rule, let me know how it went for you. What were the hard parts? Were the examples and the documentation sufficiently helpful?
 
 Thank you!
 
@@ -39,33 +39,41 @@ Thank you!
 
 `elm-lint` is an Elm linter, meaning that it is a tool that analyzes your project's Elm code, and reports patterns ("linting errors") that do not comply with a set of "rules".
 
-Here is an example of the output of `elm-lint`, when run in a terminal:
+Let's say that in your Elm project, there is a `Ui.Button` module, so that the project has a consistent UI for your buttons, and a better API for your use case to avoid pitfalls the team has too often fallen into. Also, in order to have a consistent color palette, there is a module named `Ui.Color` which contains all the definitions for the colors in your application.
+
+The problem is that, sometimes these conventions are forgotten or were not well communicated, and problems appear. The native `Html.button` function gets used instead of the `Ui.Button` module, and colors often get redefined where they are used and not imported from `Ui.Color`. Sometimes, these get noticed during code review, but sometimes they don't.
+
+`elm-lint` provides you the ability to write linting rules that make this code review automatic. The result could look something like this:
 
 ![](cli-output-example.png)
 
 ## Get it
 
-The recommended way to get `elm-lint` is to install the CLI, available on `npm` under the name [@jfmengels/elm-lint](https://www.npmjs.com/package/@jfmengels/elm-lint). Do not confuse it with [`elm-lint`](https://www.npmjs.com/package/elm-lint) which I do not own. You can then use it in your terminal as `elm-lint`. I suggest starting with running `elm-lint --help` and `elm-lint init`, after having read the documentation of the [package](https://package.elm-lang.org/packages/jfmengels/elm-lint/latest/).
+The recommended way to get `elm-lint` is to install the CLI, available on `npm` under the name [`@jfmengels/elm-lint`](https://www.npmjs.com/package/@jfmengels/elm-lint) (Do not confuse it with the [`elm-lint`](https://www.npmjs.com/package/elm-lint) `npm` package which I do not own).
 
-You can also try it in an online version [here](https://elm-lint.now.sh/), or you can checkout [this repository](https://github.com/jfmengels/elm-lint-example) that shows how `elm-lint` is configured and used.
+```bash
+npm install @jfmengels/elm-lint
+```
+
+You can then use it in your terminal as `elm-lint`. I suggest starting with running `elm-lint --help` and `elm-lint init`, after having read the documentation of the [package](https://package.elm-lang.org/packages/jfmengels/elm-lint/latest/).
+
+You can also try it in an online version [here](https://elm-lint.now.sh/), or you can checkout [this repository](https://github.com/jfmengels/elm-lint-example) that shows how `elm-lint` is configured and used. The screenshot above was taken from this example.
 
 ## The journey
 
-I originally come from the land of JavaScript, where I spent a lot of my personal time working on tools developers use to make my and my coworkers life easier at work. Some of the projects including [Lodash](https://lodash.com/), the [AVA test runner](https://github.com/avajs/ava) and [ESLint](https://eslint.org). ESLint is a JavaScript linter that allows you to write your own linting rules, and most of my open-source was spent creating linting rules using this tool.
+I originally come from the land of JavaScript, where I spent a lot of my personal time working on tools developers use to make my and my coworkers' life easier at work. I spent most of my time working with and on [`ESLint`](https://eslint.org), which is a JavaScript linter that allows you to write your own linting rules. Most of my open-source contributions consisted of creating `ESLint` linting rules that reported arguably bad uses of JavaScript, libraries or test code.
 
-When I discovered Elm back in 2016, there was no Elm linter. [`elm-analyse`](https://stil4m.github.io/elm-analyse/) did not yet exist, and my first project to discover the Elm language was actually this very project, `elm-lint` (both were started are actually the same age, a few days apart), which I presented at the Paris meetup in January of 2017. My conclusion at the time was basically the following: "JavaScript desperately needs a linter. Elm less so.", to the point where I could only find ten or so useful rules, whereas with ESLint I myself had already written 70+ rules.
+When I discovered Elm back in 2016, there was no Elm linter. [`elm-analyse`](https://stil4m.github.io/elm-analyse/) did not yet exist, and my first project to discover the Elm language was actually this very project, `elm-lint` (both were started are actually the same age, a few days apart). I did so because I was way more familiar with working with linters than with web applications. I presented `elm-lint` at the Paris meetup in January of 2017. My conclusion at the time was basically the following: "JavaScript desperately needs a linter. Elm less so.", to the point where I could only find ten or so useful rules, whereas with `ESLint` I alone had already written 70+ rules.
 
 At the time, I didn't release `elm-lint` because the underlying AST library didn't work well, and therefore would not work on real projects. [Mats Stijlaart](https://github.com/stil4m/), `elm-analyse`'s author, went the extra mile and implemented his own parser, which he later extracted [`elm-syntax`](https://package.elm-lang.org/packages/stil4m/elm-syntax/latest/) from, which `elm-lint` now uses. Thanks a lot for your hard work Mats!
 
-About a year ago, I started using Elm at my full-time job, and I loved it (still do). `elm-analyse` had not yet been released for Elm 0.19, so I dug out my `elm-lint` project, updated it with `elm-syntax`, and I got something that was kind of working but had no command-line so I could not run in on a whole project. Then `elm-analyse` gets released and we started using it. But as time went by and recurring problems and code review comments appeared, I kept thinking that most of these could be solved by writing my own linting rule, like I would have done with ESLint. This led me to resume my work on `elm-lint`, where I would add the ability to write custom rules.
+About a year ago, I started using Elm at my full-time job, and I loved it (still do). `elm-analyse` had not yet been released for Elm 0.19, so I dug out my `elm-lint` project, updated it with `elm-syntax`, and I got something that was kind of working but had no command-line so I could not run in on a whole project. Then `elm-analyse` was released and we started using it. But as time went by and recurring problems and code review comments appeared, I kept thinking that most of these could be solved by writing my own linting rule, like I would have done with `ESLint`. This led me to resume my work on `elm-lint`, where I would add the ability to write custom rules.
 
 ## Custom rules
 
 A lot of linters from different languages provide a set of "rules" that you can enable and/or configure, but only some provide the ability to write your own custom rules. Custom rules can be a great tool to forbid things in your project, that are not possible with language constructs, in order to **create more guarantees**.
 
-For instance, in one of my projects, all colors are defined in one module named `Ui.Color`. Since we use [`elm-css`](https://package.elm-lang.org/packages/rtfeldman/elm-css/latest/Css), all colors are created using functions like `Css.hex` or `Css.rgba`. Since I want colors to all be defined in that file, I can write a rule that prevents the use of those color-creation functions in all the other files. I could write another rule that forbids having two exposed constants with the same color value inside the `Ui.Color` module.
-
-The previous example is not something that makes sense to be forbidden by the compiler or by a linter that does not have custom rules, since the problem is too dependent on the project and the way the team works. Also, it is not possible to forbid this using APIs, even by using techniques like opaque or phantom types, because your API can not restrict the use of a data type from a different module.
+The button and color examples I have talked about before are not something that makes sense to be forbidden by the compiler or by a general-purpose linter, since the problem is too dependent on the project and the way the team works. Also, it is not possible to forbid this using APIs, even by using techniques like opaque or phantom types, because your API can not restrict the use of a data type from a different module.
 
 Linting rules are written in Elm. This means that you don't need to learn a different language to be able to write one, and this also means that rules can be published and shared on the Elm package registry. You can go to the package documentation to [learn how to write rules](https://package.elm-lang.org/packages/jfmengels/elm-lint/latest/Lint-Rule), where you can find a lot of rule examples that might inspire you to write your own to solve problems you have.
 
