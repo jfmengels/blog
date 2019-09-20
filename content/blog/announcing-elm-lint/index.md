@@ -14,7 +14,7 @@ I put a lot of work in this project and tried to polish it as much as possible,
 but ultimately I need to get feedback to make sure it works well and that it is
 actually a good solution. I think it is, and I hope you will think so too.
 
-I have only released a beta version of the CLI. Current version is 1.0.0-beta3.
+I have only released a beta version of the CLI. Current version is 1.0.0-beta.5.
 
 Let me know if you have any feedback or questions, either on this article, the package or the CLI tool. My contact details are at the bottom of the article. Also, there happens to be a #elm-lint Slack channel, so you can also comment there.
 
@@ -101,7 +101,7 @@ To help you write great rules, `elm-lint` provides a [testing module](https://pa
 
 Unlike most linters, elm-lint comes with [no rules included](https://github.com/jfmengels/elm-lint/blob/master/documentation/design/no-built-in-rules.md). That is because I do not want to suggest that some linting rules are best practices, and I wish for users to decide what is best for them.
 
-Coming with 0 linting rules doesn't mean that you need to write them all yourself. Instead, you can find some in the Elm packages. I have published a few ones already: [jfmengels/lint-unused](https://package.elm-lang.org/packages/jfmengels/lint-unused/latest/) to find dead code and remove it, and [jfmengels/lint-debug](https://package.elm-lang.org/packages/jfmengels/lint-debug/latest/) to find occurrences of `Debug` code.
+Coming with 0 linting rules doesn't mean that you need to write them all yourself. Instead, you can find some in the Elm packages, and a good way to find them is by [using `elm-search` and searching for `Lint.Rule.Rule`](https://klaftertief.github.io/elm-search/?q=Lint.Rule.Rule). I have published a few ones already: [jfmengels/lint-unused](https://package.elm-lang.org/packages/jfmengels/lint-unused/latest/) to find dead code and remove it, and [jfmengels/lint-debug](https://package.elm-lang.org/packages/jfmengels/lint-debug/latest/) to find occurrences of `Debug` code.
 
 ## What are the differences with elm-analyse?
 
