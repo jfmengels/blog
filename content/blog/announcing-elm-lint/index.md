@@ -113,6 +113,10 @@ On the other hand, `elm-lint` has I think a more correct configuration method: t
 
 If you like `elm-analyse`'s rules and don't need any custom rules, I suggest using it. If you need other rules than that, custom rules or ones available on the Elm package registry, maybe try `elm-lint`. And nothing prevents you from using both!
 
+## Towards awesome rules
+
+I think that `elm-lint` lowers the barrier to entry to the realm of linting, thanks to a great API, and by allowing anyone to use a rule without the maintainer of the linter's consent and effort. I believe that this will, in turn, make people create new useful and awesome rules for everyone to use. Here is a [list of rule ideas](https://github.com/jfmengels/elm-lint/projects/4) that I have. Maybe these will inspire you with great rule ideas.
+
 ## Future steps
 
 First of all, I would like to make sure that elm-lint is working well and as expected, and that people are finding uses for it. I want to make sure that writing rules and testing them all have a great experience.
