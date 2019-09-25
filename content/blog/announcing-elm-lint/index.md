@@ -55,7 +55,7 @@ The recommended way to get `elm-lint` is to install the CLI, available on `npm` 
 npm install @jfmengels/elm-lint
 ```
 
-You can then use it in your terminal as `elm-lint`. I suggest starting with running `elm-lint --help` and `elm-lint init`, after having read the documentation of the [package](https://package.elm-lang.org/packages/jfmengels/elm-lint/latest/).
+You can then use it in your terminal as `elm-lint`. I suggest starting with running `elm-lint --help` and `elm-lint init`, which will guide you into using and configuring `elm-lint`. I suggest reading at least the section on [when to write or enable a rule](https://package.elm-lang.org/packages/jfmengels/elm-lint/latest/#when-to-write-or-enable-a-rule) before you start adding plenty of rules to your project.
 
 You can also try it in an online version [here](https://elm-lint.now.sh/), or you can checkout [this repository](https://github.com/jfmengels/elm-lint-example) that shows how `elm-lint` is configured and used. The screenshot above was taken from this example.
 
