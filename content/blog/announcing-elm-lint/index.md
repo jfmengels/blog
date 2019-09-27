@@ -5,7 +5,7 @@ date: '2019-09-18T00:00:00.000Z'
 
 I am happy to announce the release of [`elm-lint`](https://package.elm-lang.org/packages/jfmengels/elm-lint/latest/) and its [CLI](https://www.npmjs.com/package/@jfmengels/elm-lint).
 
---------------------------- NOTE -----------------------------
+--------------------------- NOTE 1 ---------------------------
 
 This is not (yet) the official announcement for `elm-lint`. I'm sharing this to
 people who have shown interest, and/or whose opinion I value.
@@ -32,6 +32,17 @@ The feedback I am most interested in:
 - If you try writing your own rule, let me know how it went for you. What were the hard parts? Were the examples and the documentation sufficiently helpful?
 
 Thank you!
+
+--------------------- NOTE: NAME CHANGE ----------------------
+
+I named this tool `elm-lint`, but I think that I will ultimately rename it to `elm-review`.
+Why? "Linting"/"delinting" is etymologically something about cleaning dirty clothes. In programming terms, it's mostly about removing useless clutter and enforcing a coding style. Since in the Elm community, we have `elm-format`, the use of an additional "linter" doesn't make that much sense to me.
+
+Instead, this tool should be used more in order to add additional guarantees to your code or project structure, and not so much about enforcing a code style. In practice, this tool will report things that your colleagues would tell you during code reviews, so I thought it fit to rename it to `elm-review`.
+
+Because of this name change, I will have to rename the tool and the `npm` binary. I'll have to rename the `elm-lint` package on the Elm package registry along with its documentation, because it would not make a lot of sense to have `elm-review` use rules of an `elm-lint` package. Basically, everywhere I talk about `elm-lint`, I need to change it. Once that is done, I will be ready to release the tool.
+
+Since I haven't started this renaming work, I'm still open to new naming suggestions. Let me know if you have feedback on the name.
 
 \-------------------------------------------------------------
 
