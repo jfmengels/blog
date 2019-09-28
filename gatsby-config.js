@@ -78,5 +78,7 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
+    'gatsby-redirect-from',
+    'gatsby-plugin-meta-redirect', // make sure this is always the last one
   ],
 }
