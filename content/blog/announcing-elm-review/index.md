@@ -1,5 +1,5 @@
 ---
-title: elm-review, an Elm reviewer tool with custom rules
+title: Announcing elm-review
 date: '2019-09-18T00:00:00.000Z'
 redirect_from:
   - /announcing-elm-lint/
