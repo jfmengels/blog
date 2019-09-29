@@ -5,7 +5,7 @@ redirect_from:
   - /announcing-elm-lint/
 ---
 
-I am happy to announce the release of [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/) and its [CLI](https://www.npmjs.com/package/@jfmengels/elm-review).
+I am happy to announce the release of [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/) and its [CLI](https://www.npmjs.com/package/elm-review).
 
 ---------------------------- NOTE ----------------------------
 
