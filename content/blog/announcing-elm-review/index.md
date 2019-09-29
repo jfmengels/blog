@@ -1,41 +1,11 @@
 ---
 title: Announcing elm-review
-date: '2019-09-18T00:00:00.000Z'
+date: '2019-09-29T00:00:00.000Z'
 redirect_from:
   - /announcing-elm-lint/
 ---
 
 I am happy to announce the release of [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/) and its [CLI](https://www.npmjs.com/package/elm-review).
-
----------------------------- NOTE ----------------------------
-
-This is not (yet) the official announcement for `elm-review`. I'm sharing this to
-people who have shown interest, and/or whose opinion I value.
-
-I put a lot of work in this project and tried to polish it as much as possible,
-but ultimately I need to get feedback to make sure it works well and that it is
-actually a good solution. I think it is, and I hope you will think so too.
-
-I have only released a beta version of the CLI. Current version is 1.0.0-beta.1.
-
-Let me know if you have any feedback or questions, either on this article, the package or the CLI tool. My contact details are at the bottom of the article. Also, there happens to be a #elm-lint Slack channel, so you can also comment there.
-
-The feedback I am most interested in:
-
-- Did you notice any problems using `elm-review`?
-- Did you notice any problems configuring `elm-review`?
-  - Understanding how the configuration works
-  - Adding dependencies
-- Did you notice any problems running `elm-review`? Crashes, file parsing errors...
-- Were you able to review all the files you wanted? Source files, tests, configuration
-- How is the performance? If it's too slow, please tell me the number of modules and number of lines of codes, and how long it took
-- Do you have severe issues with some of the choices `elm-review` went with? If so, which ones and why?
-- Do you find use cases for custom rules? If so, can you tell me some of them?
-- If you try writing your own rule, let me know how it went for you. What were the hard parts? Were the examples and the documentation sufficiently helpful?
-
-Thank you!
-
-\-------------------------------------------------------------
 
 ## What is elm-review?
 
