@@ -28,8 +28,11 @@ function Bio() {
               }}
             />
             <p>
-              Written by <strong>{author}</strong>.{` `}
-              You can follow him on{' '}
+              Written by <strong>{author}</strong>, author of{' '}
+              <a href="https://package.elm-lang.org/packages/jfmengels/elm-review/latest/">
+                elm-review
+              </a>
+              . You can follow him on{' '}
               <a href={`https://twitter.com/${social.twitter}`}>Twitter</a>.
             </p>
           </div>
