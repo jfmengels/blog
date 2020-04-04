@@ -16,6 +16,7 @@ tl;dr: Here is the list of the features:
 - Much faster, and with a watch mode
 - `fix-all` flag
 - Better default folder structure
+- Tests included by default
 - More rules to start with
 
 # Full project review!
@@ -106,6 +107,10 @@ Some users encountered problems when trying to test write custom rules located i
 The "review application" that you get from running `elm-review init` is now structured in a way that makes it possible to test the rules out of the box.
 
 `elm-review init` now adds the dependencies needed to write rules by default too.
+
+# Tests included by default
+
+The `tests/` directory is now included by default.
 
 ## Get started!
 
