@@ -21,8 +21,10 @@ class BlogIndex extends React.Component {
             `Jeroen`,
             `Engels`,
             `jfmengels`,
-            `programming`,
             `elm`,
+            `functional`,
+            `programming`,
+            `elm-review`,
             `javascript`,
           ]}
         />
