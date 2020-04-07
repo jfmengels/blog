@@ -83,7 +83,7 @@ Example use-cases:
 
 The README is an integral part of the project especially for packages. For package authors and their users, it is important that everything in there is correct.
 
-TODO
+This version introduces a visitor for the README, which allows you to collect data from it and to report errors for it, that can be automatically fixed.
 
 Example use-cases:
 
