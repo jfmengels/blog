@@ -1,5 +1,5 @@
 ---
-title: Announcing elm-review v2
+title: elm-review v2!
 date: '2020-04-30T00:00:00.000Z'
 ---
 
@@ -29,11 +29,18 @@ tl;dr: Here is the list of the introduced features:
 
 If you missed the [initial announcement](/announcing-elm-review/) or if your memory is unclear, let me explain.
 
-`elm-review` is a static code analysis tool for Elm, which looks at your Elm project, and reports patterns that you configured it to find using "rules".
+`elm-review` is a static code analysis tool for Elm, which looks at your Elm project, and reports patterns that you configured it to find using "rules" in a friendly Elm compiler-like way.
 
 It is highly customizable because you can write your own rules. Since these are written in Elm, you don't need to know a different language to do so, and you can even publish them as Elm packages!
 
+I put a lot of effort into making a **very nice API** for you to use. even going through the lengths of discovering new Elm techniques (expect to see blog posts on the **phantom builder pattern** on this blog), and I am very happy with the result!
+
 To some, `elm-review` looks like a linter. Which isn't necessarily wrong, since it enables you to enable rules that help improve the quality of your code. If you dive a bit further, you will find out that it can enforce coding conventions for your team, and create new guarantees that the Elm compiler can not give you.
+
+For instance you can write rules that
+
+- report when you [pass values outside of 0-255 to `Css.rgb255`](https://package.elm-lang.org/packages/folq/review-rgb-ranges/latest/)
+- Give an error if any `Regex.fromString` calls have invalid regexes (for literal strings)
 
 Unfortunately, as soon as a problem spawns multiple modules, you wouldn't be able to enforce those guarantees. But that was the case until we got...
 
@@ -161,7 +168,7 @@ Along with this release, I am publishing more rules than the 3 I had previously 
 - [`jfmengels/review-common`](https://package.elm-lang.org/packages/jfmengels/review-common/latest/)
 - [`jfmengels/review-debug`](https://package.elm-lang.org/packages/jfmengels/review-debug/latest/)
 
-I am also working on [a package to improve the quality of the documentation](https://github.com/jfmengels/review-documentation), which should help out package authors especially. And there are also some rules that I wrote, but am still unsure as to whether I want to maintain them personally, that you can copy over from [`jfmengels/review-simplification`](https://package.elm-lang.org/packages/jfmengels/review-simplification/latest/).
+I am also working on [a package to improve the quality of the documentation](https://github.com/jfmengels/review-documentation), which should help out package authors especially. And there are also some rules that I wrote, but am still unsure as to whether I want to maintain them personally, that you can copy over from [`jfmengels/review-simplification`](https://github.com/jfmengels/review-simplification).
 
 ## How does this compare to Elm Analyse?
 
@@ -177,10 +184,13 @@ If you think you have a rule that could be use to everyone, you can share it by 
 
 Most checks (their naming for a rule) you can find in `Elm Analyse` are available in the packages I published or GitHub repos I have written. The remaining ones are ones that are outdated or that I disagree with, but these are reasonably easy to write using this package's API. (Exception for the checks for unused patterns and unused arguments which I plan to add). And anyone can publishing the missing ones if they care to.
 
-- From the tests I have run, I found `elm-review` to be faster. That is mostly because rules are built in a way that avoid duplicate work.
+From the tests I have run, I found `elm-review` to be faster. I am guessing that that is mostly because rules are built in a way that avoid duplicate work.
+
+Here are the things that `Elm Analyse` has and `elm-review` hasn't:
+
 - There is no web interface, but there is a similar CLI watch mode.
-- `elm-review` doesn't show the graph of modules, but I don't really see the value it brings.
-- `elm-review` doesn't show when dependencies are out of date. I see the value, but I don't think it is a good fit for the tool.
+- `elm-review` doesn't show the graph of modules, but I don't really see the value that brings.
+- `elm-review` doesn't show when dependencies can be updated. I see the value, but I don't think it is a good fit for the tool.
 - There is no editor support for `elm-review`, but let me know if you want to help out with that!
 
 As for the rest, I hope to have shown in this post and in the [original announcement](/announcing-elm-review/) what this tool can do that `Elm Analyse` can not.
@@ -189,9 +199,7 @@ As for the rest, I hope to have shown in this post and in the [original announce
 
 If you already use `elm-review` in your projects, you can follow this [migration guide](https://github.com/jfmengels/elm-review/blob/master/documentation/Migration%20v1%20to%20v2.md). Otherwise, follow these instructions!
 
-TODO
-
-```
+```bash
 cd your-project/
 
 # Using npm
@@ -202,34 +210,14 @@ yarn add --dev elm-review
 # Create a configuration
 npx elm-review init
 
-# Go add rules in `review/src/ReviewConfig.elm`
-# The previous section lists quite a few
-
-# Run it
-npx elm-review
-```
-
-I recommend reading the [documentation](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/) before you go too far in, which will give you advice on how to best set up `elm-review` for your project and/or teammates.
-
-TODO merge the following section with the section about elm-analyse
-
-I know that a lot of people use `Elm Analyse`, and I imagine that some people were hoping to find the rules it offers. To help with that, I published a few packages containing most of them. The ones I didn't include are ones that are automatically handled by `elm-format` or ones I disagree with.
-
-As always, I suggest carefully selecting the rules you wish to enable, but here is how you could copy over your `Elm Analyse` configuration:
-
-Run the following commands in your terminal
-
-```bash
-cd your-project/
-elm-review init
+# Install dependencies that contain rules
 cd review/
-
 elm install jfmengels/review-unused
 elm install jfmengels/review-common
 elm install jfmengels/review-debug
 ```
 
-and then add these rules to your configuration
+and then add these rules to your configuration (FYI, these do not include the ones from [`jfmengels/review-documentation`](https://package.elm-lang.org/packages/jfmengels/review-documentation/latest/) nor [`jfmengels/review-debug`](https://github.com/jfmengels/review-simplification))
 
 ```elm
 import NoDebug.Log
@@ -260,36 +248,22 @@ config =
     ]
 ```
 
-That should get your started, but don't forget there are plenty of other rules out there!
+Finally, run it using
 
----
+```bash
+npx elm-review
+```
 
-## Towards awesome rules
+That should get you started!
 
-TODO extracted from last version
-
-I think that `elm-review` lowers the barrier to entry to the realm of static code analysis, thanks to a great API, and by allowing anyone to use a rule without the maintainer of the tool's consent and effort. I believe that this will, in turn, make people create new useful and awesome rules for everyone to use. Here is a [list of rule ideas](https://github.com/jfmengels/elm-lint/projects/4) that I have. Maybe these will inspire you with great rule ideas.
-
-## Future steps
-
-TODO extracted from last version
-
-First of all, I would like to make sure that `elm-review` is working well and as expected, and that people are finding uses for it. I want to make sure that writing rules and testing them all have a great experience.
-
-I also think that `elm-review`'s configuration API will need to change to accommodate exceptions, different rules for different folders (src/ vs tests/ for instance), but this will depend on the pain points that users will give as feedback.
-
-Some of the things I then want to work on include:
-
-- Performance: It has not been too much in my radar. I have done some small performance optimizations, but the biggest improvements, like caching file contents have not been made yet. The goal is mostly to have `elm-review` working on very big projects, in a reasonable time.
-- Give more information to rules: I want to be able to load the Elm interface files and pass them to the rules. This way, a rule could be able to tell which package an imported module comes from, tell the type of any function and therefore of any expression.
-- Add project-wide rules. At the moment, like a lot of tools, rules only look at a single file at a time, and forget what they have seen when they start analyzing a different file. The idea would be to add the ability for some rules to analyze all the files, and report problems depending on that. One of the goals is for instance to be able to report functions exposed by a module that are used nowhere, like [`elm-xref`](https://github.com/zwilias/elm-xref) does. I am very concerned about the performance implications of this, and have mostly therefore left it for later, but doing this would allow for much more advanced and helpful rules: much better dead code elimination detection, detecting dead internal links in documentation, detecting unused dependencies...
+I recommend reading the [documentation](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/) before you go too far in, which will give you advice on how to best set up `elm-review` for your project and/or team.
 
 ## Feedback and help appreciated
 
 I hope you will try `elm-review` and enjoy it. I spent a lot of time polishing it to give you a great experience using it and writing rules, but there is room for a lot of improvement.
 
-If you would like to help, I would love help to get this tool working in the different editors. You can also publish awesome rules (I'm here for advice or feedback), or write about the tool in blog posts.
+If you would like to help, I would love help to get this tool working in the different editors. You can also publish awesome rules (I'm here for advice or feedback!), or write about the tool in blog posts.
 
 I would love to hear from you if you have constructive criticism, want to help out, want to share what you are using it for, or just want to share that you enjoy it (yes, that helps a lot).
 
-There is an `#elm-review` channel on the Elm Slack where you can do that or ask for help, and you can talk to me privately at @jfmengels over there.
+There is an `#elm-review` channel on the Elm Slack where you can do that or ask for help, and you can talk to me privately at `@jfmengels` over there.
