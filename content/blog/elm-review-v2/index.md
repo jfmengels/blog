@@ -66,12 +66,12 @@ In version 1, reading the contents of `elm.json` was possible, but it wasn't pos
 
 ## Reading the dependencies' docs.json file
 
-TODO
+The `docs.json` file for the dependencies contain all the public information about your direct and indirect dependencies. Reading these can tell you which dependency a module comes from, along what types and functions they contain.
 This gives you a lot of information about your direct and indirect dependencies, for instance what modules they contain and which functions and types are defined in there.
 
 With this information, rules can be much more accurate. For instance, knowing what is added to the scope when encountering `import Xyz exposing (..)` becomes possible.
 
-With this and the previous points, you have sufficient knowledge to replicate the compiler's type inference logic!
+Added to the new information you get from the previous points, you now have sufficient knowledge to replicate the compiler's type inference logic!
 
 Example use-cases:
 
