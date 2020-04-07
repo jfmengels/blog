@@ -64,10 +64,10 @@ This opens up a wide range of possibilities. A few example use-cases:
 - [Report functions/types that are exposed but are never used in the project](https://package.elm-lang.org/packages/jfmengels/review-unused/latest/NoUnused-Exports)
 - [Report unused modules](https://package.elm-lang.org/packages/jfmengels/review-unused/latest/NoUnused-Modules)
 - Report unused fields in records
-- If you generate a file containing the list of CSS classes next to your configuration, report the ones that are never used.
 - Report when `Html.lazy` is used incorrectly
 - Report when a variable that should contain all the possible variants of a custom type is missing a variant
 - Report when a module uses another module's `update` function but not the `subscription` function
+- Report unused CSS classes from your CSS files (would require you to generate an Elm file from the CSS files in the configuration folder)
 
 ## Reporting errors for elm.json
 
