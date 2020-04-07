@@ -33,14 +33,14 @@ If you missed the [initial announcement](/announcing-elm-review/) or if your mem
 
 It is highly customizable because you can write your own rules. Since these are written in Elm, you don't need to know a different language to do so, and you can even publish them as Elm packages!
 
-I put a lot of effort into making a **very nice API** for you to use. even going through the lengths of discovering new Elm techniques (expect to see blog posts on the **phantom builder pattern** on this blog), and I am very happy with the result!
+I put a lot of effort into making a **very nice API** for you to use, even going through the lengths of discovering new Elm techniques (expect to see blog posts on the **phantom builder pattern** on this blog), and I am very happy with the result!
 
-To some, `elm-review` looks like a linter. Which isn't necessarily wrong, since it enables you to enable rules that help improve the quality of your code. If you dive a bit further, you will find out that it can enforce coding conventions for your team, and create new guarantees that the Elm compiler can not give you.
+To some, `elm-review` looks like a linter. Which isn't necessarily wrong, since you can enable rules that help improve the quality of your code. If you dive a bit further, you will find out that it can enforce coding conventions for your team, and create new guarantees that the Elm compiler can not give you.
 
 For instance you can write rules that
 
 - report when you [pass values outside of 0-255 to `Css.rgb255`](https://package.elm-lang.org/packages/folq/review-rgb-ranges/latest/)
-- Give an error if any `Regex.fromString` calls have invalid regexes (for literal strings)
+- give an error if any `Regex.fromString` calls have invalid regexes (for literal strings)
 
 Unfortunately, as soon as a problem spawns multiple modules, you wouldn't be able to enforce those guarantees. But that was the case until we got...
 
