@@ -56,6 +56,7 @@
     "url": "git+https://github.com/jfmengels/blog.git"
   },
   "scripts": {
+    "postinstall": "echo 'Removing file that crashes build' ; rm node_modules/gatsby-source-contentful/src/fragments.js",
     "dev": "gatsby develop",
     "lint": "eslint --ext .js,.jsx --ignore-pattern public .",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
