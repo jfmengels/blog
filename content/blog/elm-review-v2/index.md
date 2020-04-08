@@ -166,7 +166,7 @@ The `tests/` directory is now included by default. Since they are part of an Elm
 
 Until now, the catalog of rules has been quite small, and I can understand that for many people this was a blocker for adoption.
 
-Along with this release, I am publishing more rules than the 3 I had previously written. You can find them by searching for `jfmengels/review-` in [the packages website](https://package.elm-lang.org) (and in general by looking for `/review-` for other user's packages), but among them are:
+Along with this release, I am publishing more rules than the 3 I had previously written. You can find them by searching for `jfmengels/review-` in [the packages website](https://package.elm-lang.org) (and in general by looking for `/review-` for other people's packages), but among them are:
 
 - [`jfmengels/review-unused`](https://package.elm-lang.org/packages/jfmengels/review-unused/latest/)
 - [`jfmengels/review-common`](https://package.elm-lang.org/packages/jfmengels/review-common/latest/)
@@ -221,7 +221,7 @@ elm install jfmengels/review-common
 elm install jfmengels/review-debug
 ```
 
-and then add these rules to your configuration (FYI, these do not include the ones from [`jfmengels/review-documentation`](https://package.elm-lang.org/packages/jfmengels/review-documentation/latest/) nor [`jfmengels/review-debug`](https://github.com/jfmengels/review-simplification))
+and then add these rules to your configuration (FYI, these do not include the ones from [`jfmengels/review-documentation`](https://github.com/jfmengels/review-documentation) nor [`jfmengels/review-debug`](https://github.com/jfmengels/review-simplification))
 
 ```elm
 import NoDebug.Log
