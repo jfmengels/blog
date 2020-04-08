@@ -1,6 +1,6 @@
 ---
 title: elm-review v2!
-date: '2020-04-30T00:00:00.000Z'
+date: '2020-04-08T18:00:00.000Z'
 ---
 
 Today I am very excited to release `elm-review` 2.0.0 and to share its new features!
