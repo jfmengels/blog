@@ -13,17 +13,24 @@ Working with phantom types, extensible records and the builder pattern.
 
 ## Summary
 
-We will explore a way to write new Elm APIs
+Building upon the builder pattern, phantom types and extensible records, we will explore a new way of making great APIs with very flexible constraints.
+
+---
+
+We spend a lot of time modeling making impossible things impossible and making nice APIs.
+The builder pattern helps create really nice APIs, but leaves room for impossible or at least confusing states.
+We will explore a way to write new Elm APIs, using the builder pattern, phantom types and extensible records, that allow writing .
+We'll explore what constraints they allow, and explain how to manipulate them to enforce basically any constraint you wish to enforce.
 
 ## The builder pattern, and its limits
 
 This will be a rapid introduction to the builder pattern, what it looks like and some of the benefits.
-Then we would explain what kind of constraints the builder pattern doesn't allow us to model, such as making some data mandatory only in some
+Then we would explain what kind of constraints the builder pattern doesn't allow us to represents, such as making some data mandatory in some scenarios but not others.
 
 ## Extending the builder pattern using extensible records
 
 - What a compiler error looks like
-- The importance of good naming
+- The importance of good naming for the phantom types
 
 ## How to model different constraints
 
@@ -49,9 +56,11 @@ Cons:
 - The more complex the constraints, the harder it is to make everything work out. Especially when refactoring your phantom types, you may make some unwanted things possible or some wanted things impossible.
   - Tip: Write down what you want to make impossible and what you want to keep possible
   - Have "compiler tests": Files that should compile, and files that shouldn't compile (with a given error message).
+- Every constraint change is a breaking change, which for packages means a major version
 
 ## Inspiration
 
+- Opaque types, by Charlie Koster (find link)
 - Robot button from Mars, from Brian Hicks
 - elm-css phantom types discussion: https://github.com/rtfeldman/elm-css/issues/375
 
@@ -175,6 +184,8 @@ with* foo =
 
 But even though the phantom type is not used, the compiler will still enforce their constraints.
 
+The "Schema" / "Blueprint" needs to be an opaque type, otherwise users can create an escape hatch, removing the whole point of the constraints.
+
 ## Possible constraints
 
 ```elm
@@ -221,8 +232,69 @@ withA : Foo a -> Foo Int
 withA foo = Foo
 withA (Foo foo) = (Foo { foo | a = 1 })
 
--- Noes not work
+-- Does not work, because `foo` would be a `Foo a`, not a `Foo Int`
 withA foo = foo
+```
+
+## Prohibiting an operation based on something
+
+When using types, you can only define constraints, "the argument must be an Int, it must be a CustomThing", but you can't define forbidden things like "It can be anything except for ...". The same applies here.
+
+The way to forbid things, is to add a constraint that is invalidated based on other criteria, by the schema constructor or by a builder function.
+
+---
+
+You can't forbid an operation based on the value contained inside the schema, and similarly and relatedly, you can't make API calls impossible based on the **value** of the parameters of the `with*` function calls.
+
+For instance, you can't forbid some operation if the argument to `withA` was less than 5. You would probably need something like dependent types for that.
+
+What you need to do, is to make sure the operations you used represent the data, at least for the perspective of the constraints you wish to uphold. So if you say `withButton`, then you should consider that it has a button, and make sure .
+
+### Can't use a function unless another one has been applied already
+
+```elm
+type Foo a =
+  Foo
+type Enabled = Enabled
+type Disabled = Disabled
+empty : Foo { withA : Disabled }
+withA : Foo { a | withA : Enabled } -> Foo { a | withA : Enabled }
+withAEnabler : Foo a -> Foo { a | withA : Enabled }
+
+-- Or simpler
+empty : Foo {}
+withA : Foo { a | withA : () } -> Foo { a | withA : () }
+withAEnabler : Foo a -> Foo { a | withA : () }
+
+-- Usage
+
+_ = empty
+  |> withA -- Compiler error
+
+_ = empty
+  |> withAEnabler
+  |> withA -- OK!
+```
+
+### Can't use a function if another one has been applied already
+
+```elm
+type Foo a =
+  Foo
+type Enabled = Enabled
+type Disabled = Disabled
+empty : Foo { withA : Disabled }
+withA : Foo { a | withA : Enabled } -> Foo { a | withA : Enabled }
+withAEnabler : Foo a -> Foo { a | withA : Enabled }
+
+-- Usage
+
+_ = empty
+  |> withA -- Compiler error
+
+_ = empty
+  |> withAEnabler
+  |> withA -- OK!
 ```
 
 ## Can't fool the compiler using List.foldl and an empty list
@@ -260,3 +332,28 @@ But `foldl` needs the 2nd argument to be:
 ```
 
 It's possible by deconstructing the value, but that means the type is not opaque.
+
+## Example idea
+
+We can build a country, or a government
+
+```elm
+france : Country
+france =
+    Country.newSchema
+        |> Country.withPresident person
+        |> Country.fromSchema
+
+netherlands : Country
+netherlands =
+    Country.newSchema
+        |> Country.withKing person
+        |> Country.fromSchema
+
+otherCountry : Country
+otherCountry =
+    Country.newSchema
+        |> Country.withPresident person
+        |> Country.withKing otherPerson -- NOT ALLOWED!
+        |> Country.fromSchema
+```
