@@ -92,7 +92,7 @@ Example use-cases:
 
 ## Visiting the README.md file
 
-The README is an integral part of the project especially for packages. For package authors and their users, it is important that everything in there is correct.
+The README is an integral part of the project, especially for packages. For package authors and their users, it is important that everything in there is correct.
 
 This version introduces a visitor for the README, which allows you to collect data and report errors on it. Those errors can be fixed automatically.
 
@@ -123,7 +123,7 @@ I am not making it part of `elm-review` nor publishing it as a separate package 
 
 ## Much faster, and with a watch mode
 
-Version 1 focused on usability and on validating that `elm-review` was a good solution to the problems it tried to solve. Therefore, I put few efforts into making a performant tool at the time.
+Version 1 focused on usability and on validating that `elm-review` was a good solution for these problems. Performance was secondary.
 
 With version 2, performance was a focus, and the results are really good. Parsed files are now cached, so the initial run is still a bit slow, but subsequent runs are faster by several times.
 
@@ -153,8 +153,8 @@ I do not believe automatic fixes to always be perfect, and I know that there are
 
 ## Better default folder structure
 
-Some users encountered problems when trying to test write custom rules located in their `review/` folder, and had to move files around.
-The "review application" that you get from running `elm-review init` is now structured in a way that makes it possible to test the rules out of the box.
+The default structure version 1 created for you didn't allow you to run tests for your rules due to conflicts with `elm-test`.
+The "review application" that you now get from running `elm-review init` is structured in a way that will make tests work out of the box.
 
 `elm-review init` now adds the dependencies needed to write rules by default too.
 
@@ -190,7 +190,7 @@ Most checks (their naming for a rule) you can find in `Elm Analyse` are availabl
 
 From the tests I have run, I found `elm-review` to be faster. I am guessing that that is mostly because rules are built in a way that avoid duplicate work.
 
-Here are the things that `Elm Analyse` has and `elm-review` hasn't:
+Here are the things that `Elm Analyse` has and `elm-review` does not:
 
 - A web interface, but `elm-review` has a similar CLI watch mode.
 - Showing the graph of modules, but I don't really see the value that brings.
