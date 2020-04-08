@@ -14,7 +14,7 @@ tl;dr: Here is the list of the introduced features:
 - Reading the dependencies' `docs.json` file
 - Visiting the README.md file
 - Visiting the comments and documentation
-- Adding helpers
+- New helpers for creating rules
 
 #### Easier to use!
 
@@ -35,20 +35,22 @@ It is highly customizable because you can write your own rules. Since these are 
 
 I put a lot of effort into making a [**very nice API**](https://package.elm-lang.org/packages/jfmengels/elm-review/2.0.0/Review-Rule) for you to use ([here](https://github.com/jfmengels/review-simplification/blob/master/src/NoBooleanCaseOf.elm) [are](https://github.com/jfmengels/review-debug/blob/master/src/NoDebug/Log.elm) [some](https://package.elm-lang.org/packages/jfmengels/elm-review/2.0.0/Review-Rule#withSimpleExpressionVisitor) [examples](https://package.elm-lang.org/packages/jfmengels/elm-review/2.0.0/Review-Rule#withSimpleImportVisitor)), even going through the lengths of discovering new Elm techniques (expect to see blog posts on the **phantom builder pattern** on this blog), and I am very happy with the result!
 
-To some, `elm-review` looks like a linter. Which isn't necessarily wrong, since you can enable rules that help improve the quality of your code. If you dive a bit further, you will find out that it can enforce coding conventions for your team, and create new guarantees that the Elm compiler can not give you.
+To some, `elm-review` looks like a linter. Which isn't necessarily wrong, since you can enable rules that help improve the quality of your code and enforce coding conventions for your team.
+
+If you dive a bit further, you will find out that it can create new guarantees that the Elm compiler can not give you.
 
 For instance you can write rules that
 
 - report when you [pass values outside of 0-255 to `Css.rgb255`](https://package.elm-lang.org/packages/folq/review-rgb-ranges/latest/)
 - give an error if any `Regex.fromString` calls have invalid regexes (for literal strings)
 
-Unfortunately, as soon as a problem spawns multiple modules, you wouldn't be able to enforce those guarantees. But that was the case until we got...
+With `elm-review` v1, the analysis broke down as soon as a problem spanned multiple modules though, but that's now solved by:
 
 ## Project rules!
 
 In `elm-review` version 1, `Elm Analyse`, `ESLint` and a lot of similar tools for other languages, the analysis is scoped to a single file.
 
-This means that when a rule has finished looking at module A and starts looking at module B, it forgets everything about module A. That means we can't answer a lot of questions that we would like the answer to, such as:
+This means that when a rule has finished looking at module A, and starts looking at module B, it forgets everything about module A. This makes a lot of useful analysis untenable, like:
 
 - Which module does function `xyz` come from? If a module is imported using `import A exposing (..)`, then we potentially lose the ability to tell. We have the same problem with types when encountering `import A exposing (B(..))`.
 - What is the type of an imported function?
@@ -92,7 +94,7 @@ Example use-cases:
 
 The README is an integral part of the project especially for packages. For package authors and their users, it is important that everything in there is correct.
 
-This version introduces a visitor for the README, which allows you to collect data from it and to report errors for it that can be automatically fixed.
+This version introduces a visitor for the README, which allows you to collect data and report errors on it. Those errors can be fixed automatically.
 
 Example use-cases:
 
@@ -111,11 +113,13 @@ Example use-cases (most of these are on my todo list for [`jfmengels/review-docu
 - Reporting duplicate Markdown sections
 - Report the usage of words like `TODO`
 
-## Adding helpers
+## New helpers for creating rules
 
 Some tasks, like targeting a specific function, are harder than they should be. For instance, if you want to forbid `Foo.bar`, you'll need to handle multiple ways that the function can be called and imported, which is tedious and error-prone.
 
 I started writing a helper named [`elm-review-scope`](https://github.com/jfmengels/elm-review-scope) that deals with this problem, and makes some tasks as easy as they should be.
+
+I am not making it part of `elm-review` nor publishing it as a separate package though, because the API is still unstable.
 
 ## Much faster, and with a watch mode
 
@@ -129,9 +133,9 @@ And I am sure we can do much better for future versions! The work done here shou
 
 ## Configuring exceptions
 
-When you enabled a rule in version 1, you wouldn't able to ignore any errors that it reported. You had to edit or fork the rule to ignore the cases you wanted to ignore.
+When you enabled a rule in version 1, you weren't able to ignore any errors that it reported. You had to edit or fork the rule to ignore the cases you wanted to ignore.
 
-The idea behind that was to avoid ignoring errors locally through a comment of some sort like what happens all over the place with `ESLint` ([which leads to all sorts of problems](https://github.com/jfmengels/elm-review/#is-there-a-way-to-ignore-an-error-or-disable-a-rule-only-in-some-locations)), and instead to have users [think on whether enabling a rule is a good idea](https://github.com/jfmengels/elm-review/#when-to-write-or-enable-a-rule) in the first place. And I still stand by these choices!
+The idea was to avoid ignoring errors locally through a comment of some sort, like what happens all over the place with `ESLint` ([which leads to all sorts of problems](https://github.com/jfmengels/elm-review/#is-there-a-way-to-ignore-an-error-or-disable-a-rule-only-in-some-locations)). Instead users should [think on whether enabling a rule is a good idea](https://github.com/jfmengels/elm-review/#when-to-write-or-enable-a-rule) in the first place. And I still stand by these choices!
 
 But there are places where it's reasonable to ignore review errors, namely for generated code and vendored code, and for introducing a rule gradually when there are too many errors. Sometimes, it also makes sense to have tests follow slightly different rules.
 
@@ -145,7 +149,7 @@ For some, it was very annoying to go through all the fixes as this could be long
 
 So this version comes with a `--fix-all` where you get one big diff between the current source and the one where all fixes have been applied, and you can accept or refuse it.
 
-I do not believe automatic fixes to always be perfect, and I know that there are some kinks in a few of the ones I wrote, so please be cautious when looking at the before/after diff and don't commit the changes blindingly.
+I do not believe automatic fixes to always be perfect, and I know that there are some kinks in a few of the ones I wrote, so please be cautious when looking at the before/after diff and don't commit the changes blindly.
 
 ## Better default folder structure
 
@@ -188,10 +192,10 @@ From the tests I have run, I found `elm-review` to be faster. I am guessing that
 
 Here are the things that `Elm Analyse` has and `elm-review` hasn't:
 
-- There is no web interface, but there is a similar CLI watch mode.
-- `elm-review` doesn't show the graph of modules, but I don't really see the value that brings.
-- `elm-review` doesn't show when dependencies can be updated. I see the value, but I don't think it is a good fit for the tool.
-- There is no editor support for `elm-review`, but let me know if you want to help out with that!
+- A web interface, but `elm-review` has a similar CLI watch mode.
+- Showing the graph of modules, but I don't really see the value that brings.
+- Showing when dependencies can be updated. I see the value, but I don't think it is a good fit for the tool.
+- Editor support. I definitely see the value, let me know if you want to help out with that!
 
 As for the rest, I hope to have shown in this post and in the [original announcement](/announcing-elm-review/) what this tool can do that `Elm Analyse` can not.
 
