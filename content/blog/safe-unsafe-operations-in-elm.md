@@ -344,7 +344,7 @@ expressionVisitor node direction context =
             case Node.value function of
                 Expression.FunctionOrValue moduleName "fromLiteral" ->
                     -- Check if the fromLiteral we found comes from Helpers.Regex
-                    if (Scope.realModuleName context.scope "fromLiteral" moduleName == [ "Helpers", "Regex" ])
+                    if (Scope.moduleNameForValue context.scope "fromLiteral" moduleName == [ "Helpers", "Regex" ])
                         {- Handling Scope's knowledge shortcoming if `exposing (..)` was used
                         Note that ideally, we should also look at whether a `fromLiteral`
                         was declared in the module. But this article is already quite long
@@ -397,7 +397,7 @@ isTargetFunction context moduleName functionName =
         False
 
     else
-        (Scope.realModuleName context.scope targetFunctionName moduleName == targetModuleName)
+        (Scope.moduleNameForValue context.scope targetFunctionName moduleName == targetModuleName)
             || (List.isEmpty moduleName && context.fromLiteralWasExposed)
 
 targetModuleName : List String
@@ -618,7 +618,7 @@ We also removed the import visitor by the way. -}
 isTargetFunction : ModuleContext -> ModuleName -> String -> Bool
 isTargetFunction moduleContext moduleName functionName =
     (functionName == targetFunctionName)
-        && (Scope.realModuleName moduleContext.scope targetFunctionName moduleName == targetModuleName)
+        && (Scope.moduleNameForValue moduleContext.scope targetFunctionName moduleName == targetModuleName)
 ```
 
 ([full source code](https://github.com/jfmengels/elm-review-example/blob/78eabbbce4356802d536ae304e762ffa56881ea0/review/src/NoUnsafeRegexFromLiteral.elm) and [tests](https://github.com/jfmengels/elm-review-example/blob/78eabbbce4356802d536ae304e762ffa56881ea0/review/tests/NoUnsafeRegexFromLiteralTest.elm). The tests have changed a bit, since we now need to have at least 2 files in most tests.)
