@@ -148,3 +148,7 @@ pre[data-line] {
   padding-left: 0.75em;
   border-left: 0.25em solid #ffa7c4;
 }
+
+.language-text {
+  font-size: 1rem;
+}
