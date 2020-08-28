@@ -3,7 +3,7 @@ module.exports = {
     title: `jfmengels' blog`,
     author: `Jeroen Engels`,
     description: `Writing what I think`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
+    siteUrl: `https://jfmengels.net/`,
     social: {
       twitter: `jfmengels`,
     },
