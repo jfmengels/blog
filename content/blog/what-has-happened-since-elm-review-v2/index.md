@@ -13,7 +13,7 @@ I released 2 minor versions for [`jfmengels/elm-review`](https://package.elm-lan
 
 They are meant to replace `withExpressionVisitor` and `withDeclarationVisitor`. These 2 functions take a `type Direction = OnEnter | OnExit`, which tells you when in the tree traversal the node gets visited. Visiting "on exit" is very useful if you need to do something after having visited the children of the node. In most cases you won't care about this though, but you still had to account for it in order not to report errors twice.
 
-The new `Enter` and `Exit` variants of the different visitors will support the same use-cases, but in a terser way. This will also avoid useless visits and evaluations when you don't care about the exit case, so it is good for performance too. I plan on removing `withExpressionVisitor` and `withDeclarationVisitor` in the next major version, and renaming `withExpressionEnterVisitor` and `withDeclarationEnterVisitor` to take their place. Using these new variants simplifies the code like this:
+The new `Enter` and `Exit` variants of the different visitors will support the same use-cases but in a terser way. This will also avoid useless visits and evaluations when you don't care about the exit case, so it is good for performance too. I plan on removing `withExpressionVisitor` and `withDeclarationVisitor` in the next major version and renaming `withExpressionEnterVisitor` and `withDeclarationEnterVisitor` to take their place. Using these new variants simplifies the code like this:
 
 ```elm
 -- BEFORE
@@ -48,11 +48,11 @@ expressionVisitor node context =
             ( [], context )
 ```
 
-Other than that, the package releases have several times improved performance and improved the test failure messages and assertions. I haven't actually benchmarked the performance much, but I confirmed that the test failure messages have made some people's testing easier.
+Other than that, the package releases have several times improved performance and improved the test failure messages and assertions. I haven't benchmarked the performance much, but I confirmed that the test failure messages have made some people's testing easier.
 
 ### Changes in the CLI
 
-There has been quite a lot of performance improvements that I won't go into detail, because I don't have benchmark data. Earlier versions had some stability issues that I have fixed quickly, and I still aim to keep the project bug-free.
+There has been quite a lot of performance improvements that I won't go into detail because I don't have benchmark data. Earlier versions had some stability issues that I have fixed quickly, and I still aim to keep the project bug-free.
 
 A lot more visible (and invisible) changes happened on the CLI side. Just FYI, the versions I will mention henceforth are for the CLI. Oddly enough, the minor versions of the CLI and the Elm package have always been in sync, but that was not done on purpose. 🤷‍♂️
 
@@ -66,13 +66,13 @@ The errors now contain the line and column of the error (top-right corner), whic
 
 There is now a short summary at the end giving you the total number of errors and the total number of affected files.
 
-In terminals that support it (not mine unfortunately...), the rule name becomes a clickable link, which points to the rule's documentation (though only if that rules comes from a dependency). The image is not great, but notice the dotted line under the rule name.
+In terminals that support it (not mine unfortunately...), the rule name becomes a clickable link, which points to the rule's documentation (though only if that rule comes from a dependency). The image is not great, but notice the dotted line under the rule name.
 
 `2.2.0` introduced the `--no-details` flag, which strips out the details of the error messages, which you can use to make the error messages shorter when you are already well acquainted with the rules and their error messages.
 
 #### JSON report
 
-`2.1.0` added the `--report=json` flag, which outputs JSON for tooling to consume. This opened up the possibility of integrating in an editor (I'm working on and off to integrate it in [IntelliJ](https://plugins.jetbrains.com/plugin/10268-elm/)), for [GitHub bots](https://github.com/sparksp/elm-review-action/) and other tools to use `elm-review` internally.
+`2.1.0` added the `--report=json` flag, which outputs JSON for tooling to consume. This opened up the possibility of integrating with an editor (I'm working on and off to integrate it in [IntelliJ](https://plugins.jetbrains.com/plugin/10268-elm/)), for [GitHub bots](https://github.com/sparksp/elm-review-action/) and other tools to use `elm-review` internally.
 
 If you want to integrate with `elm-review`, I wrote how to in [this document](https://github.com/jfmengels/node-elm-review/blob/master/documentation/tooling-integration.md).
 
@@ -80,7 +80,7 @@ If you want to integrate with `elm-review`, I wrote how to in [this document](ht
 
 `2.2.0` introduced two new subcommands.
 
-`elm-review new-package` creates a new package with the aim to publish `elm-review` rules. The created package comes with the recommendation guidelines, an `elm-review` configuration and tests to help you create a high-quality package helpful to your users. It also comes with a GitHub Actions setup to test your project in CI and [to automatically publish the package](https://github.com/dillonkearns/elm-publish-action/) when the version is bumped. Note: it will become even better and more complete with the next release 😉
+`elm-review new-package` creates a new package with the aim to publish `elm-review` rules. The created package comes with the recommended guidelines, an `elm-review` configuration and tests to help you create a high-quality package helpful to your users. It also comes with a GitHub Actions setup to test your project in CI and [to automatically publish the package](https://github.com/dillonkearns/elm-publish-action/) when the version is bumped. Note: it will become even better and more complete with the next release 😉
 
 `elm-review new-rule` creates a source file and a test file for a new rule. You can use this inside your project's review configuration to create a custom rule or inside a review package. In review packages, it will automatically add the rule to the `exposed-modules` in the `elm.json` file and add the rule in the README. The rule comes with the recommended documentation guidelines.
 
@@ -94,9 +94,9 @@ Just note that I recently renamed all of my own packages. I used to name them `r
 
 #### elm-review-unused (previously review-unused)
 
-[This package](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/)'s purpose is to report all unused/dead code in your Elm code, and proposing automatic fixes where it makes sense.
+[This package](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/)'s purpose is to report all unused/dead code in your Elm code and proposing automatic fixes where it makes sense.
 
-[`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports), which reports exposed elements that are never used outside the module (don't worry, it doesn't report problems for exposed modules inside package projects!), got an automatic fix. Running `elm-review --fix-all` with `NoUnused.Variables` and `NoUnused.Exports` enabled does wonders for removing a lot of dead code 🧹. On a 160K LOC project I work on, this combo applied hundreds of fixes, ultimately uncovering and removing 4500 LOC! 🤯 I recommend running with **only** those two rules enabled if you're doing this for the first time, because it can take a while especially if you have other rules enabled. Consecutive fixes is not well optimized at the moment, but I see ways of drastically improving this in the future.
+[`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports), which reports exposed elements that are never used outside the module (don't worry, it doesn't report problems for exposed modules inside package projects!), got an automatic fix. Running `elm-review --fix-all` with `NoUnused.Variables` and `NoUnused.Exports` enabled does wonders for removing a lot of dead code 🧹. On a 160K LOC project I work on, this combo applied hundreds of fixes, ultimately uncovering and removing 4500 LOC! 🤯 I recommend running with **only** those two rules enabled if you're doing this for the first time because it can take a while especially if you have other rules enabled. Consecutive fixes are not well optimized at the moment, but I see ways of drastically improving this in the future.
 
 [Phill Sparks (@sparksp)](https://github.com/sparksp/) wrote 2 rules 💪 that were added to the package: [`NoUnused.Parameters`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Parameters) and [`NoUnused.Patterns`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Patterns), which help a lot with uncovering unused code and simplifying your codebase.
 
@@ -106,7 +106,7 @@ The name for [this package](https://package.elm-lang.org/packages/jfmengels/elm-
 
 When 2.0.0 was released, it contained 3 rules: [`NoExposingEverything`](https://package.elm-lang.org/packages/jfmengels/elm-review-common/latest/NoExposingEverything) (no `exposing (..)` in the module definition), [`NoImportingEverything`](https://package.elm-lang.org/packages/jfmengels/elm-review-common/latest/NoImportingEverything) (no `exposing (..)` for an import) and [`NoMissingTypeAnnotation`](https://package.elm-lang.org/packages/jfmengels/elm-review-common/latest/NoMissingTypeAnnotation).
 
-2 more were published since then. First, [`NoMissingTypeAnnotationInLetIn`](https://package.elm-lang.org/packages/jfmengels/elm-review-common/latest/NoMissingTypeAnnotationInLetIn), which is the same thing as `NoMissingTypeAnnotation`, but for `let in` expressions. Second, [`NoMissingTypeExpose`](https://package.elm-lang.org/packages/jfmengels/elm-review-common/latest/NoMissingTypeExpose) which again is thanks to [@sparksp](https://github.com/sparksp/) and prevents from exposing a function which uses a non-exposed type. If you did that, users would be prevented from either using the function or adding a type annotation for a value of that type.
+2 more were published since then. First, [`NoMissingTypeAnnotationInLetIn`](https://package.elm-lang.org/packages/jfmengels/elm-review-common/latest/NoMissingTypeAnnotationInLetIn), which is the same thing as `NoMissingTypeAnnotation`, but for `let in` expressions. Second, [`NoMissingTypeExpose`](https://package.elm-lang.org/packages/jfmengels/elm-review-common/latest/NoMissingTypeExpose) which again is thanks to [@sparksp]([https://github.com/sparksp/) and prevents from exposing a function which uses a non-exposed type. If you did that, users would be prevented from either using the function or adding a type annotation for a value of that type.
 
 #### elm-review-the-elm-architecture (previously review-tea)
 
@@ -118,14 +118,14 @@ When 2.0.0 was released, it contained 3 rules: [`NoExposingEverything`](https://
 
 #### elm-review-documentation (previously review-documentation)
 
-[This one](https://package.elm-lang.org/packages/jfmengels/elm-review-documentation/latest/) came out shortly after the `2.0.0` release. It comes with a single rule: [`Documentation.ReadmeLinksPointToCurrentVersion`](https://package.elm-lang.org/packages/jfmengels/elm-review-documentation/1.0.0/Documentation-ReadmeLinksPointToCurrentVersion). It reports links in the `README.md` that do not point to the current version of the package. I personally use this one to make sure that the links to functions/types/rules in my packages target the current version of the package, and not `latest` where they may have disappeared in a new major version or is a relative link [that will not work on GitHub](https://discourse.elm-lang.org/t/problems-with-readmes-in-elm-packages/5396).
+[This one](https://package.elm-lang.org/packages/jfmengels/elm-review-documentation/latest/) came out shortly after the `2.0.0` release. It comes with a single rule: [`Documentation.ReadmeLinksPointToCurrentVersion`](https://package.elm-lang.org/packages/jfmengels/elm-review-documentation/1.0.0/Documentation-ReadmeLinksPointToCurrentVersion). It reports links in the `README.md` that do not point to the current version of the package. I personally use this one to make sure that the links to functions/types/rules in my packages target the current version of the package and not `latest` where they may have disappeared in a new major version or is a relative link [that will not work on GitHub](https://discourse.elm-lang.org/t/problems-with-readmes-in-elm-packages/5396).
 
 I wanted to focus on this package after `2.0.0`, because I think there is so much potential to help (at least) package authors to build great documentation with less maintenance work, but other things felt more pressing in the end. With rules like the one above we can make it so that:
 
 - links inside documentation are valid: no more referring to a non-existent/disappeared type/function/section
 - there is no empty documentation (`{-| -}`) anywhere where documentation is needed
 - applications have valid and up-to-date documentation, as the Elm compiler only enforces documentation constraints for packages
-- images in the documentation will forever work (using the same technique as the rule above), and not disappear once the image disappears from master
+- images in the documentation will work forever (using the same technique as the rule above) and not disappear once the image disappears from master
 - links to dependencies refer to the documentation of the version in `elm.json`, not `master` which gets out of date
 
 #### Packages from the community
@@ -146,11 +146,11 @@ There are other packages/rules I didn't go into. Search for "review" in the pack
 
 ### What next?
 
-Well, before going further, I would like to thank all those who helped, contributed, proposed and participated in any way, which really improved the overall quality of the tool and ecosysteme around it. It also made this adventure of mine much less lonely. I have been working on this project almost non-stop for more than a year already, so it felt really nice to have some company 😄
+Well, before going further, I would like to thank all those who helped, contributed, proposed and participated in any way, which really improved the overall quality of the tool and ecosystem around it. It also made this adventure of mine much less lonely. I have been working on this project almost non-stop for more than a year already, so it felt really nice to have some company 😄
 
 Special thanks to Phill Sparks (unsurprisingly at this point), Martin Stewart, Ilias Van Peer, Simon Lydell and the whole GlobalWebIndex team! ❤️
 
-As I said, I am working on an exciting release. Here's a sneak peak:
+As I said, I am working on an exciting release. Here's a sneak peek:
 
 ```bash
 cd an-elm-project
