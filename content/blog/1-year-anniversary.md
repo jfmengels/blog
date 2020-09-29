@@ -120,7 +120,7 @@ What happens when you give it `NoUnconventionalAlias.rule [ ("", "some alias") ]
 
 ### Make fixes easier
 
-People like fixable rules. While it's not almost a good idea to propose an automatic fix, it's great when you can.
+People like fixable rules. While it's not always a good idea to propose an automatic fix, it's great when you can.
 
 The ways that fixes work at the moment are quite primitive, it is basically only replacing parts of the code by strings. It works well, but it makes it hard to do more complex things like renaming a variable or aliasing a module, which is limiting if you want to safely add an import for instance. It is also not yet possible to automatically fix something in multiple files, which again would be nice if you wanted to move or rename a function.
 
