@@ -28,6 +28,14 @@ pre[class*='language-'],
   background: #011627;
 }
 
+.language-diff .deleted-sign {
+  color: red;
+}
+
+.language-diff .inserted-sign {
+  color: #6cc644;
+}
+
 /* Code blocks */
 pre[class*='language-'] {
   border-radius: 10px;
@@ -151,4 +159,8 @@ pre[data-line] {
 
 .language-text {
   font-size: 1rem;
+}
+
+.gatsby-resp-image-figcaption {
+  text-align: center;
 }
