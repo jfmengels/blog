@@ -24,80 +24,80 @@ I wanted to go through how [`elm-review`](https://package.elm-lang.org/packages/
 I'll take the examples of JavaScript because that's another language for which I worked a lot on static analysis.
 
 ```js
-function foo(value) {
-  const a = functionCall(value)
-  return value + 1
+function formatUserName(user) {
+  const middleNames = formatMiddleNames(user)
+  return user.name.first + ' ' + user.name.last.toUpperCase()
 }
 ```
 
-If you wanted to clean up the JavaScript code above, the only thing you'd be able to do automatically and safely is remove the assignment of `functionCall(value)` to `a`, as shown below.
+If you wanted to clean up the JavaScript code above, the only thing you'd be able to do automatically and safely is remove the assignment of `formatMiddleNames(value)` to `middleNames`, as shown below.
 
 ```js
-function foo(value) {
-  functionCall(value)
-  return value + 1
+function formatUserName(user) {
+  formatMiddleNames(user)
+  return user.name.first + ' ' + user.name.last.toUpperCase()
 }
 ```
 
-We can't remove the call to `functionCall(value)` because we don't know if it has side-effects. Maybe it is a pure function that just creates a value and doesn't interact with global variables. Or maybe it is an impure function since it mutates variables, makes HTTP requests, etc.
+We can't remove the call to `formatMiddleNames(value)` because we don't know if it has side-effects. Maybe it is a pure function that just creates a value and doesn't interact with global variables. Or maybe it is an impure function since it mutates the `user` argument or global variables, makes HTTP requests, etc. I can _reasonably_ imagine that `formatMiddleNames` takes something like `user.name.middleNames` and appends it to `user.name.first` by mutating it.
 
-If it is impure, then removing it would change the behavior of the code in an unexpected way. Without this knowledge, we can't safely remove it.
+If it is impure, then removing it would change the behavior of the code in an unexpected way. Without knowing whether it is pure or impure, we can't safely remove it.
 
-If your static analysis tool is sufficiently powerful, you could inspect `functionCall` to see if it has side-effects, but that might end up being a rabbit hole, because the tool will have to check whether the functions or parameters used inside somehow cause side-effects themselves. Sometimes it will even have to analyze the contents of your dependencies, where I _think_ most static analysis tools stop.
+If your static analysis tool is sufficiently powerful, you could inspect `formatMiddleNames` to see if it has side-effects, but that might end up being a rabbit hole: the tool would have to check whether the functions or parameters used inside somehow cause side-effects themselves. Sometimes it will even have to analyze the contents of your dependencies, where I _think_ most static analysis tools stop.
 
 ### Clarity by purity
-
-(later referred to as step 1)
 
 In Elm, you only have **pure** functions. Meaning that there is no observable difference between calling a function and not using the result, and not calling it at all.
 
 In Elm, the previous uncleaned code snippet would translate to this:
 
 ```elm
-foo value =
+formatUserName user =
   let
-    a = functionCall value
+    middleNames = formatMiddleNames user
   in
-  value + 1
+  user.name.first ++ " " ++ String.toUpper user.name.last
 ```
 
-Here we could **safely** — without changing the behavior of the program — report that the whole declaration of `a` can be removed, `functionCall(value)` included. This might be a mistake on the part of the user because they might have wanted wanted to use `a` but forgot to, so when `elm-review` analyzes your code and it has been run with `--fix`, it will ask the user for confirmation before applying the fix automatically. Every `elm-review` fix proposal requires an approval from the user before it gets committed to the file system. There is a way to batch them to avoid having the process be too tedious though, which I find people start to use after the tool has gained their trust.
+Here we could **safely** — without changing the behavior of the program — report that the whole declaration of `middleNames` can be removed, `formatMiddleNames(value)` included. This might be a mistake on the part of the user because they might have wanted wanted to use `middleNames` but forgot to, so when `elm-review` analyzes your code and it has been run with `--fix`, it will ask the user for confirmation before applying the fix automatically. Every `elm-review` fix proposal requires an approval from the user before it gets committed to the file system. There is a way to batch them to avoid having the process be too tedious though, which I find people start to use after the tool has gained their trust.
 
 ```elm
-foo value =
-  value + 1
+formatUserName user =
+  user.name.first ++ " " ++ String.toUpper user.name.last
 ```
 
 TODO Add a screenshot
+
+In the rest of the article, I will refer to what we did here as step 1.
 
 ### What more can we find?
 
 #### Step 2
 
-In JavaScript, we would have had to keep the call to `functionCall`, but in Elm-land, we were able to remove it. That allows us to do one more thing: check whether `functionCall` is ever used anywhere.
+In JavaScript, we would have had to keep the call to `formatMiddleNames`, but in Elm-land, we were able to remove it. That allows us to do one more thing: check whether `formatMiddleNames` is ever used anywhere.
 
 ```elm
-module SomeModule exposing (foo, thing)
+module SomeModule exposing (formatUserName, thing)
 
 import OtherModule
 
 thing =
-  foo 2
+  formatUserName 2
 
-foo value =
-  value + 1
+formatUserName user =
+  user.name.first ++ " " ++ String.toUpper user.name.last
 
-functionCall value =
+formatMiddleNames user =
   OtherModule.doSomething value
 ```
 
-When we look at this module, it seems that `functionCall` is never used in any way. So we can safely remove it too!
+When we look at this module, it seems that `formatMiddleNames` is never used in any way. So we can safely remove it too!
 
 TODO Screenshot
 
 #### Step 3
 
-Now removed `functionCall` was using a function from module `OtherModule`. And that was the last usage of that import.
+Now removed `formatMiddleNames` was using a function from module `OtherModule`. And that was the last usage of that import.
 
 In JavaScript, importing a module can cause side-effects. Meaning that to be safe, we could only remove from the import declaration the assignment to a name.
 
@@ -110,11 +110,11 @@ import 'module-name'
 In Elm, importing a module is free of side-effects. Meaning that we can remove the whole import.
 
 ```elm
-module SomeModule exposing (foo, thing)
+module SomeModule exposing (formatUserName, thing)
 
 import OtherModule
 -->
-module SomeModule exposing (foo, thing)
+module SomeModule exposing (formatUserName, thing)
 ```
 
 TODO Screenshot
@@ -147,7 +147,7 @@ finalThing customType =
 
 `elm-review` rules have the ability to look at multiple/all modules of a project before reporting errors. This makes the tool immensively more powerful than ones that only look at a single module, and allows us to report things about a module based on how it used in other modules.
 
-In this case, a different rule named [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) will report that `doSomething` is exposed as part of the module's API but never used in other modules, as `SomeModule.functionCall` was the only location where it was used in our example. Since it's not used anywhere in the project outside of this module, we can safely stop exposing it from the module.
+In this case, a different rule named [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) will report that `doSomething` is exposed as part of the module's API but never used in other modules, as `SomeModule.formatMiddleNames` was the only location where it was used in our example. Since it's not used anywhere in the project outside of this module, we can safely stop exposing it from the module.
 
 Note that if this was some kind of utility module that you wanted to keep as is, you could disable this particular rule for that file. This rule does not report functions exposed as part of the public API of an Elm package, no worries there.
 
@@ -161,7 +161,7 @@ TODO Screenshot
 
 #### Step 5
 
-Now it looks like `doSomething` was not used internally in `OtherModule` either, so we can remove it entirely just like we did for `functionCall`.
+Now it looks like `doSomething` was not used internally in `OtherModule` either, so we can remove it entirely just like we did for `formatMiddleNames`.
 
 TODO Screenshot
 
@@ -232,20 +232,20 @@ Let's do a comparison of our code before and after `elm-review`.
 #### Before
 
 ```elm
-module SomeModule exposing (foo, thing)
+module SomeModule exposing (formatUserName, thing)
 
 import OtherModule
 
 thing =
-  foo 2
+  formatUserName 2
 
-foo value =
+formatUserName user =
   let
-    a = functionCall value
+    middleNames = formatMiddleNames user
   in
-  value + 1
+  user.name.first ++ " " ++ String.toUpper user.name.last
 
-functionCall value =
+formatMiddleNames user =
   OtherModule.doSomething value
 ```
 
@@ -278,14 +278,14 @@ module ThirdModule exposing (blabla)
 #### After
 
 ```elm
-module SomeModule exposing (foo, thing)
+module SomeModule exposing (formatUserName, thing)
 
 import OtherModule
 
 thing =
-  foo 2
+  formatUserName 2
 
-foo value =
+formatUserName user =
   value + 1
 ```
 
@@ -321,9 +321,11 @@ Before I started writing this blog post, I believed `ESLint` would automatically
 
 ### YAGNI (You Aren't Gonna Need It)
 
-Even when code feels safe to remove, you can feel like you should keep some unused code, just in case it will be used later. As I said, you can somewhat ignore these rules on select pieces of your codebase, but apart from isolated utility functions (potentially), I would remove it. I have started embracing YAGNI (You Aren't Gonna Need It) and removing everything, knowing that I have a Git history "just in case" and knowing that the code I could have kept may not even fit the needs of the situation I'm keeping it for.
+Even when code feels safe to remove, you can feel like you should keep some unused code, just in case it will be used later. As I said, you can somewhat ignore these rules on select pieces of your codebase, but apart from isolated utility functions (potentially), I would remove it.
 
-I have been doing [a](https://twitter.com/jfmengels/status/1336567810793893889) [lot](https://twitter.com/jfmengels/status/1337803716737560577) [of](https://twitter.com/jfmengels/status/1337805942029774851) [work](https://twitter.com/jfmengels/status/1337910280953716738) recently to find more and more dead code in Elm, for instance by discovering unused functions in code paths that can't ever be reached. These will in practice rarely find things to remove.
+I have started embracing YAGNI (You Aren't Gonna Need It) and removing everything, knowing that I have a Git history "just in case" and knowing that the code I could have kept may not even fit the needs of the situation I'm keeping it for.
+
+I have been doing [a](https://twitter.com/jfmengels/status/1336567810793893889) [lot](https://twitter.com/jfmengels/status/1337803716737560577) [of](https://twitter.com/jfmengels/status/1337805942029774851) [work](https://twitter.com/jfmengels/status/1337910280953716738) recently to find more and more dead code in Elm, for instance by discovering unused functions in code paths that can't ever be reached. These will in practice rarely find things to remove (compared to the the simpler checks I was already doing).
 
 Is it useful for you to be pedantic about deleting potentially useful code and for me to chase after dead code so much? I would love to say it is not, but as we saw in this example, it is only because we were so pedantic (on removing even let variables) that we were even able to start this process. Maybe by removing this last bit of dead code, we will remove the last block holding up a bigger part together.
 
