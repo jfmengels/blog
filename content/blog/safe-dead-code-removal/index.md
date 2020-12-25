@@ -39,7 +39,7 @@ function formatUserName(user) {
 }
 ```
 
-We can't remove the call to `formatMiddleNames(value)` because we don't know if it has side-effects. Maybe it is a pure function that just creates a value and doesn't interact with global variables. Or maybe it is an impure function since it mutates the `user` argument or global variables, makes HTTP requests, etc. I can _reasonably_ imagine that `formatMiddleNames` takes something like `user.name.middleNames` and appends it to `user.name.first` by mutating it.
+We can't remove the call to `formatMiddleNames(value)` because we don't know if it has side-effects. Maybe it is a pure function that just creates a value and doesn't interact with global variables. Or maybe it is an impure function since it mutates the `user` argument or global variables, makes HTTP requests, etc. I wouldn't be all _that_ surprised if `formatMiddleNames` would mutate `user.name.first` by adding information from other `user` fields.
 
 If it is impure, then removing it would change the behavior of the code in an unexpected way. Without knowing whether it is pure or impure, we can't safely remove it.
 
@@ -59,7 +59,7 @@ formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
 ```
 
-Here we could **safely** — without changing the behavior of the program — report that the whole declaration of `middleNames` can be removed, `formatMiddleNames(value)` included. This might be a mistake on the part of the user because they might have wanted wanted to use `middleNames` but forgot to, so when `elm-review` analyzes your code and it has been run with `--fix`, it will ask the user for confirmation before applying the fix automatically. Every `elm-review` fix proposal requires an approval from the user before it gets committed to the file system. There is a way to batch them to avoid having the process be too tedious though, which I find people start to use after the tool has gained their trust.
+Here we could **safely** — without changing the behavior of the program — report that the whole declaration of `middleNames` can be removed, `formatMiddleNames(value)` included, and propose to automatically fix it.
 
 ```elm
 formatUserName user =
@@ -68,20 +68,22 @@ formatUserName user =
 
 TODO Add a screenshot
 
+Why was the value unused? Either it lost its purpose at some point yet wasn't cleaned up, or this might be a mistake on the part of the developer because they might have wanted to use `middleNames` but forgot to. Without more context we can't know, so when `elm-review` analyzes their code and it has been run with `--fix`, it will ask the user for confirmation before applying the fix automatically. Every `elm-review` fix proposal requires an approval from the user before it gets committed to the file system. There is a way to batch them to avoid having the process be too tedious though, which I find people start to use after the tool has gained their trust.
+
 In the rest of the article, I will refer to what we did here as step 1.
 
 ### What more can we find?
 
 #### Step 2
 
-In JavaScript, we would have had to keep the call to `formatMiddleNames`, but in Elm-land, we were able to remove it. That allows us to do one more thing: check whether `formatMiddleNames` is ever used anywhere.
+In JavaScript, we would have had to keep the call to `formatMiddleNames`, but in Elm-land, we were able to remove it. That allows us to do one more thing: check whether `formatMiddleNames` is ever used anywhere else.
 
 ```elm
-module SomeModule exposing (formatUserName, thing)
+module SomeModule exposing (formatUserName, functionToReplace1)
 
 import OtherModule
 
-thing =
+functionToReplace1 =
   formatUserName 2
 
 formatUserName user =
@@ -91,7 +93,7 @@ formatMiddleNames user =
   OtherModule.doSomething value
 ```
 
-When we look at this module, it seems that `formatMiddleNames` is never used in any way. So we can safely remove it too!
+When we look at this module, it seems that `formatMiddleNames` is never used in any way: It is not exposed to other modules nor is it used in any of the other functions. So we can safely remove it too!
 
 TODO Screenshot
 
@@ -110,11 +112,11 @@ import 'module-name'
 In Elm, importing a module is free of side-effects. Meaning that we can remove the whole import.
 
 ```elm
-module SomeModule exposing (formatUserName, thing)
+module SomeModule exposing (formatUserName, functionToReplace1)
 
 import OtherModule
 -->
-module SomeModule exposing (formatUserName, thing)
+module SomeModule exposing (formatUserName, functionToReplace1)
 ```
 
 TODO Screenshot
@@ -232,11 +234,11 @@ Let's do a comparison of our code before and after `elm-review`.
 #### Before
 
 ```elm
-module SomeModule exposing (formatUserName, thing)
+module SomeModule exposing (formatUserName, functionToReplace1)
 
 import OtherModule
 
-thing =
+functionToReplace1 =
   formatUserName 2
 
 formatUserName user =
@@ -278,11 +280,11 @@ module ThirdModule exposing (blabla)
 #### After
 
 ```elm
-module SomeModule exposing (formatUserName, thing)
+module SomeModule exposing (formatUserName, functionToReplace1)
 
 import OtherModule
 
-thing =
+functionToReplace1 =
   formatUserName 2
 
 formatUserName user =
