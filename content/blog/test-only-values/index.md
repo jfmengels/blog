@@ -177,7 +177,7 @@ This is probably the most common suggestion I found: Put tests inside the module
 - You are more likely to test implementation details rather than the public interface
 - Your code now depends on `elm-explorations/test`. Unless you do something weird with the tests, they and the dependency should be pruned from the production bundle though.
 - The tooling now needs to know that tests can be in the source code.
-  You need to run `elm-test src/ tests/` instead of just `elm-test` (and potentially let your colleagues now that), configure your IDE to do the same (if that's even possible. It's not in IntelliJ as far as I know), `elm-review` rules need to be aware of it, etc.
+  You need to run `elm-test src/ tests/` instead of just `elm-test` (and potentially let your colleagues know that), configure your IDE to do the same (if that's even possible. It's not in IntelliJ as far as I know), `elm-review` rules need to be aware of it, etc.
 
 ## Critique
 
