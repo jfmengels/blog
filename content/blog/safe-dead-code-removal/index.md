@@ -21,7 +21,7 @@ I wanted to go through how [`elm-review`](https://package.elm-lang.org/packages/
 
 ### Obscurity by impurity
 
-I'll take the examples of JavaScript because that's another language for which I worked a lot on static analysis.
+I'll take the example of some JavaScript code because that's another language for which I worked a lot on static analysis.
 
 ```js
 function formatUserName(user) {
@@ -81,7 +81,7 @@ In JavaScript, we would have had to keep the call to `formatMiddleNames`, but in
 ```elm
 module SomeModule exposing (formatUserName, functionToReplace1)
 
-import OtherModule
+import NameFormatting
 
 functionToReplace1 =
   formatUserName 2
@@ -90,7 +90,7 @@ formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
 
 formatMiddleNames user =
-  OtherModule.doSomething value
+  NameFormatting.doSomething value
 ```
 
 When we look at this module, it seems that `formatMiddleNames` is never used in any way: It is not exposed to other modules nor is it used in any of the other functions. So we can safely remove it too!
@@ -99,7 +99,7 @@ TODO Screenshot
 
 #### Step 3
 
-Now removed `formatMiddleNames` was using a function from module `OtherModule`. And that was the last usage of that import.
+Now removed `formatMiddleNames` was using a function from module `NameFormatting`. And that was the last usage of that import.
 
 In JavaScript, importing a module can cause side-effects. Meaning that to be safe, we could only remove from the import declaration the assignment to a name.
 
@@ -114,7 +114,7 @@ In Elm, importing a module is free of side-effects. Meaning that we can remove t
 ```elm
 module SomeModule exposing (formatUserName, functionToReplace1)
 
-import OtherModule
+import NameFormatting
 -->
 module SomeModule exposing (formatUserName, functionToReplace1)
 ```
@@ -124,10 +124,10 @@ TODO Screenshot
 #### Step 4
 
 (This would have been reported at the same time as step 3)
-Let's look at `OtherModule`.
+Let's look at `NameFormatting`.
 
 ```elm
-module OtherModule exposing (CustomType, doSomething, finalThing, otherThing)
+module NameFormatting exposing (CustomType, doSomething, finalThing, otherThing)
 
 import ThirdModule
 
@@ -163,7 +163,7 @@ TODO Screenshot
 
 #### Step 5
 
-Now it looks like `doSomething` was not used internally in `OtherModule` either, so we can remove it entirely just like we did for `formatMiddleNames`.
+Now it looks like `doSomething` was not used internally in `NameFormatting` either, so we can remove it entirely just like we did for `formatMiddleNames`.
 
 TODO Screenshot
 
@@ -236,7 +236,7 @@ Let's do a comparison of our code before and after `elm-review`.
 ```elm
 module SomeModule exposing (formatUserName, functionToReplace1)
 
-import OtherModule
+import NameFormatting
 
 functionToReplace1 =
   formatUserName 2
@@ -248,11 +248,11 @@ formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
 
 formatMiddleNames user =
-  OtherModule.doSomething value
+  NameFormatting.doSomething value
 ```
 
 ```elm
-module OtherModule exposing (CustomType, doSomething, finalThing, otherThing)
+module NameFormatting exposing (CustomType, doSomething, finalThing, otherThing)
 
 import ThirdModule
 
@@ -282,7 +282,7 @@ module ThirdModule exposing (blabla)
 ```elm
 module SomeModule exposing (formatUserName, functionToReplace1)
 
-import OtherModule
+import NameFormatting
 
 functionToReplace1 =
   formatUserName 2
@@ -292,7 +292,7 @@ formatUserName user =
 ```
 
 ```elm
-module OtherModule exposing (CustomType, finalThing, otherThing)
+module NameFormatting exposing (CustomType, finalThing, otherThing)
 
 import ThirdModule
 
