@@ -102,7 +102,7 @@ TODO Screenshot
 
 #### Step 3
 
-Now removed `formatUserInfo` was using a function from module `NameFormatting`. And that was the last usage of that import in the module.
+Now removed `formatUserInfo` was using a function from module `Emoji`. And that was the last usage of that import in the module.
 
 In JavaScript, importing a module can cause side-effects. Meaning that to be safe, we could only remove from the import declaration the assignment to a name.
 
@@ -115,6 +115,21 @@ import 'module-name'
 In Elm, importing a module is free of side-effects. Meaning that we can remove the whole import.
 
 ```elm
+import Emoji
+import NameFormatting
+-->
+import NameFormatting
+```
+
+TODO Screenshot
+
+#### Step 4
+
+(this would have been reported at the same time as step 3)
+
+Similarly to `Emoji`, the import of `NameFormatting` has also become obsolete, so we can remove it too.
+
+```elm
 module SomeModule exposing (formatUserName, functionToReplace1)
 
 import NameFormatting
@@ -124,9 +139,9 @@ module SomeModule exposing (formatUserName, functionToReplace1)
 
 TODO Screenshot
 
-#### Step 4
+#### Step 5
 
-(This would have been reported at the same time as step 3)
+(This would have been reported at the same time as step 3 and 4)
 Let's look at `NameFormatting`.
 
 ```elm
@@ -164,13 +179,13 @@ module NameFormatting exposing (CustomType, finalThing, otherThing)
 
 TODO Screenshot
 
-#### Step 5
+#### Step 6
 
 Now it looks like `formatMiddleNames` was not used internally in `NameFormatting` either, so we can remove it entirely just like we did for `formatUserInfo`.
 
 TODO Screenshot
 
-#### Step 6
+#### Step 7
 
 `formatMiddleNames` was using the `CustomTypeVariant2` variant of `CustomType` and that was the only location where it was ever created. If that variant is never created, we have no need to handle it.
 
@@ -213,14 +228,14 @@ finalThing (CustomTypeVariant1 value) =
   String.fromInt value
 ```
 
-#### Step 7
+#### Step 8
 
 (This would have been reported at the same time as step 6)
 Once again, we have an unused import `ThirdModule` that we can safely, as the only place it was used in was `formatMiddleNames`.
 
 TODO Screenshot
 
-#### Step 8
+#### Step 9
 
 [`NoUnused.Modules`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Modules) tells us that `ThirdModule` is actually never imported anywhere
 
