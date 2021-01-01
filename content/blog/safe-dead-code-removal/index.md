@@ -81,6 +81,7 @@ In JavaScript, we would have had to keep the call to `formatUserInfo`, but in El
 ```elm
 module SomeModule exposing (formatUserName, functionToReplace1)
 
+import Emoji
 import NameFormatting
 
 functionToReplace1 =
@@ -91,6 +92,7 @@ formatUserName user =
 
 formatUserInfo user =
   { middleNames = NameFormatting.formatMiddleNames user.name.middle
+  , description = Emoji.removeEmoji user.description
   }
 ```
 
@@ -237,6 +239,7 @@ Let's do a comparison of our code before and after `elm-review`.
 ```elm
 module SomeModule exposing (formatUserName, functionToReplace1)
 
+import Emoji
 import NameFormatting
 
 functionToReplace1 =
@@ -250,6 +253,7 @@ formatUserName user =
 
 formatUserInfo user =
   { middleNames = NameFormatting.formatMiddleNames user.name.middle
+  , description = Emoji.removeEmoji user.description
   }
 ```
 
