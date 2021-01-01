@@ -123,7 +123,7 @@ import NameFormatting
 
 TODO Screenshot
 
-Similarly to `Emoji`, the import of `NameFormatting` has also become obsolete, so we can remove it too (technically step 4, but let's count it as step 3.5).
+Similarly to `Emoji`, the import of `NameFormatting` has also become obsolete, so we can remove it too (technically step 4, but let's count it as step 3.5, especially since it would have been reported at the same time as step 3).
 
 ```elm
 module SomeModule exposing (formatUserName, functionToReplace1)
@@ -143,7 +143,7 @@ Let's look at `NameFormatting`.
 ```elm
 module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, otherThing)
 
-import ThirdModule
+import Casing
 
 type CustomType
   = CustomTypeVariant1 Int
@@ -153,7 +153,7 @@ otherThing value =
   CustomTypeVariant1 value
 
 formatMiddleNames middleNames =
-  CustomTypeVariant2 (ThirdModule.blabla value)
+  String.join ", " (List.map Casing.capitalize middleNames)
 
 finalThing customType =
   case customType of
@@ -201,7 +201,7 @@ This is the first case where an automatic fix is not offered, because we will ne
 ```elm
 module NameFormatting exposing (CustomType, finalThing, otherThing)
 
-import ThirdModule
+import Casing
 
 type CustomType
   = CustomTypeVariant1 Int
@@ -227,13 +227,13 @@ finalThing (CustomTypeVariant1 value) =
 #### Step 7
 
 (This would have been reported at the same time as step 6)
-Once again, we have an unused import `ThirdModule` that we can safely, as the only place it was used in was `formatMiddleNames`.
+Once again, we have an unused import `Casing` that we can safely, as the only place it was used in was `formatMiddleNames`.
 
 TODO Screenshot
 
 #### Step 8
 
-[`NoUnused.Modules`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Modules) tells us that `ThirdModule` is actually never imported anywhere
+[`NoUnused.Modules`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Modules) tells us that `Casing` is actually never imported anywhere
 
 TODO More steps:
 
@@ -275,7 +275,7 @@ formatUserInfo user =
 ```elm
 module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, otherThing)
 
-import ThirdModule
+import Casing
 
 type CustomType
   = CustomTypeVariant1 Int
@@ -285,7 +285,7 @@ otherThing value =
   CustomTypeVariant1 value
 
 formatMiddleNames middleNames =
-  CustomTypeVariant2 (ThirdModule.blabla value)
+  CustomTypeVariant2 (Casing.blabla value)
 
 finalThing customType =
   case customType of
@@ -294,7 +294,7 @@ finalThing customType =
 ```
 
 ```elm
-module ThirdModule exposing (blabla)
+module Casing exposing (blabla)
 -- ...
 ```
 
@@ -315,7 +315,7 @@ formatUserName user =
 ```elm
 module NameFormatting exposing (CustomType, finalThing, otherThing)
 
-import ThirdModule
+import Casing
 
 type CustomType
   = CustomTypeVariant1 Int
