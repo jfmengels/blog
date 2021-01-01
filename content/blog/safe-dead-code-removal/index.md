@@ -68,7 +68,7 @@ formatUserName user =
 
 TODO Add a screenshot
 
-Why was the value unused? Either it lost its purpose at some point yet wasn't cleaned up, or this might be a mistake on the part of the developer because they might have wanted to use `userInfo` but forgot to. Without more context we can't know, so when `elm-review` analyzes their code and it has been run with `--fix`, it will ask the user for confirmation before applying the fix automatically. Every `elm-review` fix proposal requires an approval from the user before it gets committed to the file system. There is a way to batch them to avoid having the process be too tedious though, which I find people start to use after the tool has gained their trust.
+Why was the value unused? Either it lost its purpose at some point yet wasn't cleaned up, or this might be a mistake on the part of the developer because they wanted to use `userInfo` somewhere but forgot to. Without more context we can't know, so when `elm-review` analyzes their code and it has been run with `--fix`, it will ask the user for confirmation before applying the fix automatically. Every `elm-review` fix proposal requires an approval from the user before it gets committed to the file system. There is a way to batch them to avoid having the process be too tedious though, which I find people start to use after the tool has gained their trust.
 
 In the rest of the article, I will refer to what we did here as step 1.
 
