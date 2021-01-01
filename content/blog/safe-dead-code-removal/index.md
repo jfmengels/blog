@@ -59,7 +59,7 @@ formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
 ```
 
-Here we could **safely** — without changing the behavior of the program — report that the whole declaration of `userInfo` can be removed, `formatUserInfo(user)` included, and propose to automatically fix it.
+Here we could **safely** — without changing the behavior of the program — report that the whole declaration of `userInfo` can be removed, the call to `formatUserInfo` included, and propose to automatically fix it.
 
 ```elm
 formatUserName user =
