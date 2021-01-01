@@ -92,7 +92,7 @@ formatUserName user =
 
 formatUserInfo user =
   { middleNames = NameFormatting.formatMiddleNames user.name.middle
-  , description = Emoji.removeEmoji user.description
+  , description = Emoji.stripEmoji user.description
   }
 ```
 
@@ -152,7 +152,7 @@ type CustomType
 otherThing value =
   CustomTypeVariant1 value
 
-formatMiddleNames value =
+formatMiddleNames middleNames =
   CustomTypeVariant2 (ThirdModule.blabla value)
 
 finalThing customType =
@@ -241,6 +241,10 @@ TODO More steps:
 - Unused export
 - Unused custom type constructors
 
+#### Step 9
+
+TODO Report unused dependency for `Emoji`
+
 ### Recap
 
 Let's do a comparison of our code before and after `elm-review`.
@@ -264,7 +268,7 @@ formatUserName user =
 
 formatUserInfo user =
   { middleNames = NameFormatting.formatMiddleNames user.name.middle
-  , description = Emoji.removeEmoji user.description
+  , description = Emoji.stripEmoji user.description
   }
 ```
 
@@ -280,7 +284,7 @@ type CustomType
 otherThing value =
   CustomTypeVariant1 value
 
-formatMiddleNames value =
+formatMiddleNames middleNames =
   CustomTypeVariant2 (ThirdModule.blabla value)
 
 finalThing customType =
