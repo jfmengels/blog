@@ -99,7 +99,7 @@ TODO Screenshot
 
 #### Step 3
 
-Now removed `formatMiddleNames` was using a function from module `NameFormatting`. And that was the last usage of that import.
+Now removed `formatMiddleNames` was using a function from module `NameFormatting`. And that was the last usage of that import in the module.
 
 In JavaScript, importing a module can cause side-effects. Meaning that to be safe, we could only remove from the import declaration the assignment to a name.
 
