@@ -41,7 +41,7 @@ function formatUserName(user) {
 
 We can't remove the call to `formatUserInfo(user)` because we don't know if it has side-effects. Maybe it is a pure function that just creates a value and doesn't interact with global variables. Or maybe it is an impure function since it mutates the `user` argument or global variables, makes HTTP requests, etc. I wouldn't be all _that_ surprised if `formatUserInfo` would mutate `user.name` by adding information from other `user` fields.
 
-If it is impure, then removing it would change the behavior of the code in an unexpected way. Without knowing whether it is pure or impure, we can't safely remove it.
+If it is impure, then removing it would change the behavior of the code. Without knowing whether it is pure or impure, we can't safely remove it.
 
 If your static analysis tool is sufficiently powerful, you could inspect `formatUserInfo` to see if it has side-effects, but that might end up being a rabbit hole: the tool would have to check whether the functions or parameters used inside somehow cause side-effects themselves. Sometimes it will even have to analyze the contents of your dependencies, where I _think_ most static analysis tools stop.
 
