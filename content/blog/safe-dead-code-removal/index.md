@@ -25,25 +25,25 @@ I'll take the example of some JavaScript code because that's another language fo
 
 ```js
 function formatUserName(user) {
-  const middleNames = formatMiddleNames(user)
+  const middleNames = formatUserInfo(user)
   return user.name.first + ' ' + user.name.last.toUpperCase()
 }
 ```
 
-If you wanted to clean up the JavaScript code above, the only thing you'd be able to do automatically and safely is remove the assignment of `formatMiddleNames(value)` to `middleNames`, as shown below.
+If you wanted to clean up the JavaScript code above, the only thing you'd be able to do automatically and safely is remove the assignment of `formatUserInfo(value)` to `middleNames`, as shown below.
 
 ```js
 function formatUserName(user) {
-  formatMiddleNames(user)
+  formatUserInfo(user)
   return user.name.first + ' ' + user.name.last.toUpperCase()
 }
 ```
 
-We can't remove the call to `formatMiddleNames(value)` because we don't know if it has side-effects. Maybe it is a pure function that just creates a value and doesn't interact with global variables. Or maybe it is an impure function since it mutates the `user` argument or global variables, makes HTTP requests, etc. I wouldn't be all _that_ surprised if `formatMiddleNames` would mutate `user.name.first` by adding information from other `user` fields.
+We can't remove the call to `formatUserInfo(value)` because we don't know if it has side-effects. Maybe it is a pure function that just creates a value and doesn't interact with global variables. Or maybe it is an impure function since it mutates the `user` argument or global variables, makes HTTP requests, etc. I wouldn't be all _that_ surprised if `formatUserInfo` would mutate `user.name.first` by adding information from other `user` fields.
 
 If it is impure, then removing it would change the behavior of the code in an unexpected way. Without knowing whether it is pure or impure, we can't safely remove it.
 
-If your static analysis tool is sufficiently powerful, you could inspect `formatMiddleNames` to see if it has side-effects, but that might end up being a rabbit hole: the tool would have to check whether the functions or parameters used inside somehow cause side-effects themselves. Sometimes it will even have to analyze the contents of your dependencies, where I _think_ most static analysis tools stop.
+If your static analysis tool is sufficiently powerful, you could inspect `formatUserInfo` to see if it has side-effects, but that might end up being a rabbit hole: the tool would have to check whether the functions or parameters used inside somehow cause side-effects themselves. Sometimes it will even have to analyze the contents of your dependencies, where I _think_ most static analysis tools stop.
 
 ### Clarity by purity
 
@@ -54,12 +54,12 @@ In Elm, the previous uncleaned code snippet would translate to this:
 ```elm
 formatUserName user =
   let
-    middleNames = formatMiddleNames user
+    middleNames = formatUserInfo user
   in
   user.name.first ++ " " ++ String.toUpper user.name.last
 ```
 
-Here we could **safely** — without changing the behavior of the program — report that the whole declaration of `middleNames` can be removed, `formatMiddleNames(value)` included, and propose to automatically fix it.
+Here we could **safely** — without changing the behavior of the program — report that the whole declaration of `middleNames` can be removed, `formatUserInfo(value)` included, and propose to automatically fix it.
 
 ```elm
 formatUserName user =
@@ -76,7 +76,7 @@ In the rest of the article, I will refer to what we did here as step 1.
 
 #### Step 2
 
-In JavaScript, we would have had to keep the call to `formatMiddleNames`, but in Elm-land, we were able to remove it. That allows us to do one more thing: check whether `formatMiddleNames` is ever used anywhere else.
+In JavaScript, we would have had to keep the call to `formatUserInfo`, but in Elm-land, we were able to remove it. That allows us to do one more thing: check whether `formatUserInfo` is ever used anywhere else.
 
 ```elm
 module SomeModule exposing (formatUserName, functionToReplace1)
@@ -89,17 +89,17 @@ functionToReplace1 =
 formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
 
-formatMiddleNames user =
+formatUserInfo user =
   NameFormatting.doSomething value
 ```
 
-When we look at this module, it seems that `formatMiddleNames` is never used in any way: It is not exposed to other modules nor is it used in any of the other functions. So we can safely remove it too!
+When we look at this module, it seems that `formatUserInfo` is never used in any way: It is not exposed to other modules nor is it used in any of the other functions. So we can safely remove it too!
 
 TODO Screenshot
 
 #### Step 3
 
-Now removed `formatMiddleNames` was using a function from module `NameFormatting`. And that was the last usage of that import in the module.
+Now removed `formatUserInfo` was using a function from module `NameFormatting`. And that was the last usage of that import in the module.
 
 In JavaScript, importing a module can cause side-effects. Meaning that to be safe, we could only remove from the import declaration the assignment to a name.
 
@@ -149,7 +149,7 @@ finalThing customType =
 
 `elm-review` rules have the ability to look at multiple/all modules of a project before reporting errors. This makes it immensively more powerful than static analysis tools that only look at a single module (like `elm-review` originally, which was very frustrating), and allows us to report things about a module based on how it is used in other modules.
 
-In this case, a different rule named [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) (previously we were using the [`NoUnused.Variables](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Variables) rule) will report that `doSomething` is exposed as part of the module's API but never used in other modules, as `SomeModule.formatMiddleNames` was the only location in the entire codebase where it was used. Since it's not used anywhere in the project outside of this module, we can safely stop exposing it from the module.
+In this case, a different rule named [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) (previously we were using the [`NoUnused.Variables](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Variables) rule) will report that `doSomething` is exposed as part of the module's API but never used in other modules, as `SomeModule.formatUserInfo` was the only location in the entire codebase where it was used. Since it's not used anywhere in the project outside of this module, we can safely stop exposing it from the module.
 
 Note that if this was some kind of utility module that you wanted to keep as is, you could disable this particular rule for that file. This rule does not report functions exposed as part of the public API of an Elm package, no worries there.
 
@@ -163,7 +163,7 @@ TODO Screenshot
 
 #### Step 5
 
-Now it looks like `doSomething` was not used internally in `NameFormatting` either, so we can remove it entirely just like we did for `formatMiddleNames`.
+Now it looks like `doSomething` was not used internally in `NameFormatting` either, so we can remove it entirely just like we did for `formatUserInfo`.
 
 TODO Screenshot
 
@@ -243,11 +243,11 @@ functionToReplace1 =
 
 formatUserName user =
   let
-    middleNames = formatMiddleNames user
+    middleNames = formatUserInfo user
   in
   user.name.first ++ " " ++ String.toUpper user.name.last
 
-formatMiddleNames user =
+formatUserInfo user =
   NameFormatting.doSomething value
 ```
 
