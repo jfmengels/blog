@@ -90,7 +90,8 @@ formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
 
 formatUserInfo user =
-  NameFormatting.doSomething value
+  { middleNames = NameFormatting.formatMiddleNames user
+  }
 ```
 
 When we look at this module, it seems that `formatUserInfo` is never used in any way: It is not exposed to other modules nor is it used in any of the other functions. So we can safely remove it too!
@@ -127,7 +128,7 @@ TODO Screenshot
 Let's look at `NameFormatting`.
 
 ```elm
-module NameFormatting exposing (CustomType, doSomething, finalThing, otherThing)
+module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, otherThing)
 
 import ThirdModule
 
@@ -138,7 +139,7 @@ type CustomType
 otherThing value =
   CustomTypeVariant1 value
 
-doSomething value =
+formatMiddleNames value =
   CustomTypeVariant2 (ThirdModule.blabla value)
 
 finalThing customType =
@@ -149,12 +150,12 @@ finalThing customType =
 
 `elm-review` rules have the ability to look at multiple/all modules of a project before reporting errors. This makes it immensively more powerful than static analysis tools that only look at a single module (like `elm-review` originally, which was very frustrating), and allows us to report things about a module based on how it is used in other modules.
 
-In this case, a different rule named [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) (previously we were using the [`NoUnused.Variables](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Variables) rule) will report that `doSomething` is exposed as part of the module's API but never used in other modules, as `SomeModule.formatUserInfo` was the only location in the entire codebase where it was used. Since it's not used anywhere in the project outside of this module, we can safely stop exposing it from the module.
+In this case, a different rule named [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) (previously we were using the [`NoUnused.Variables](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Variables) rule) will report that `formatMiddleNames` is exposed as part of the module's API but never used in other modules, as `SomeModule.formatUserInfo` was the only location in the entire codebase where it was used. Since it's not used anywhere in the project outside of this module, we can safely stop exposing it from the module.
 
 Note that if this was some kind of utility module that you wanted to keep as is, you could disable this particular rule for that file. This rule does not report functions exposed as part of the public API of an Elm package, no worries there.
 
 ```elm
-module NameFormatting exposing (CustomType, doSomething, finalThing, otherThing)
+module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, otherThing)
 -->
 module NameFormatting exposing (CustomType, finalThing, otherThing)
 ```
@@ -163,13 +164,13 @@ TODO Screenshot
 
 #### Step 5
 
-Now it looks like `doSomething` was not used internally in `NameFormatting` either, so we can remove it entirely just like we did for `formatUserInfo`.
+Now it looks like `formatMiddleNames` was not used internally in `NameFormatting` either, so we can remove it entirely just like we did for `formatUserInfo`.
 
 TODO Screenshot
 
 #### Step 6
 
-`doSomething` was using the `CustomTypeVariant2` variant of `CustomType` and that was the only location where it was ever created. If that variant is never created, we have no need to handle it.
+`formatMiddleNames` was using the `CustomTypeVariant2` variant of `CustomType` and that was the only location where it was ever created. If that variant is never created, we have no need to handle it.
 
 For those not familiar with union types or algebraic data types but familiar with JavaScript, a custom type allows you to switch statements but where the compiler checks whether you've handled all the possible cases.
 
@@ -213,7 +214,7 @@ finalThing (CustomTypeVariant1 value) =
 #### Step 7
 
 (This would have been reported at the same time as step 6)
-Once again, we have an unused import `ThirdModule` that we can safely, as the only place it was used in was `doSomething`.
+Once again, we have an unused import `ThirdModule` that we can safely, as the only place it was used in was `formatMiddleNames`.
 
 TODO Screenshot
 
@@ -248,11 +249,12 @@ formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
 
 formatUserInfo user =
-  NameFormatting.doSomething value
+  { middleNames = NameFormatting.formatMiddleNames user
+  }
 ```
 
 ```elm
-module NameFormatting exposing (CustomType, doSomething, finalThing, otherThing)
+module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, otherThing)
 
 import ThirdModule
 
@@ -263,7 +265,7 @@ type CustomType
 otherThing value =
   CustomTypeVariant1 value
 
-doSomething value =
+formatMiddleNames value =
   CustomTypeVariant2 (ThirdModule.blabla value)
 
 finalThing customType =
