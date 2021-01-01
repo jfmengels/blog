@@ -39,7 +39,7 @@ function formatUserName(user) {
 }
 ```
 
-We can't remove the call to `formatUserInfo(user)` because we don't know if it has side-effects. Maybe it is a pure function that just creates a value and doesn't interact with global variables. Or maybe it is an impure function since it mutates the `user` argument or global variables, makes HTTP requests, etc. I wouldn't be all _that_ surprised if `formatUserInfo` would mutate `user.name.first` by adding information from other `user` fields.
+We can't remove the call to `formatUserInfo(user)` because we don't know if it has side-effects. Maybe it is a pure function that just creates a value and doesn't interact with global variables. Or maybe it is an impure function since it mutates the `user` argument or global variables, makes HTTP requests, etc. I wouldn't be all _that_ surprised if `formatUserInfo` would mutate `user.name` by adding information from other `user` fields.
 
 If it is impure, then removing it would change the behavior of the code in an unexpected way. Without knowing whether it is pure or impure, we can't safely remove it.
 
@@ -90,7 +90,7 @@ formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
 
 formatUserInfo user =
-  { middleNames = NameFormatting.formatMiddleNames user
+  { middleNames = NameFormatting.formatMiddleNames user.name.middle
   }
 ```
 
@@ -249,7 +249,7 @@ formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
 
 formatUserInfo user =
-  { middleNames = NameFormatting.formatMiddleNames user
+  { middleNames = NameFormatting.formatMiddleNames user.name.middle
   }
 ```
 
