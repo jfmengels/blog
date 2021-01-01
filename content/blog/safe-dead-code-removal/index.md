@@ -25,12 +25,12 @@ I'll take the example of some JavaScript code because that's another language fo
 
 ```js
 function formatUserName(user) {
-  const middleNames = formatUserInfo(user)
+  const userInfo = formatUserInfo(user)
   return user.name.first + ' ' + user.name.last.toUpperCase()
 }
 ```
 
-If you wanted to clean up the JavaScript code above, the only thing you'd be able to do automatically and safely is remove the assignment of `formatUserInfo(value)` to `middleNames`, as shown below.
+If you wanted to clean up the JavaScript code above, the only thing you'd be able to do automatically and safely is remove the assignment of `formatUserInfo(value)` to `userInfo`, as shown below.
 
 ```js
 function formatUserName(user) {
@@ -54,12 +54,12 @@ In Elm, the previous uncleaned code snippet would translate to this:
 ```elm
 formatUserName user =
   let
-    middleNames = formatUserInfo user
+    userInfo = formatUserInfo user
   in
   user.name.first ++ " " ++ String.toUpper user.name.last
 ```
 
-Here we could **safely** — without changing the behavior of the program — report that the whole declaration of `middleNames` can be removed, `formatUserInfo(value)` included, and propose to automatically fix it.
+Here we could **safely** — without changing the behavior of the program — report that the whole declaration of `userInfo` can be removed, `formatUserInfo(value)` included, and propose to automatically fix it.
 
 ```elm
 formatUserName user =
@@ -68,7 +68,7 @@ formatUserName user =
 
 TODO Add a screenshot
 
-Why was the value unused? Either it lost its purpose at some point yet wasn't cleaned up, or this might be a mistake on the part of the developer because they might have wanted to use `middleNames` but forgot to. Without more context we can't know, so when `elm-review` analyzes their code and it has been run with `--fix`, it will ask the user for confirmation before applying the fix automatically. Every `elm-review` fix proposal requires an approval from the user before it gets committed to the file system. There is a way to batch them to avoid having the process be too tedious though, which I find people start to use after the tool has gained their trust.
+Why was the value unused? Either it lost its purpose at some point yet wasn't cleaned up, or this might be a mistake on the part of the developer because they might have wanted to use `userInfo` but forgot to. Without more context we can't know, so when `elm-review` analyzes their code and it has been run with `--fix`, it will ask the user for confirmation before applying the fix automatically. Every `elm-review` fix proposal requires an approval from the user before it gets committed to the file system. There is a way to batch them to avoid having the process be too tedious though, which I find people start to use after the tool has gained their trust.
 
 In the rest of the article, I will refer to what we did here as step 1.
 
@@ -243,7 +243,7 @@ functionToReplace1 =
 
 formatUserName user =
   let
-    middleNames = formatUserInfo user
+    userInfo = formatUserInfo user
   in
   user.name.first ++ " " ++ String.toUpper user.name.last
 
