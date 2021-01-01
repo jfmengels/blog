@@ -30,7 +30,7 @@ function formatUserName(user) {
 }
 ```
 
-If you wanted to clean up the JavaScript code above, the only thing you'd be able to do automatically and safely is remove the assignment of `formatUserInfo(value)` to `userInfo`, as shown below.
+If you wanted to clean up the JavaScript code above, the only thing you'd be able to do automatically and safely is remove the assignment of `formatUserInfo(user)` to `userInfo`, as shown below.
 
 ```js
 function formatUserName(user) {
@@ -39,7 +39,7 @@ function formatUserName(user) {
 }
 ```
 
-We can't remove the call to `formatUserInfo(value)` because we don't know if it has side-effects. Maybe it is a pure function that just creates a value and doesn't interact with global variables. Or maybe it is an impure function since it mutates the `user` argument or global variables, makes HTTP requests, etc. I wouldn't be all _that_ surprised if `formatUserInfo` would mutate `user.name.first` by adding information from other `user` fields.
+We can't remove the call to `formatUserInfo(user)` because we don't know if it has side-effects. Maybe it is a pure function that just creates a value and doesn't interact with global variables. Or maybe it is an impure function since it mutates the `user` argument or global variables, makes HTTP requests, etc. I wouldn't be all _that_ surprised if `formatUserInfo` would mutate `user.name.first` by adding information from other `user` fields.
 
 If it is impure, then removing it would change the behavior of the code in an unexpected way. Without knowing whether it is pure or impure, we can't safely remove it.
 
@@ -59,7 +59,7 @@ formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
 ```
 
-Here we could **safely** — without changing the behavior of the program — report that the whole declaration of `userInfo` can be removed, `formatUserInfo(value)` included, and propose to automatically fix it.
+Here we could **safely** — without changing the behavior of the program — report that the whole declaration of `userInfo` can be removed, `formatUserInfo(user)` included, and propose to automatically fix it.
 
 ```elm
 formatUserName user =
