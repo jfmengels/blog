@@ -147,16 +147,16 @@ finalThing customType =
     CustomTypeVariant2 value -> String.fromInt -value
 ```
 
-`elm-review` rules have the ability to look at multiple/all modules of a project before reporting errors. This makes the tool immensively more powerful than ones that only look at a single module, and allows us to report things about a module based on how it used in other modules.
+`elm-review` rules have the ability to look at multiple/all modules of a project before reporting errors. This makes it immensively more powerful than static analysis tools that only look at a single module (like `elm-review` originally, which was very frustrating), and allows us to report things about a module based on how it is used in other modules.
 
-In this case, a different rule named [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) will report that `doSomething` is exposed as part of the module's API but never used in other modules, as `SomeModule.formatMiddleNames` was the only location where it was used in our example. Since it's not used anywhere in the project outside of this module, we can safely stop exposing it from the module.
+In this case, a different rule named [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) (previously we were using the [`NoUnused.Variables](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Variables) rule) will report that `doSomething` is exposed as part of the module's API but never used in other modules, as `SomeModule.formatMiddleNames` was the only location in the entire codebase where it was used. Since it's not used anywhere in the project outside of this module, we can safely stop exposing it from the module.
 
 Note that if this was some kind of utility module that you wanted to keep as is, you could disable this particular rule for that file. This rule does not report functions exposed as part of the public API of an Elm package, no worries there.
 
 ```elm
-module SomeModule exposing (CustomType, doSomething, finalThing, otherThing)
+module NameFormatting exposing (CustomType, doSomething, finalThing, otherThing)
 -->
-module SomeModule exposing (CustomType, finalThing, otherThing)
+module NameFormatting exposing (CustomType, finalThing, otherThing)
 ```
 
 TODO Screenshot
@@ -185,7 +185,7 @@ function finalThing(customType) {
 This is the first case where an automatic fix is not offered, because we will need to remove the variant both in the custom type definition and in the different patterns. In this case, it's safer to let the user remove the definition themselves and let the Elm compiler help them fix all the compiler errors that causes.
 
 ```elm
-module SomeModule exposing (CustomType, finalThing, otherThing)
+module NameFormatting exposing (CustomType, finalThing, otherThing)
 
 import ThirdModule
 
