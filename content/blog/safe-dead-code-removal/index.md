@@ -123,11 +123,7 @@ import NameFormatting
 
 TODO Screenshot
 
-#### Step 4
-
-(this would have been reported at the same time as step 3)
-
-Similarly to `Emoji`, the import of `NameFormatting` has also become obsolete, so we can remove it too.
+Similarly to `Emoji`, the import of `NameFormatting` has also become obsolete, so we can remove it too (technically step 4, but let's count it as step 3.5).
 
 ```elm
 module SomeModule exposing (formatUserName, functionToReplace1)
@@ -139,9 +135,9 @@ module SomeModule exposing (formatUserName, functionToReplace1)
 
 TODO Screenshot
 
-#### Step 5
+#### Step 4
 
-(This would have been reported at the same time as step 3 and 4)
+(This would have been reported at the same time as step 3)
 Let's look at `NameFormatting`.
 
 ```elm
@@ -179,13 +175,13 @@ module NameFormatting exposing (CustomType, finalThing, otherThing)
 
 TODO Screenshot
 
-#### Step 6
+#### Step 5
 
 Now it looks like `formatMiddleNames` was not used internally in `NameFormatting` either, so we can remove it entirely just like we did for `formatUserInfo`.
 
 TODO Screenshot
 
-#### Step 7
+#### Step 6
 
 `formatMiddleNames` was using the `CustomTypeVariant2` variant of `CustomType` and that was the only location where it was ever created. If that variant is never created, we have no need to handle it.
 
@@ -228,14 +224,14 @@ finalThing (CustomTypeVariant1 value) =
   String.fromInt value
 ```
 
-#### Step 8
+#### Step 7
 
 (This would have been reported at the same time as step 6)
 Once again, we have an unused import `ThirdModule` that we can safely, as the only place it was used in was `formatMiddleNames`.
 
 TODO Screenshot
 
-#### Step 9
+#### Step 8
 
 [`NoUnused.Modules`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Modules) tells us that `ThirdModule` is actually never imported anywhere
 
