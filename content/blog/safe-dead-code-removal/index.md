@@ -285,7 +285,7 @@ otherThing value =
   CustomTypeVariant1 value
 
 formatMiddleNames middleNames =
-  CustomTypeVariant2 (Casing.blabla value)
+  String.join ", " (List.map Casing.capitalize middleNames)
 
 finalThing customType =
   case customType of
@@ -294,7 +294,7 @@ finalThing customType =
 ```
 
 ```elm
-module Casing exposing (blabla)
+module Casing exposing (capitalize)
 -- ...
 ```
 
