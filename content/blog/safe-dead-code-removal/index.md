@@ -17,7 +17,7 @@ For scale, this was on a project of about 170k lines of code. Well, before the c
 
 And **we felt good** about that.
 
-I wanted to break down how [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/), a static analysis tool for [Elm](https://elm-lang.org/), was able to help us with these big changes that we were very confident with. Spoiler: It's because of the lack of side-effects in the language.
+I wanted to break down how [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/), a static analysis tool for [Elm](https://elm-lang.org/), was able to help us with these big changes that we felt very confident with. Spoiler: It's because of the lack of side-effects in the language.
 
 ### Obscurity by impurity
 
@@ -30,7 +30,9 @@ function formatUserName(user) {
 }
 ```
 
-If you wanted to clean up the JavaScript code above, the only thing you'd be able to do automatically and safely is remove the assignment of `formatUserInfo(user)` to `userInfo`, as shown below.
+Did you notice that `userInfo` was declared but never used? Whether you did or didn't, a static analysis tool (or linter if you will) would likely notice it, as that is a very common feature that they provide.
+
+What to do about it though? If you wanted to clean up the excerpt above, the only thing you'd be able to do automatically and safely is remove the assignment of `formatUserInfo(user)` to `userInfo`, as shown below.
 
 ```js
 function formatUserName(user) {
@@ -39,9 +41,11 @@ function formatUserName(user) {
 }
 ```
 
-We can't remove the call to `formatUserInfo(user)` because we don't know if it has side-effects. Maybe it is a pure function that just creates a value and doesn't interact with global variables. Or maybe it is an impure function since it mutates the `user` argument or global variables, makes HTTP requests, etc. I wouldn't be all _that_ surprised if `formatUserInfo` would mutate `user.name` by adding information from other `user` fields.
+We can't remove the call to `formatUserInfo(user)` because we don't know what it does. Maybe it mutates the `user` argument or global variables, makes HTTP requests, etc.. That is commonly referred to as **side-effects**, something that a function does in addition or instead of returning a value. When a function has side-effects, we often say it is "impure", and "pure" if it doesn't have any.
 
-If it is impure, then removing it would change the behavior of the code. Without knowing whether it is pure or impure, we can't safely remove it.
+The tricky thing with side-effects is that the surrounding code may rely on those side-effects being applied yet nothing in the code indicates that dependency.
+
+In this example, I wouldn't be all _that_ surprised if `formatUserInfo` would mutate `user.name` by adding information from other `user` fields. If it is impure, then removing it would change the behavior of the code. Without knowing whether it is pure or impure, we can't safely remove it.
 
 If your static analysis tool is sufficiently powerful, you could inspect `formatUserInfo` to see if it has side-effects, but that might end up being a rabbit hole: the tool would have to check whether the functions or parameters used inside somehow cause side-effects themselves. Sometimes it will even have to analyze the contents of your dependencies, where I _think_ most static analysis tools stop.
 
