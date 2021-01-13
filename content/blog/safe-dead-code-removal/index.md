@@ -17,7 +17,7 @@ For scale, this was on a project of about 170k lines of code. Well, before the c
 
 And **we felt good** about that.
 
-I wanted to go through how [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/), a static analysis tool for [Elm](https://elm-lang.org/), was able to help us with these big changes that we were very confident with. Spoiler: It's because of the lack of side-effects in the language.
+I wanted to break down how [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/), a static analysis tool for [Elm](https://elm-lang.org/), was able to help us with these big changes that we were very confident with. Spoiler: It's because of the lack of side-effects in the language.
 
 ### Obscurity by impurity
 
@@ -161,9 +161,9 @@ finalThing customType =
     CustomTypeVariant2 value -> String.fromInt -value
 ```
 
-`elm-review` rules have the ability to look at multiple/all modules of a project before reporting errors. This makes it immensively more powerful than static analysis tools that only look at a single module (like `elm-review` originally, which was very frustrating), and allows us to report things about a module based on how it is used in other modules.
+`elm-review` rules have the ability to look at multiple/all modules of a project before reporting errors. This makes it immensively more powerful than static analysis tools that only look at a single module at a time (like `elm-review` did originally, which I can tell you was very frustrating), and allows us to report things about a module based on how it is used in other modules.
 
-In this case, a different rule named [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) (previously we were using the [`NoUnused.Variables](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Variables) rule) will report that `formatMiddleNames` is exposed as part of the module's API but never used in other modules, as `SomeModule.formatUserInfo` was the only location in the entire codebase where it was used. Since it's not used anywhere in the project outside of this module, we can safely stop exposing it from the module.
+In this case, a different rule named [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) (previously we were using the [`NoUnused.Variables`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Variables) rule) will report that `formatMiddleNames` is exposed as part of the module's API but never used in other modules, `SomeModule` being the only module in the entire codebase where it was referenced. Since it's not used anywhere in the project outside of this module, we can safely stop exposing it from the module.
 
 Note that if this was some kind of utility module that you wanted to keep as is, you could disable this particular rule for that file. This rule does not report functions exposed as part of the public API of an Elm package, no worries there.
 
@@ -340,7 +340,7 @@ I know that few of these steps would have been reported by [ESLint](https://esli
 
 `ESLint` would only have been able to report the things reported at steps 1 (partially, only the assignment part), 2 and 5, but in practice it would have stayed stuck after step 1, and that would be true for I think any programming language except pure functional languages. Unless the tool does very extensive checking, in which case you should go thank the maintainers for their great work!
 
-Before I started writing this blog post, I believed `ESLint` would automatically fix the error at step 1, but it turns out it doesn't and stops at simply reporting it. Considering that `ESLint`'s fix feature applies all fixes silently until no more could be found, that makes it hard to stop at any given step to use a function that should have been used somewhere instead of deleting it. The other JavaScript linters I could find (JSHint, JSLint, RSLint) don't have an automatic fix feature, meaning that no JavaScript linter currently removes dead code for you. And that's probably for the better.
+Before I started writing this blog post, I believed `ESLint` would automatically fix the error at step 1, but it turns out it doesn't and stops at simply reporting it. Considering that `ESLint`'s fix feature applies all fixes silently until no more could be found, that makes it hard to pause and think about whether the suggested fix is indeed the correct one, so I think it's better that it does not autofix this kind of issue.
 
 ### YAGNI (You Aren't Gonna Need It)
 
