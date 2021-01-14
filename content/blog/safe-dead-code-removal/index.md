@@ -111,7 +111,7 @@ TODO Screenshot
 
 #### Step 3
 
-Now removed `formatUserInfo` was using a function from module `Emoji`. And that was the last usage of that import in the module.
+Now removed `formatUserInfo` was using a function from module `Diacritics`. And that was the last usage of that import in the module.
 
 In JavaScript, importing a module can cause side effects. Meaning that in order to not change the behavior of the program, we can only remove the assignment part from the import declaration.
 
@@ -134,7 +134,7 @@ Let's look at the `NameFormatting` module.
 module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, otherThing)
 
 import Casing
-import Emoji
+import Diacritics
 
 type CustomType
   = CustomTypeVariant1 Int
@@ -195,7 +195,7 @@ This is the first case where an automatic fix is not offered, because we will ne
 module NameFormatting exposing (CustomType, finalThing, otherThing)
 
 import Casing
-import Emoji
+import Diacritics
 
 type CustomType
   = CustomTypeVariant1 Int
@@ -237,9 +237,9 @@ TODO More steps:
 
 #### Step 9
 
-TODO Report unused dependency for `Emoji`
+TODO Report unused dependency for `Diacritics`
 
-TODO Move somewhere: Similarly to step 3, the import of `Emoji` has become obsolete, so we can remove it too.
+TODO Move somewhere: Similarly to step 3, the import of `Diacritics` has become obsolete, so we can remove it too.
 
 ### Recap
 
