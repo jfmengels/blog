@@ -89,15 +89,12 @@ In the rest of the article, I will refer to the change we did previously as step
 In JavaScript, we would have had to keep the call to `formatUserInfo`, but in Elm-land, we were able to remove it. That allows us to do one more thing: check whether `formatUserInfo` is ever used anywhere else.
 
 ```elm
-module SomeModule exposing (formatUserName, formatUserRole)
+module SomeModule exposing (formatUserName)
 
 import NameFormatting
 
 formatUserName user =
-  user.name.first ++ " " ++ String.toUpper user.name.last
-
-formatUserRole user =
-  String.toUpper user.role
+  user.name.first ++ " " ++ NameFormatting.formatLastName user.name.last
 
 formatUserInfo user =
   { middleNames = NameFormatting.formatMiddleNames user.name.middle
@@ -110,6 +107,8 @@ When we look at this module, it seems that `formatUserInfo` is never used in any
 TODO Screenshot
 
 #### Step 3
+
+TODO Move
 
 Now removed `formatUserInfo` was using a function from module `Diacritics`. And that was the last usage of that import in the module.
 
