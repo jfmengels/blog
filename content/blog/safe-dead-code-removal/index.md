@@ -197,18 +197,18 @@ TODO not true anymor
 
 `formatMiddleNames` was using the `CustomTypeVariant2` variant of `CustomType` and that was the only location where it was ever created. If that variant is never created, we have no need to handle it.
 
-For those not familiar with union types or algebraic data types but familiar with JavaScript, a custom type allows you to switch statements but where the compiler checks whether you've handled all the possible cases.
+For those not familiar with custom types (aka "union types" aka "algebraic data types") but familiar with JavaScript, they allow you to list all the discrete values that something can have. When used in a `case` expression (roughly equivalent to a `switch` in JavaScript), the compiler can determine whether you have handled all possible values and remind you when you haven't, removing the need to add a default case.
 
 ```js
 function finalThing(customType) {
   switch (customType.type) {
     case "CustomTypeVariant1": return customType.value.toString()
     case "CustomTypeVariant2": return (-customType.value).toString()
-    default: // No need for this in Elm
+    default: // Not necessary in Elm because all cases are handled
 }
 ```
 
-This is the first case where an automatic fix is not offered, because we will need to remove the variant both in the custom type definition and in the different patterns. In this case, it's safer to let the user remove the definition themselves and let the Elm compiler help them fix all the compiler errors that causes.
+This is the first case where an automatic fix is not offered, because we will need to remove the variant both in the custom type definition and in the different patterns, potentially in multiple files. In this case, it's safer to let the user remove the definition themselves and let the Elm compiler help them fix all the compiler errors that causes.
 
 ```elm
 module NameFormatting exposing (CustomType, finalThing, otherThing)
