@@ -97,7 +97,7 @@ formatUserName user =
   user.name.first ++ " " ++ NameFormatting.formatLastName user.name.last
 
 formatUserInfo user =
-  { middleNames = NameFormatting.formatMiddleNames user.name.middle
+  { middleNames = NameFormatting.formatMiddleName user.name.middle
   , description = String.trim user.description
   }
 ```
@@ -130,35 +130,35 @@ TODO Screenshot
 Let's look at the `NameFormatting` module.
 
 ```elm
-module NameFormatting exposing (CustomType, formatMiddleNames, applyFormatting, formatLastName)
+module NameFormatting exposing (CustomType, formatMiddleName, applyFormatting, formatLastName)
 
 import Casing
 import Diacritics
 
 type CustomType
-  = AllCaps Int
-  | CapitalizeFirstChar Int
+  = AllCaps
+  | CapitalizeFirstChar
 
-formatLastName value =
-  applyFormatting AllCaps value
+formatLastName string =
+  applyFormatting AllCaps string
 
-formatMiddleNames middleNames =
+formatMiddleName middleNames =
   String.join ", " (List.map Casing.capitalize middleNames)
 
-applyFormatting customType string =
-  case customType of
-    AllCaps value -> String.fromInt value
-    CapitalizeFirstChar value -> String.fromInt -value
+applyFormatting formatting string =
+  case formatting of
+    AllCaps -> String.toUpper string
+    CapitalizeFirstChar -> String.fromInt string
 ```
 
 `elm-review` rules have the ability to look at all modules of a project before reporting errors. This makes it immensively more powerful than static analysis tools that only look at a single module at a time (like `elm-review` did originally, which I can tell you was very frustrating as a rule author), and allows us to report things about a module based on how it is used in other modules.
 
-In this case, a different rule named [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) (previously we were using the [`NoUnused.Variables`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Variables) rule) will report that `formatMiddleNames` is exposed as part of the module's API but never used in other modules, `SomeModule` being the only module in the entire codebase where it was referenced. Since it's not used anywhere in the project outside of this module, we can safely stop exposing it from the module.
+In this case, a different rule named [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) (previously we were using the [`NoUnused.Variables`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Variables) rule) will report that `formatMiddleName` is exposed as part of the module's API but never used in other modules, `SomeModule` being the only module in the entire codebase where it was referenced. Since it's not used anywhere in the project outside of this module, we can safely stop exposing it from the module.
 
 Note that if this was some kind of utility module that you *really* wanted to keep as is, you could disable this particular rule for that file. Also this rule does not report functions exposed as part of the public API of an Elm package, no worries there.
 
 ```elm
-module NameFormatting exposing (CustomType, formatMiddleNames, applyFormatting, formatLastName)
+module NameFormatting exposing (CustomType, formatMiddleName, applyFormatting, formatLastName)
 -->
 module NameFormatting exposing (CustomType, applyFormatting, formatLastName)
 ```
@@ -167,7 +167,7 @@ TODO Screenshot
 
 #### Step 5
 
-Now it looks like `formatMiddleNames` was not used internally in `NameFormatting` either, so we can remove it entirely just like we did for `formatUserInfo` back in step 2.
+Now it looks like `formatMiddleName` was not used internally in `NameFormatting` either, so we can remove it entirely just like we did for `formatUserInfo` back in step 2.
 
 TODO Screenshot
 
@@ -175,15 +175,15 @@ TODO Screenshot
 
 TODO not true anymor
 
-`formatMiddleNames` was using the `CapitalizeFirstChar` variant of `CustomType` and that was the only location where it was ever created. If that variant is never created, we have no need to handle it.
+`formatMiddleName` was using the `CapitalizeFirstChar` variant of `CustomType` and that was the only location where it was ever created. If that variant is never created, we have no need to handle it.
 
 For those not familiar with custom types (aka "union types" aka "algebraic data types") but familiar with JavaScript, they allow you to list all the discrete values that something can have. When used in a `case` expression (roughly equivalent to a `switch` in JavaScript), the compiler can determine whether you have handled all possible values and remind you when you haven't, removing the need to add a default case.
 
 ```js
-function applyFormatting(customType) {
+function applyFormatting(customType, string) {
   switch (customType.type) {
-    case "AllCaps": return customType.value.toString()
-    case "CapitalizeFirstChar": return (-customType.value).toString()
+    case "AllCaps": return string.toString()
+    case "CapitalizeFirstChar": return (-string).toString()
     default: // Not necessary in Elm because all cases are handled
 }
 ```
@@ -220,7 +220,7 @@ applyFormatting (AllCaps value) =
 #### Step 7
 
 (This would have been reported at the same time as step 6)
-Once again, we have an unused import `Casing` that we can safely, as the only place it was used in was `formatMiddleNames`.
+Once again, we have an unused import `Casing` that we can safely, as the only place it was used in was `formatMiddleName`.
 
 TODO Screenshot
 
@@ -261,13 +261,13 @@ formatUserRole user =
   String.toUpper user.role
 
 formatUserInfo user =
-  { middleNames = NameFormatting.formatMiddleNames user.name.middle
+  { middleNames = NameFormatting.formatMiddleName user.name.middle
   , description = String.trim user.description
   }
 ```
 
 ```elm
-module NameFormatting exposing (CustomType, formatMiddleNames, applyFormatting, formatLastName)
+module NameFormatting exposing (CustomType, formatMiddleName, applyFormatting, formatLastName)
 
 import Casing
 
@@ -278,7 +278,7 @@ type CustomType
 formatLastName value =
   AllCaps value
 
-formatMiddleNames middleNames =
+formatMiddleName middleNames =
   String.join ", " (List.map Casing.capitalize middleNames)
 
 applyFormatting customType =
