@@ -32,7 +32,7 @@ function formatUserName(user) {
 
 Did you notice that `userInfo` was declared but never used? Whether you did or didn't, a static analysis tool (or linter if you will) would likely notice it, as that is a very common feature that they provide.
 
-What to do about it though? If you wanted to clean up the excerpt above, the only thing you'd be able to do automatically and safely is remove the assignment of `formatUserInfo(user)` to `userInfo`, as shown below.
+What to do about it though? If you wanted to clean up the excerpt above, the only thing you'd be able to do safely is remove the assignment of `formatUserInfo(user)` to `userInfo`, as shown below.
 
 ```js
 function formatUserName(user) {
@@ -41,11 +41,13 @@ function formatUserName(user) {
 }
 ```
 
-We can't remove the call to `formatUserInfo(user)` because we don't know what it does. Maybe it mutates the `user` argument or global variables, makes HTTP requests, etc.. That is commonly referred to as **side-effects**, something that a function does in addition or instead of returning a value. When a function has side-effects, we often say it is "impure", and "pure" if it doesn't have any.
+We can't remove the call to `formatUserInfo(user)` because we don't know what it does. Maybe it mutates the `user` argument or global variables, makes HTTP requests, etc.. In this example, I wouldn't be all _that_ surprised if `formatUserInfo` would mutate `user.name` by adding information from other `user` fields.
 
-The tricky thing with side-effects is that the surrounding code may rely on those side-effects being applied yet nothing in the code indicates that dependency.
+Those are called **side-effects**: things that a function does in addition or instead of returning a value. When a function has side-effects, we often say it is "impure", and "pure" if it doesn't have any.
 
-In this example, I wouldn't be all _that_ surprised if `formatUserInfo` would mutate `user.name` by adding information from other `user` fields. If it is impure, then removing it would change the behavior of the code. Without knowing whether it is pure or impure, we can't safely remove it.
+The tricky thing with side-effects is that the surrounding code may rely on those side-effects being applied, but there is nothing in the code that can't become stale that indicates that dependency.
+
+If a function is impure, then removing a call to it will change the behavior of the code. That means without knowing whether it is pure or impure, we can't **safely** remove it.
 
 If your static analysis tool is sufficiently powerful, you could inspect `formatUserInfo` to see if it has side-effects, but that might end up being a rabbit hole: the tool would have to check whether the functions or parameters used inside somehow cause side-effects themselves. Sometimes it will even have to analyze the contents of your dependencies, where I _think_ most static analysis tools stop.
 
