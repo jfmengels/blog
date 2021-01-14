@@ -89,7 +89,7 @@ In the rest of the article, I will refer to the change we did previously as step
 In JavaScript, we would have had to keep the call to `formatUserInfo`, but in Elm-land, we were able to remove it. That allows us to do one more thing: check whether `formatUserInfo` is ever used anywhere else.
 
 ```elm
-module SomeModule exposing (formatUserName, formatSomethingElse)
+module SomeModule exposing (formatUserName, formatUserRole)
 
 import Emoji
 import NameFormatting
@@ -97,8 +97,8 @@ import NameFormatting
 formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
 
-formatSomethingElse =
-  formatUserName 2
+formatUserRole user =
+  String.toUpper user.role
 
 formatUserInfo user =
   { middleNames = NameFormatting.formatMiddleNames user.name.middle
@@ -136,11 +136,11 @@ TODO Screenshot
 Similarly to `Emoji`, the import of `NameFormatting` has also become obsolete, so we can remove it too (technically step 4, but let's count it as step 3.5, especially since it would have been reported at the same time as step 3).
 
 ```elm
-module SomeModule exposing (formatUserName, formatSomethingElse)
+module SomeModule exposing (formatUserName, formatUserRole)
 
 import NameFormatting
 -->
-module SomeModule exposing (formatUserName, formatSomethingElse)
+module SomeModule exposing (formatUserName, formatUserRole)
 ```
 
 TODO Screenshot
@@ -262,7 +262,7 @@ Let's do a comparison of our code before and after `elm-review`.
 #### Before
 
 ```elm
-module SomeModule exposing (formatUserName, formatSomethingElse)
+module SomeModule exposing (formatUserName, formatUserRole)
 
 import Emoji
 import NameFormatting
@@ -273,8 +273,8 @@ formatUserName user =
   in
   user.name.first ++ " " ++ String.toUpper user.name.last
 
-formatSomethingElse =
-  formatUserName 2
+formatUserRole user =
+  String.toUpper user.role
 
 formatUserInfo user =
   { middleNames = NameFormatting.formatMiddleNames user.name.middle
@@ -311,15 +311,15 @@ module Casing exposing (capitalize)
 #### After
 
 ```elm
-module SomeModule exposing (formatUserName, formatSomethingElse)
+module SomeModule exposing (formatUserName, formatUserRole)
 
 import NameFormatting
 
 formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
 
-formatSomethingElse =
-  formatUserName 2
+formatUserRole user =
+  String.toUpper user.role
 ```
 
 ```elm
