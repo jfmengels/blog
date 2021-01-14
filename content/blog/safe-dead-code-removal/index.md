@@ -125,16 +125,6 @@ In Elm, importing a module is free of side effects. Meaning that we can remove t
 
 TODO Screenshot
 
-```elm
-module SomeModule exposing (formatUserName, formatUserRole)
-
-import NameFormatting
--->
-module SomeModule exposing (formatUserName, formatUserRole)
-```
-
-TODO Screenshot
-
 #### Step 4
 
 (This would have been reported at the same time as step 3)
