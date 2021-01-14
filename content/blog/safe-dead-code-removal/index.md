@@ -193,6 +193,8 @@ TODO Screenshot
 
 #### Step 6
 
+TODO not true anymor
+
 `formatMiddleNames` was using the `CustomTypeVariant2` variant of `CustomType` and that was the only location where it was ever created. If that variant is never created, we have no need to handle it.
 
 For those not familiar with union types or algebraic data types but familiar with JavaScript, a custom type allows you to switch statements but where the compiler checks whether you've handled all the possible cases.
