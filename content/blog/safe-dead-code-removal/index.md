@@ -17,7 +17,7 @@ For scale, this was on a project of about 170k lines of code. Well, before the c
 
 And **we felt good** about that.
 
-I wanted to break down how [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/), a static analysis tool for [Elm](https://elm-lang.org/), was able to help us with these big changes that we felt very confident with. Spoiler: It's because of the lack of side-effects in the language.
+I wanted to break down how [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/), a static analysis tool for [Elm](https://elm-lang.org/), was able to help us with these big changes that we felt very confident with. Spoiler: It's because of the lack of side effects in the language.
 
 ### Obscurity by impurity
 
@@ -43,13 +43,13 @@ function formatUserName(user) {
 
 We can't remove the call to `formatUserInfo(user)` because we don't know what it does. Maybe it mutates the `user` argument or global variables, makes HTTP requests, etc.. In this example, I wouldn't be all _that_ surprised if `formatUserInfo` would mutate `user.name` by adding information from other `user` fields.
 
-Those are called **side-effects**: things that a function does in addition or instead of returning a value. When a function has side-effects, we often say it is "impure", and "pure" if it doesn't have any.
+Those are called **side effects**: things that a function does in addition or instead of returning a value. When a function has side effects, we often say it is "impure", and "pure" if it doesn't have any.
 
-The tricky thing with side-effects is that the surrounding code may rely on those side-effects being applied, but there is nothing in the code that can't become stale that indicates that dependency.
+The tricky thing with side effects is that the surrounding code may rely on those side effects being applied, but there is nothing in the code that can't become stale that indicates that dependency.
 
 If a function is impure, then removing a call to it will change the behavior of the code. That means without knowing whether it is pure or impure, we can't **safely** remove it.
 
-If your static analysis tool is sufficiently powerful, you could inspect `formatUserInfo` to see if it has side-effects, but that might end up being a rabbit hole: the tool would have to check whether the functions or parameters used inside somehow cause side-effects themselves. Sometimes it will even have to analyze the contents of your dependencies, where I _think_ most static analysis tools stop.
+If your static analysis tool is sufficiently powerful, you could inspect `formatUserInfo` to see if it has side effects, but that might end up being a rabbit hole: the tool would have to check whether the functions or parameters used inside somehow cause side effects themselves. Sometimes it will even have to analyze the contents of your dependencies, where I _think_ most static analysis tools stop.
 
 ### Clarity by purity
 
@@ -114,7 +114,7 @@ TODO Screenshot
 
 Now removed `formatUserInfo` was using a function from module `Emoji`. And that was the last usage of that import in the module.
 
-In JavaScript, importing a module can cause side-effects. Meaning that to be safe, we could only remove from the import declaration the assignment to a name.
+In JavaScript, importing a module can cause side effects. Meaning that to be safe, we could only remove from the import declaration the assignment to a name.
 
 ```js
 import defaultExport from 'module-name'
@@ -122,7 +122,7 @@ import defaultExport from 'module-name'
 import 'module-name'
 ```
 
-In Elm, importing a module is free of side-effects. Meaning that we can remove the whole import.
+In Elm, importing a module is free of side effects. Meaning that we can remove the whole import.
 
 ```elm
 import Emoji
@@ -344,9 +344,9 @@ I like to think of this (TODO) as a wonky Jenga tower effect, where parts of the
 
 We were able to remove all of this code because we were able to remove a let variable that was holding all the other blocks together. Had we left it there, the tower would remain standing.
 
-Without the guarantees of a **pure functional language**, or more precisely the knowledge of whether a function has side-effects, we could not have discovered as much. An impure language makes the blocks all muddy and sticky, hard to remove. A pure language makes the blocks all smooth, easily removable by a flick of a finger.
+Without the guarantees of a **pure functional language**, or more precisely the knowledge of whether a function has side effects, we could not have discovered as much. An impure language makes the blocks all muddy and sticky, hard to remove. A pure language makes the blocks all smooth, easily removable by a flick of a finger.
 
-I know that few of these steps would have been reported by [ESLint](https://eslint.org/) (a static analysis tool for JavaScript) because it can't **safely** remove function calls, property accesses and imports that have potential side-effects, and because it can only look at one module in isolation (a current limitation of the tool).
+I know that few of these steps would have been reported by [ESLint](https://eslint.org/) (a static analysis tool for JavaScript) because it can't **safely** remove function calls, property accesses and imports that have potential side effects, and because it can only look at one module in isolation (a current limitation of the tool).
 
 `ESLint` would only have been able to report the things reported at steps 1 (partially, only the assignment part), 2 and 5, but in practice it would have stayed stuck after step 1, and that would be true for I think any programming language except pure functional languages. Unless the tool does very extensive checking, in which case you should go thank the maintainers for their great work!
 
