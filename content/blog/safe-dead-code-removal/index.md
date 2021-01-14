@@ -72,13 +72,17 @@ formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
 ```
 
-TODO Add a screenshot
+TODO Add a screenshot of elm-review fixing the issue
 
-Why was the value unused? Either it lost its purpose at some point yet wasn't cleaned up, or this might be a mistake on the part of the developer because they wanted to use `userInfo` somewhere but forgot to. Without more context we can't know, so when `elm-review` analyzes their code and it has been run with `--fix`, it will ask the user for confirmation before applying the fix automatically. Every `elm-review` fix proposal requires an approval from the user before it gets committed to the file system. There is a way to batch them to avoid having the process be too tedious though, which I find people start to use after the tool has gained their trust.
+Why was the value unused? Either it lost its purpose at some point yet wasn't cleaned up, or this might be a bug lying around because it needed to be used `userInfo` somewhere but the developer who wrote/changed the code forgot to. Without talking to the developers directly we can't know in which situation we are in, and whether the value should be used or removed.
 
-In the rest of the article, I will refer to what we did here as step 1.
+For that reason, when `elm-review` analyzes the code and it has been run with `--fix`, it will ask the user for confirmation before applying the suggested fix of removing the variable. Every `elm-review` fix proposal requires an approval from the user before it gets committed to the file system.
+
+There is a way to batch them to avoid having the process be too tedious though, which I find people start to use after the tool has gained their trust.
 
 ### What more can we find?
+
+In the rest of the article, I will refer to the change we did previously as step 1.
 
 #### Step 2
 
