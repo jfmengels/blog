@@ -91,7 +91,6 @@ In JavaScript, we would have had to keep the call to `formatUserInfo`, but in El
 ```elm
 module SomeModule exposing (formatUserName, formatUserRole)
 
-import Emoji
 import NameFormatting
 
 formatUserName user =
@@ -102,7 +101,7 @@ formatUserRole user =
 
 formatUserInfo user =
   { middleNames = NameFormatting.formatMiddleNames user.name.middle
-  , description = Emoji.stripEmoji user.description
+  , description = String.trim user.description
   }
 ```
 
@@ -124,16 +123,7 @@ import 'module-name'
 
 In Elm, importing a module is free of side effects. Meaning that we can remove the whole import.
 
-```elm
-import Emoji
-import NameFormatting
--->
-import NameFormatting
-```
-
 TODO Screenshot
-
-Similarly to `Emoji`, the import of `NameFormatting` has also become obsolete, so we can remove it too (technically step 4, but let's count it as step 3.5, especially since it would have been reported at the same time as step 3).
 
 ```elm
 module SomeModule exposing (formatUserName, formatUserRole)
@@ -154,6 +144,7 @@ Let's look at the `NameFormatting` module.
 module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, otherThing)
 
 import Casing
+import Emoji
 
 type CustomType
   = CustomTypeVariant1 Int
@@ -214,6 +205,7 @@ This is the first case where an automatic fix is not offered, because we will ne
 module NameFormatting exposing (CustomType, finalThing, otherThing)
 
 import Casing
+import Emoji
 
 type CustomType
   = CustomTypeVariant1 Int
@@ -257,6 +249,8 @@ TODO More steps:
 
 TODO Report unused dependency for `Emoji`
 
+TODO Move somewhere: Similarly to step 3, the import of `Emoji` has become obsolete, so we can remove it too.
+
 ### Recap
 
 Let's do a comparison of our code before and after `elm-review`.
@@ -266,7 +260,6 @@ Let's do a comparison of our code before and after `elm-review`.
 ```elm
 module SomeModule exposing (formatUserName, formatUserRole)
 
-import Emoji
 import NameFormatting
 
 formatUserName user =
@@ -280,7 +273,7 @@ formatUserRole user =
 
 formatUserInfo user =
   { middleNames = NameFormatting.formatMiddleNames user.name.middle
-  , description = Emoji.stripEmoji user.description
+  , description = String.trim user.description
   }
 ```
 
