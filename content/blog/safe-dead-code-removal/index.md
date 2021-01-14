@@ -94,11 +94,11 @@ module SomeModule exposing (formatUserName, functionToReplace1)
 import Emoji
 import NameFormatting
 
-functionToReplace1 =
-  formatUserName 2
-
 formatUserName user =
   user.name.first ++ " " ++ String.toUpper user.name.last
+
+functionToReplace1 =
+  formatUserName 2
 
 formatUserInfo user =
   { middleNames = NameFormatting.formatMiddleNames user.name.middle
@@ -267,14 +267,14 @@ module SomeModule exposing (formatUserName, functionToReplace1)
 import Emoji
 import NameFormatting
 
-functionToReplace1 =
-  formatUserName 2
-
 formatUserName user =
   let
     userInfo = formatUserInfo user
   in
   user.name.first ++ " " ++ String.toUpper user.name.last
+
+functionToReplace1 =
+  formatUserName 2
 
 formatUserInfo user =
   { middleNames = NameFormatting.formatMiddleNames user.name.middle
@@ -315,11 +315,11 @@ module SomeModule exposing (formatUserName, functionToReplace1)
 
 import NameFormatting
 
+formatUserName user =
+  user.name.first ++ " " ++ String.toUpper user.name.last
+
 functionToReplace1 =
   formatUserName 2
-
-formatUserName user =
-  value + 1
 ```
 
 ```elm
