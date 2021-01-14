@@ -148,7 +148,7 @@ TODO Screenshot
 #### Step 4
 
 (This would have been reported at the same time as step 3)
-Let's look at `NameFormatting`.
+Let's look at the `NameFormatting` module.
 
 ```elm
 module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, otherThing)
@@ -171,11 +171,11 @@ finalThing customType =
     CustomTypeVariant2 value -> String.fromInt -value
 ```
 
-`elm-review` rules have the ability to look at multiple/all modules of a project before reporting errors. This makes it immensively more powerful than static analysis tools that only look at a single module at a time (like `elm-review` did originally, which I can tell you was very frustrating), and allows us to report things about a module based on how it is used in other modules.
+`elm-review` rules have the ability to look at all modules of a project before reporting errors. This makes it immensively more powerful than static analysis tools that only look at a single module at a time (like `elm-review` did originally, which I can tell you was very frustrating as a rule author), and allows us to report things about a module based on how it is used in other modules.
 
 In this case, a different rule named [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) (previously we were using the [`NoUnused.Variables`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Variables) rule) will report that `formatMiddleNames` is exposed as part of the module's API but never used in other modules, `SomeModule` being the only module in the entire codebase where it was referenced. Since it's not used anywhere in the project outside of this module, we can safely stop exposing it from the module.
 
-Note that if this was some kind of utility module that you wanted to keep as is, you could disable this particular rule for that file. This rule does not report functions exposed as part of the public API of an Elm package, no worries there.
+Note that if this was some kind of utility module that you *really* wanted to keep as is, you could disable this particular rule for that file. Also this rule does not report functions exposed as part of the public API of an Elm package, no worries there.
 
 ```elm
 module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, otherThing)
@@ -187,7 +187,7 @@ TODO Screenshot
 
 #### Step 5
 
-Now it looks like `formatMiddleNames` was not used internally in `NameFormatting` either, so we can remove it entirely just like we did for `formatUserInfo`.
+Now it looks like `formatMiddleNames` was not used internally in `NameFormatting` either, so we can remove it entirely just like we did for `formatUserInfo` back in step 2.
 
 TODO Screenshot
 
