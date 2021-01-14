@@ -130,7 +130,7 @@ TODO Screenshot
 Let's look at the `NameFormatting` module.
 
 ```elm
-module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, otherThing)
+module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, formatLastName)
 
 import Casing
 import Diacritics
@@ -139,7 +139,7 @@ type CustomType
   = CustomTypeVariant1 Int
   | CustomTypeVariant2 Int
 
-otherThing value =
+formatLastName value =
   CustomTypeVariant1 value
 
 formatMiddleNames middleNames =
@@ -158,9 +158,9 @@ In this case, a different rule named [`NoUnused.Exports`](https://package.elm-la
 Note that if this was some kind of utility module that you *really* wanted to keep as is, you could disable this particular rule for that file. Also this rule does not report functions exposed as part of the public API of an Elm package, no worries there.
 
 ```elm
-module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, otherThing)
+module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, formatLastName)
 -->
-module NameFormatting exposing (CustomType, finalThing, otherThing)
+module NameFormatting exposing (CustomType, finalThing, formatLastName)
 ```
 
 TODO Screenshot
@@ -191,7 +191,7 @@ function finalThing(customType) {
 This is the first case where an automatic fix is not offered, because we will need to remove the variant both in the custom type definition and in the different patterns, potentially in multiple files. In this case, it's safer to let the user remove the definition themselves and let the Elm compiler help them fix all the compiler errors that causes.
 
 ```elm
-module NameFormatting exposing (CustomType, finalThing, otherThing)
+module NameFormatting exposing (CustomType, finalThing, formatLastName)
 
 import Casing
 import Diacritics
@@ -199,7 +199,7 @@ import Diacritics
 type CustomType
   = CustomTypeVariant1 Int
 
-otherThing value =
+formatLastName value =
   CustomTypeVariant1 value
 
 finalThing customType =
@@ -267,7 +267,7 @@ formatUserInfo user =
 ```
 
 ```elm
-module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, otherThing)
+module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, formatLastName)
 
 import Casing
 
@@ -275,7 +275,7 @@ type CustomType
   = CustomTypeVariant1 Int
   | CustomTypeVariant2 Int
 
-otherThing value =
+formatLastName value =
   CustomTypeVariant1 value
 
 formatMiddleNames middleNames =
@@ -307,14 +307,14 @@ formatUserRole user =
 ```
 
 ```elm
-module NameFormatting exposing (CustomType, finalThing, otherThing)
+module NameFormatting exposing (CustomType, finalThing, formatLastName)
 
 import Casing
 
 type CustomType
   = CustomTypeVariant1 Int
 
-otherThing value =
+formatLastName value =
   CustomTypeVariant1 value
 
 finalThing customType =
