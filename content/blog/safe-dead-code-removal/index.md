@@ -106,7 +106,7 @@ formatUserInfo user =
   }
 ```
 
-When we look at this module, it seems that `formatUserInfo` is never used in any way: It is not exposed to other modules nor is it used in any of the other functions. So we can safely remove it too!
+When we look at this module, it seems that `formatUserInfo` is never used in any way: It is not exposed to the other modules nor is it used in any of the other functions. So we can safely remove it too!
 
 TODO Screenshot
 
