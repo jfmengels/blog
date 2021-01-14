@@ -130,25 +130,25 @@ TODO Screenshot
 Let's look at the `NameFormatting` module.
 
 ```elm
-module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, formatLastName)
+module NameFormatting exposing (CustomType, formatMiddleNames, applyFormatting, formatLastName)
 
 import Casing
 import Diacritics
 
 type CustomType
-  = CustomTypeVariant1 Int
-  | CustomTypeVariant2 Int
+  = AllCaps Int
+  | CapitalizeFirstChar Int
 
 formatLastName value =
-  CustomTypeVariant1 value
+  applyFormatting AllCaps value
 
 formatMiddleNames middleNames =
   String.join ", " (List.map Casing.capitalize middleNames)
 
-finalThing customType =
+applyFormatting customType string =
   case customType of
-    CustomTypeVariant1 value -> String.fromInt value
-    CustomTypeVariant2 value -> String.fromInt -value
+    AllCaps value -> String.fromInt value
+    CapitalizeFirstChar value -> String.fromInt -value
 ```
 
 `elm-review` rules have the ability to look at all modules of a project before reporting errors. This makes it immensively more powerful than static analysis tools that only look at a single module at a time (like `elm-review` did originally, which I can tell you was very frustrating as a rule author), and allows us to report things about a module based on how it is used in other modules.
@@ -158,9 +158,9 @@ In this case, a different rule named [`NoUnused.Exports`](https://package.elm-la
 Note that if this was some kind of utility module that you *really* wanted to keep as is, you could disable this particular rule for that file. Also this rule does not report functions exposed as part of the public API of an Elm package, no worries there.
 
 ```elm
-module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, formatLastName)
+module NameFormatting exposing (CustomType, formatMiddleNames, applyFormatting, formatLastName)
 -->
-module NameFormatting exposing (CustomType, finalThing, formatLastName)
+module NameFormatting exposing (CustomType, applyFormatting, formatLastName)
 ```
 
 TODO Screenshot
@@ -175,15 +175,15 @@ TODO Screenshot
 
 TODO not true anymor
 
-`formatMiddleNames` was using the `CustomTypeVariant2` variant of `CustomType` and that was the only location where it was ever created. If that variant is never created, we have no need to handle it.
+`formatMiddleNames` was using the `CapitalizeFirstChar` variant of `CustomType` and that was the only location where it was ever created. If that variant is never created, we have no need to handle it.
 
 For those not familiar with custom types (aka "union types" aka "algebraic data types") but familiar with JavaScript, they allow you to list all the discrete values that something can have. When used in a `case` expression (roughly equivalent to a `switch` in JavaScript), the compiler can determine whether you have handled all possible values and remind you when you haven't, removing the need to add a default case.
 
 ```js
-function finalThing(customType) {
+function applyFormatting(customType) {
   switch (customType.type) {
-    case "CustomTypeVariant1": return customType.value.toString()
-    case "CustomTypeVariant2": return (-customType.value).toString()
+    case "AllCaps": return customType.value.toString()
+    case "CapitalizeFirstChar": return (-customType.value).toString()
     default: // Not necessary in Elm because all cases are handled
 }
 ```
@@ -191,29 +191,29 @@ function finalThing(customType) {
 This is the first case where an automatic fix is not offered, because we will need to remove the variant both in the custom type definition and in the different patterns, potentially in multiple files. In this case, it's safer to let the user remove the definition themselves and let the Elm compiler help them fix all the compiler errors that causes.
 
 ```elm
-module NameFormatting exposing (CustomType, finalThing, formatLastName)
+module NameFormatting exposing (CustomType, applyFormatting, formatLastName)
 
 import Casing
 import Diacritics
 
 type CustomType
-  = CustomTypeVariant1 Int
+  = AllCaps Int
 
 formatLastName value =
-  CustomTypeVariant1 value
+  AllCaps value
 
-finalThing customType =
+applyFormatting customType =
   case customType of
-    CustomTypeVariant1 value -> String.fromInt value
+    AllCaps value -> String.fromInt value
 ```
 
 TODO Screenshot
 
 TODO Remove this?
-Now that there is only a single variant for `CustomType`, we could probably go one step further and try to simplify `finalThing` by destructuring in the arguments. But this is a stylistic issue since both have the same behavior, and there is at the moment of writing no rule for this.
+Now that there is only a single variant for `CustomType`, we could probably go one step further and try to simplify `applyFormatting` by destructuring in the arguments. But this is a stylistic issue since both have the same behavior, and there is at the moment of writing no rule for this.
 
 ```elm
-finalThing (CustomTypeVariant1 value) =
+applyFormatting (AllCaps value) =
   String.fromInt value
 ```
 
@@ -267,24 +267,24 @@ formatUserInfo user =
 ```
 
 ```elm
-module NameFormatting exposing (CustomType, formatMiddleNames, finalThing, formatLastName)
+module NameFormatting exposing (CustomType, formatMiddleNames, applyFormatting, formatLastName)
 
 import Casing
 
 type CustomType
-  = CustomTypeVariant1 Int
-  | CustomTypeVariant2 Int
+  = AllCaps Int
+  | CapitalizeFirstChar Int
 
 formatLastName value =
-  CustomTypeVariant1 value
+  AllCaps value
 
 formatMiddleNames middleNames =
   String.join ", " (List.map Casing.capitalize middleNames)
 
-finalThing customType =
+applyFormatting customType =
   case customType of
-    CustomTypeVariant1 value -> String.fromInt value
-    CustomTypeVariant2 value -> String.fromInt -value
+    AllCaps value -> String.fromInt value
+    CapitalizeFirstChar value -> String.fromInt -value
 ```
 
 ```elm
@@ -307,19 +307,19 @@ formatUserRole user =
 ```
 
 ```elm
-module NameFormatting exposing (CustomType, finalThing, formatLastName)
+module NameFormatting exposing (CustomType, applyFormatting, formatLastName)
 
 import Casing
 
 type CustomType
-  = CustomTypeVariant1 Int
+  = AllCaps Int
 
 formatLastName value =
-  CustomTypeVariant1 value
+  AllCaps value
 
-finalThing customType =
+applyFormatting customType =
   case customType of
-    CustomTypeVariant1 value -> String.fromInt value
+    AllCaps value -> String.fromInt value
 ```
 
 ### The wonky Jenga tower
