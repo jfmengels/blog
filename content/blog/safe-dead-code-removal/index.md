@@ -97,7 +97,7 @@ formatUserName user =
   user.name.first ++ " " ++ NameFormatting.formatLastName user.name.last
 
 formatUserInfo user =
-  { middleNames = NameFormatting.formatMiddleName user.name.middle
+  { middleName = NameFormatting.formatMiddleName user.name.middle
   , description = String.trim user.description
   }
 ```
@@ -142,13 +142,13 @@ type CustomType
 formatLastName string =
   applyFormatting AllCaps string
 
-formatMiddleName middleNames =
-  String.join ", " (List.map Casing.capitalize middleNames)
+formatMiddleName middleName =
+  applyFormatting CapitalizeFirstChar string
 
 applyFormatting formatting string =
   case formatting of
     AllCaps -> String.toUpper string
-    CapitalizeFirstChar -> String.fromInt string
+    CapitalizeFirstChar -> String.toUpper (Diacritics.remove (String.left 1 string)) ++ String.dropLeft 1 string
 ```
 
 `elm-review` rules have the ability to look at all modules of a project before reporting errors. This makes it immensively more powerful than static analysis tools that only look at a single module at a time (like `elm-review` did originally, which I can tell you was very frustrating as a rule author), and allows us to report things about a module based on how it is used in other modules.
@@ -261,7 +261,7 @@ formatUserRole user =
   String.toUpper user.role
 
 formatUserInfo user =
-  { middleNames = NameFormatting.formatMiddleName user.name.middle
+  { middleName = NameFormatting.formatMiddleName user.name.middle
   , description = String.trim user.description
   }
 ```
@@ -278,7 +278,7 @@ type CustomType
 formatLastName value =
   AllCaps value
 
-formatMiddleName middleNames =
+formatMiddleName middleName =
   String.join ", " (List.map Casing.capitalize middleNames)
 
 applyFormatting customType =
