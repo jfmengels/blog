@@ -114,7 +114,7 @@ TODO Screenshot
 
 Now removed `formatUserInfo` was using a function from module `Emoji`. And that was the last usage of that import in the module.
 
-In JavaScript, importing a module can cause side effects. Meaning that to be safe, we could only remove from the import declaration the assignment to a name.
+In JavaScript, importing a module can cause side effects. Meaning that in order to not change the behavior of the program, we can only remove the assignment part from the import declaration.
 
 ```js
 import defaultExport from 'module-name'
