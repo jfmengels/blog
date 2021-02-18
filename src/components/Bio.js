@@ -33,8 +33,8 @@ function Bio() {
               <a href="https://package.elm-lang.org/packages/jfmengels/elm-review/latest/">
                 elm-review
               </a>
-              . You can follow him on{' '}
-              <a href={`https://twitter.com/${social.twitter}`}>Twitter</a>.
+              . If you like what you read, you can follow me on{' '}
+              <a href={`https://twitter.com/${social.twitter}`}>Twitter</a> or <a href={"https://github.com/sponsors/jfmengels"}>sponsor me</a>.
             </p>
           </div>
         )
