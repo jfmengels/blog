@@ -3,11 +3,36 @@ title: Global and configuration errors
 date: '2021-03-13T14:00:00.000Z'
 ---
 
-TODO Table of contents
+Today I'm releasing version `2.4.0` of the `jfmengels/elm-review`. It contains some missing features that could be considered core to `elm-review`, and that will be useful to people who will write review rules. In particular, the accent has been put on reporting errors.
 
-- Global errors
-- Configuration errors
-- Test dependencies
+- [Global errors](#global-errors)
+- [Configuration errors](#configuration-errors)
+- [Test dependencies](#test-dependencies)
+- [Better error reports](#better-error-reports)
+
+# Global errors
+
+In my article on [Safe unsafe operations in Elm](/safe-unsafe-operations-in-elm) in the section ["Making sure the target function exists"](http://localhost:8000/safe-unsafe-operations-in-elm/#making-sure-the-target-function-exists) TODO
+
+TODO
+
+# Configuration errors
+
+TODO
+
+# Test dependencies
+
+TODO
+
+Quality of life improvement.
+
+- test dependencies
+- elm/core by default in there.
+- script
+
+# Better error reports
+
+https://twitter.com/elmreview/status/1368258103129628676
 
 # A quest for holism
 
@@ -27,8 +52,7 @@ TODO
 
 - node-elm-review report of global errors
 - Add functions enabling this
-- Allowing users to test global errors
-- Fail tests where unexpected global errors are reported, with [compiler-like failure messages](/great-failure-messages)
+- Add ways to assert global errors in tests and fail tests where unexpected global errors are reported, with [compiler-like failure messages](/great-failure-messages)
 - TODO Mention global errors and configuration errors in the tooling-integration document
 - Documentation
 - Writing tests
