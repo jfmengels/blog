@@ -32,7 +32,7 @@ module.exports = {
             options: {
               maxWidth: 750,
               showCaptions: ['title'],
-              markdownCaptions: true
+              markdownCaptions: true,
             },
           },
           {
@@ -41,6 +41,7 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
+          `gatsby-remark-autolink-headers`,
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
