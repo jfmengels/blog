@@ -12,13 +12,41 @@ Today I'm releasing version `2.4.0` of the `jfmengels/elm-review`. It contains s
 
 # Global errors
 
-In my article on [Safe unsafe operations in Elm](/safe-unsafe-operations-in-elm) in the section ["Making sure the target function exists"](http://localhost:8000/safe-unsafe-operations-in-elm/#making-sure-the-target-function-exists) TODO
+All `elm-review` errors are tied to a location in the project, a location being the name of a file (an Elm module, `elm.json` or the `README`) and a position in the source code (where you'd see the squiggly lines). Pointing to a specific location in a project is really useful for users to quickly go and fix the location.
 
-TODO
+Unfortunately you can't always point to somewhere. What if a rule is expected a module or a function to exist somewhere in the project (a `main` function for instance, or something that the user provides as part of the configuration) and that can't be found? Well you'd say the error is where the function is miss... oh wait. Yeah, there's no specific location to point to.
+
+In [Safe unsafe operations in Elm](/safe-unsafe-operations-in-elm#making-sure-the-target-function-exists) we created a rule that takes as part of its configuration the name and module name of a function, which we would handle differently. In that article, we mentioned this problem that if the function could not be found, we would create an error for the `elm.json` file, because that's the best we could do, though it was still kind of confusing.
+
+To resolve this problem, `2.4.0` adds ways to create **global errors**, which are by definition not tied to a specific location in the project.
+
+```elm
+error : String -> Error scope
+error moduleName =
+    Rule.globalError
+        { message = "Could not find module " ++ moduleName
+        , details =
+            [ "You mentioned the module " ++ moduleName ++ " in the configuration of this rule, but it could not be found."
+            , "This likely means you misconfigured the rule or the configuration has become out of date with recent changes in your project."
+            ]
+        }
+```
+
+Global errors are easier to report, but they are also less helpful to the users, so they should be used only when appropriate.
 
 # Configuration errors
 
 TODO
+
+TODO Make node-elm-review point configuration errors to the review config file?
+
+- How would we still make it clear that it's a configuration error?
+
+TODO
+Think about whether to allow global errors to mention they are configuration errors, in order to point to the configuration file.
+
+- What does that imply for tests?
+- Would other rules also be reported?
 
 # Test dependencies
 
