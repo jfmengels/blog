@@ -11,11 +11,11 @@ I wrote earlier on how [`elm-review`](https://package.elm-lang.org/packages/jfme
 
 We usually detect unused functions by counting how many times they are referenced. If the count is 0, then we consider it unused. Recursive functions reference themselves (by definition), meaning that to notice when one such function is unused, there needs to be some special handling.
 
-`NoUnused.Variables` already reported recursive functions which are never called, but we didn't do this for functions defined in a let expression.
+`NoUnused.Variables` already reported recursive functions which are never called elsewhere, but we didn't do this for functions defined in a let expression.
 
 ![](recursive-let.png)
 
-The next step in this direction would be to detect unused indirectly-recursive functions. Things like `a` calling `b` calling `a` where neither is referenced elsewhere. That would be a bit trickier to keep track of, but it's definitely do-able!
+A next step in this direction would be to detect unused indirectly-recursive functions. Things like `a` calling `b` calling `a` where neither is referenced elsewhere. That would be a bit trickier to keep track of, but it's definitely do-able!
 
 ## Better handling of imports
 
