@@ -191,6 +191,18 @@ type Node =
     Node Int (List (Node))
 ```
 
+## Special casing types aimed to be used as phantom types
+
+I have already [written about phantom types](/single-out-elements-using-phantom-types) but basically it's when you have a type variable in a custom type, but that type variable never appears in its variants.
+
+TODO
+
+```elm
+type Currency a = Currency Int
+type Dollar = Dollar
+type Euro = Euro
+```
+
 ## Smaller changes
 
 - The `main` function will now be reported if the project is a package.
