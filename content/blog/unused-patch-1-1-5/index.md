@@ -139,12 +139,13 @@ And some more I may have forgotten and that you may or not notice!
 
 ## Afterword
 
-TODO [so good at detecting and removing dead code](/safe-dead-code-removal)
+These are all relatively small changes. I expect that if you have a reasonably large codebase and that you were already using `elm-review` that these changes will help detect few things.
+
+That said, and as I mentioned in [Safe dead code removal in a pure functional language](/safe-dead-code-removal#yagni-you-arent-gonna-need-it), sometimes it's these little changes that can end up leading to the discovery of bigger swathes of unused code. Also it may help prevent unnecessary import cycle issues.
 
 I now believe that `elm-review` is the best tool out there to detect unused code and help you remove it. I don't believe that there is a tool out there that can remove Elm code that this one isn't able to\*. If you do find unused code somewhere, please [open an issue](https://github.com/jfmengels/elm-review-unused/issues/new/choose)!
 
 _\* Possible exception for [`elm-xref`](https://github.com/zwilias/elm-xref) in some specific use-cases, like the indirectly-recursive functions._
 
-TODO Mention that this is a snowball effect
 TODO mention unused record fields
 TODO Mention sponsorships
