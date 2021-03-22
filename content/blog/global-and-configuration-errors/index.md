@@ -18,7 +18,7 @@ Unfortunately you can't always point to somewhere. What if a rule is expected a 
 
 In [Safe unsafe operations in Elm](/safe-unsafe-operations-in-elm#making-sure-the-target-function-exists) we created a rule that takes as part of its configuration the name and module name of a function, which we would handle differently. In that article, we mentioned this problem that if the function could not be found, we would create an error for the `elm.json` file, because that's the best we could do, though it was still kind of confusing.
 
-To resolve this problem, `2.4.0` adds ways to create **global errors**, which are by definition not tied to a specific location in the project.
+To resolve this problem, `2.4.0` adds ways to create [**global errors**](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#globalError), which are by definition not tied to a specific location in the project.
 
 ```elm
 error : String -> Error scope
@@ -32,7 +32,9 @@ error moduleName =
         }
 ```
 
-Global errors are easier to report, but they are also less helpful to the users, so they should be used only when appropriate.
+Global errors are easy to create, but they are also less helpful to the users, so they should be used only when other errors are inappropriate.
+
+Testing rules is also part of the experience of writing review rules, that's why there are [new functions](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#globalError) to assert that the rule behaves as expected.
 
 # Configuration errors
 
