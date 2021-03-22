@@ -98,7 +98,7 @@ import SomeModule as List -- is unused
 a = List.singleton 1
 ```
 
-### Pattern matches
+## Pattern matches
 
 `NoUnused.Patterns` reports unused variables extracted in patterns (think case expressions). It had a bug where a variable would be considered used if another one with the same name was considered used somewhere else.
 
@@ -115,7 +115,7 @@ a = List.singleton 1
 
 ![](duplicate-patterns.png)
 
-### Wildcard assignments
+## Wildcard assignments
 
 Let declarations assigned to `_` will now be reported and removed.
 
@@ -130,12 +130,23 @@ a =
     1
 ```
 
-### Smaller changes
+## Recursive custom types
+
+`NoUnused.Variables` now also reports unused custom types that reference themselves such as this one:
+
+```elm
+type Node =
+    Node Int (List (Node))
+```
+
+## Smaller changes
 
 - The `main` function will now be reported if the project is a package.
 - Unused infix operator declarations will now be removed (just in case the core team wants to start using `elm-review`)
+- False positive fix: Types in let declaration type annotations are now considered used.
+- There is now a fix for the import of unused operators.
 
-And some more I may have forgotten and that you may or not notice!
+And some more I may have forgotten and that you may notice!
 
 ## Afterword
 
