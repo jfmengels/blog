@@ -130,6 +130,58 @@ a =
     1
 ```
 
+## Detection of TODO
+
+`NoUnused.CustomTypeConstructors` has become quite a bit smarter. In the example below, it will detect that `Unused` is unused.
+
+```elm
+type SomeType
+    = Used
+    | Unused
+
+defaultValue = Used
+
+updateSomeType : SomeType -> SomeType
+updateSomeType value =
+    case value of
+        Used -> Used
+        Unused -> Unused + Used
+
+toString : SomeType -> String
+toString value =
+    case value of
+        Used -> "used"
+        Unused -> "unused"
+```
+
+Why can it be considered unused? `NoUnused.CustomTypeConstructors` reports custom type constructors that are never used, and ignores references to those in pattern match patterns. So in the followed more simplified example, since we never every **construct** `Unused` anywhere, so we could remove it, and its handling in the `case` expression.
+
+```elm
+type SomeType
+    = Used
+    | Unused -- line can be removed
+
+defaultValue = Used
+
+toString : SomeType -> String
+toString value =
+    case value of
+        Used -> "used"
+        Unused -> "unused" -- line can be removed
+```
+
+Then what about the first example? There is definitely a reference to `Unused` in
+
+```elm
+    case value of
+        -- ...
+        Unused -> Unused + Used
+```
+
+What you may notice is that to create an `Unused` value, you actually need `value` to have that same value, so you need `Unused` to be constructed somewhere else in the project. If that never happens, then there is no way we can ever enter this pattern, which in turn means we'll never be able to construct an `Unused` value.
+
+I'll try to make it [even smarter in the future](https://github.com/jfmengels/elm-review-unused/issues/17) to handle even more cases!
+
 ## Recursive custom types
 
 `NoUnused.Variables` now also reports unused custom types that reference themselves such as this one:
@@ -150,13 +202,15 @@ And some more I may have forgotten and that you may notice!
 
 ## Afterword
 
-These are all relatively small changes. I expect that if you have a reasonably large codebase and that you were already using `elm-review` that these changes will help detect few things.
+These are all relatively small changes which will detect rare cases or report things with I think little value compared to what was already being checked.
 
 That said, and as I mentioned in [Safe dead code removal in a pure functional language](/safe-dead-code-removal#yagni-you-arent-gonna-need-it), sometimes it's these little changes that can end up leading to the discovery of bigger swathes of unused code. Also it may help prevent unnecessary import cycle issues.
 
-I now believe that `elm-review` is the best tool out there to detect unused code and help you remove it. I don't believe that there is a tool out there that can remove Elm code that this one isn't able to\*. If you do find unused code somewhere, please [open an issue](https://github.com/jfmengels/elm-review-unused/issues/new/choose)!
+I now believe that `elm-review` is the best tool out there to detect unused code and help you remove it. I don't believe that there is a tool out there that can remove Elm code that this one isn't able to\*. If you do find unused code somewhere that is not being reported, please [open an issue](https://github.com/jfmengels/elm-review-unused/issues/new/choose)!
 
 _\* Possible exception for [`elm-xref`](https://github.com/zwilias/elm-xref) in some specific use-cases, like the indirectly-recursive functions._
+
+Please report any bugs that you may find, and please let me know how much dead code these changes helped uncover! (via [Twitter](https://twitter.com/jfmengels) or on `#elm-review` on the Elm Slack).
 
 TODO mention unused record fields
 TODO Mention sponsorships
