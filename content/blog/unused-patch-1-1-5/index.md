@@ -23,7 +23,7 @@ The `NoUnused.Variables` now looks at the contents of other files, which makes i
 
 ### Unused imports that import everything
 
-This one has been a thorn in my side for such a long time, especially since some editors would tell you about them already.
+This one has been a thorn in my side for such a long time, especially since some IDE plugins would tell you about them already.
 
 ![](./import-exposing-all.png)
 
@@ -37,7 +37,7 @@ If in the example above, the type `Weekday` was used in a type annotation but it
 
 Removing imports does not provide a lot of value in practice, because `NoUnused.Exports` would already report what was exposed but never used in other modules. It is mostly a cosmetic thing. That said, it will help detect unused dependencies, and help you avoid potentially unnecessary [import cycle errors](https://github.com/elm/compiler/blob/9d97114702bf6846cab622a2203f60c2d4ebedf2/hints/import-cycles.md).
 
-Side-note on that: `elm-review` now reports more accurate (often shorter) [import cycles than the compiler](https://twitter.com/jfmengels/status/1364676791185661961). I will try to improve that a bit more then report back so that the Elm compiler can incorporate those lessons.
+Side-note on that: `elm-review` now reports more accurate [import cycles than the compiler](https://twitter.com/jfmengels/status/1364676791185661961) ([see the announcement thread](https://twitter.com/elmreview/status/1368258108091469826)). I have provided feedback so that my learnings can be incorporated into the compiler in the future.
 
 ### Shadowing imported elements
 
@@ -49,11 +49,11 @@ That makes somewhat sense because you don't want code like the following to not 
 import Html exposing (..)
 import Module exposing (toUpper)
 
-toUpper =
-  String.toUpper
-
-updateText comment text =
+updateText comment text = -- "text" overrides the reference to "Html.text"
   { comment | text = toUpper text }
+
+toUpper = -- Overrides the reference to "Module.toUpper"
+  String.toUpper
 ```
 
 We were previously not reporting two kinds of problems due to not handling this shadowing well enough. The first one is when you define a variable (not at the top-level) named like an imported element.
@@ -62,7 +62,7 @@ We were previously not reporting two kinds of problems due to not handling this 
 import Html exposing (id)
 
 something value =
-    case id value of
+    case value of
         SomeValue id -> -- this id is not used here
             model + 1
 ```
@@ -87,28 +87,30 @@ I find this one to be very scary. If we take the example of `toUpper` above, rem
 
 ### Shared names for imports
 
+`NoUnused.Variables` can now detect unused imports, even when different modules are imported with the same name or alias.
+
 ```elm
 module A exposing (a)
 
 import List
 import SomeModule as List -- is unused
 
-a = List.singleton ()
+a = List.singleton 1
 ```
 
 ### Pattern matches
 
-`NoUnused.Patterns` reports unused variables extracted in patterns (think case expressions). It had a bug where the same variable in different patterns would all count as used as long as at least one of them was used.
+`NoUnused.Patterns` reports unused variables extracted in patterns (think case expressions). It had a bug where a variable would be considered used if another one with the same name was considered used somewhere else.
 
 ```elm
     case model.comments of
-        ( Editing "", comments ) ->
-            -- comments is not used here
-            []
-
         ( Editing str, comments ) ->
-            -- but it is used here
-            str :: comments
+          -- comments is used here
+          str :: comments
+
+        ( Editing "", comments ) ->
+            -- comments is not used here, but we weren't reporting
+            []
 ```
 
 ![](duplicate-patterns.png)
@@ -133,9 +135,15 @@ a =
 - The `main` function will now be reported if the project is a package.
 - Unused infix operator declarations will now be removed (just in case the core team wants to start using `elm-review`)
 
+And some more I may have forgotten and that you may or not notice!
+
 ## Afterword
 
-I now believe that `elm-review` is the best tool out there to detect unused code and help you remove it. I don't believe that there is a tool out there that can remove Elm code that this one isn't able to. If you do find unused code somewhere, please [open an issue](https://github.com/jfmengels/elm-review-unused/issues/new/choose)!
+TODO [so good at detecting and removing dead code](/safe-dead-code-removal)
+
+I now believe that `elm-review` is the best tool out there to detect unused code and help you remove it. I don't believe that there is a tool out there that can remove Elm code that this one isn't able to\*. If you do find unused code somewhere, please [open an issue](https://github.com/jfmengels/elm-review-unused/issues/new/choose)!
+
+_\* Possible exception for [`elm-xref`](https://github.com/zwilias/elm-xref) in some specific use-cases, like the indirectly-recursive functions._
 
 TODO Mention that this is a snowball effect
 TODO mention unused record fields
