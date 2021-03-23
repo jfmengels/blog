@@ -64,7 +64,7 @@ b = if a == Unused then ... else ...
 ```
 
 Here, even though `Unused` is "constructed", it won't count towards marking the constructor as used, since it only serves as checking if the value is of that type.
-If we find out `Unused` is never used anywhere else, we can remove it and change the condition to always be `True` (when using `==`) or `False` (`/=`).
+If we find out `Unused` is never used anywhere else, we can remove it and change the condition to always be `True` (when using `/=`) or `False` (`==`).
 
 The constructor is still counted when you do things like `a == fn Unused` though.
 
