@@ -33,7 +33,7 @@ toString value =
 ```
 
 Why can it be considered unused? `NoUnused.CustomTypeConstructors` reports custom type constructors that are never used (while ignoring references to those in pattern match patterns).
-So in the following more simplified example, since we never every **construct** `Unused` anywhere, we can remove it and its handling in the `case` expression.
+So in the following more simplified example, since we never ever **construct** `Unused` anywhere, we can remove it and its handling in the `case` expression.
 
 ```elm
 type SomeType
@@ -85,7 +85,7 @@ twoEuros : Currency Euro
 twoEuros =
     Currency 2
 
-twoDollars : Currency Euro
+twoDollars : Currency Dollar
 twoDollars =
     Currency 2
 
@@ -252,6 +252,14 @@ a =
 And some more I may have forgotten!
 
 ## Afterword
+
+You can try `elm-review` with these rules by running:
+
+```bash
+npx elm-review --template jfmengels/elm-review-unused/example
+# Then if you want to adopt it, use `init`
+npx elm-review init --template jfmengels/elm-review-unused/example
+```
 
 Most of these changes are relatively small changes which will detect rare cases or report things with I think little value compared to what was already being checked.
 
