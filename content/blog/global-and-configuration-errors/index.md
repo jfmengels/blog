@@ -11,15 +11,15 @@ Today I'm releasing version `2.4.0` of the `jfmengels/elm-review`. It contains s
 
 # Global errors
 
-All `elm-review` errors are tied to a location in the project, a location being the name of a file (an Elm module, `elm.json` or the `README`) and a position in the source code (where you'd see the squiggly lines). Pointing to a specific location in a project is really useful for users to quickly go and fix the location.
+In `elm-review`, all errors are tied to a location in the project, more specifically to a file (an Elm module, `elm.json` or the `README`) and a position in the file (where you'd see the squiggly lines). Pointing to a specific location in a project is really useful for users to quickly go and fix the location.
 
 TODO Image example
 
-Unfortunately it does not always make sense to point to a location in the code. For instance, what if a rule is expecting a module or a function to exist somewhere in the project (a `main` function for instance, or something that the user provides as part of the configuration) and that can't be found? Well you'd say the error is where the function is miss... oh wait. Yeah, there's no specific location to point to.
+Unfortunately it does not always make sense to point to a location in the code. For instance, what if a rule is expecting a module or a function to exist somewhere in the project (a `main` function for instance, or something that the user provides as part of the configuration) and that can't be found? Well you can't point the user to the `main` saying that it doesn't exist. There's no specific location to point to.
 
-In [Safe unsafe operations in Elm](/safe-unsafe-operations-in-elm#making-sure-the-target-function-exists) we created a rule that takes as part of its configuration the name and module name of a function, which we would handle differently. In that article, we mentioned this problem that if the function could not be found, we would create an error for the `elm.json` file, because that's the best we could do, though it was still kind of confusing.
+In [Safe unsafe operations in Elm](/safe-unsafe-operations-in-elm#making-sure-the-target-function-exists) we created a rule that takes as part of its configuration the name and module name of a function, which we would handle differently. In that article, we mentioned the problem that if the function could not be found, we would create an error for the `elm.json` file, because that's the best we could do, though it was still kind of confusing.
 
-To resolve this problem, `2.4.0` adds ways to create [**global errors**](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#globalError), which are by definition not tied to a specific location in the project.
+To resolve this problem, `2.4.0` of the package adds ways to create [**global errors**](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#globalError), which are by definition not tied to a location in the project.
 
 ```elm
 error : String -> Error scope
@@ -38,7 +38,7 @@ TODO Image example
 
 Global errors are easy to create, but they are also less helpful to the users, so they should be used only when other errors are inappropriate. They don't allow for automatic fixes either.
 
-Testing rules is also part of the experience of writing review rules, that's why there are [new functions](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#globalError) to assert that the rule behaves as expected.
+Testing rules is also part of the experience of writing review rules, that's why there are [new functions](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Test#expectGlobalErrors) to assert that the rule behaves as expected.
 
 # Configuration errors
 
