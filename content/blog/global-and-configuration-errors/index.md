@@ -96,6 +96,14 @@ To remedy that, you can call `elm-review` with those flags, that will add additi
 
 You may also find it useful to add a new rule bit by bit.
 
+# Progression status for --fix-all
+
+When you run `elm-review --fix-all` and there are a lot of errors, it can take quite a while to finish and it may look like `elm-review` will be hanging or doing nothing.
+
+When `elm-review` applies more than a certain number of fixes and to comfort the user in the idea that something is happening, it will display a message saying that it **is** doing work!
+
+![I am applying fixes, I have applied X already, and I see about Z more!](progress-bar.gif)
+
 # elm-bump script
 
 `elm-review new-package` now comes with a `elm-bump` script. It's a nice utility to prepare for the next version. You can now publish a new version like this:
