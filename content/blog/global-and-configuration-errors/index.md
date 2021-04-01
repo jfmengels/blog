@@ -42,27 +42,67 @@ Testing rules is also part of the experience of writing review rules, that's why
 
 # Configuration errors
 
-TODO
+In addition to global errors, we are introducing `configuration errors`. These are errors that will be the result of parsing or validating the arguments of a rule, and noticing a problem with those.
 
-TODO Make node-elm-review point configuration errors to the review config file?
+Since the configuration is written in Elm, it gives a good experience to the user when the compiler is the one reporting configuration errors, which rule authors can do by things custom types for instance. That said, it is not possible or practical to validate everything only with that: Positive integers, non-empty strings, empty sets/dicts, duplicate items, invalid regex strings, two lists that need to be of the same size, etc.
 
-- How would we still make it clear that it's a configuration error?
+For instance, imagine you want to have a rule that forbids nested case expressions up to a certain threshold (PS: Not sure I approve this rule :p). If the threshold is not something that you think is reasonable, you can report a configuration error like this:
 
-TODO
-Think about whether to allow global errors to mention they are configuration errors, in order to point to the configuration file.
+```elm
+rule : Int -> Rule
+rule threshold =
+  if threshold >= 1 then
+    Rule.newModuleRuleSchema "NoNestedCaseExpressions" ()
+      |> Rule.withSimpleExpressionVisitor (expressionVisitor threshold)
+      |> Rule.newModuleRuleSchema
 
-- What does that imply for tests?
-- Would other rules also be reported?
+  else
+    Rule.configurationError "NoNestedCaseExpressions"
+      { message = "The threshold needs to be strictly positive"
+      , details =
+        [ "A threshold less than 1 means that you can't use case expressions at all, which is not the intent of this rule."
+        , "Please change the threshold to a higher value."
+        ]
+      }
+```
+
+Without a configuration error but with global errors, authors would have to create a dummy rule, with a visitor and that reports a single error, or add a lot of conditionals in every visitor.
+
+In practice, a configuration is almost that: a dummy rule that reports a single error. With the side-benefit that the `elm-review` CLI will abort early and report the configuration errors, before reviewing the entire project. So the feedback is a lot faster (on large projects).
+
+Global and configuration errors will feel a bit similar for a rule author.
+
+Again, there are dedicated tools to assert that the rule [reports a configuration error](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Test#expectGlobalErrors).
+
+TODO Screenshot
 
 # Test dependencies
 
+While we're on the subject of test dependencies: a common complaint from rule authors was that it was hard/tedious to create tests where the project had dependencies, even it the dependency is something as core as `elm/core`.
+
+That's why I'm introducing a few new functions to help with that. I added 4 pre-built dependencies to the package in a new [`Review.Test.Dependencies`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Test-Dependencies) module: The three packages that contains operators (`elm/core`, `elm/parser` and `elm/url`) and `elm/html` (I thought it could be useful). If you need to test with a different dependency, I added instructions and a script to generate Elm code for it (it's surprisingly hard, but it's not my fault!).
+
+I also added [`projectWithElmCore`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Test-Dependencies#projectWithElmCore) which is just like the existing `Project.new` but with `elm/core` already added. Also, `elm/core` is now added **by default** to all tests (unless you use `runWithProjectData`).
+
+With these changes, I could remove almost all custom dependencies I set up in my own tests, so I think this will be nice quality of life improvement for everyone else.
+
+# ignore-dirs and ignore-files
+
 TODO
 
-Quality of life improvement.
+# elm-bump script
 
-- test dependencies
-- elm/core by default in there.
-- script
+`elm-review new-package` now comes with a `elm-bump` script. It's a nice utility to prepare for the next version. You can now publish a new version like this:
+
+```bash
+npm run elm-bump
+git commit --all --message "1.0.1" # or whatever your version is
+git push origin HEAD
+```
+
+And there you go! Once the tests in CI pass, a new version will be published. `elm-bump` runs tests, run `elm bump`, [update links in your documentation](https://package.elm-lang.org/packages/jfmengels/elm-review-documentation/latest/Documentation-ReadmeLinksPointToCurrentVersion), and update the `example/` configuration.
+
+Not having this has caused me quite a few disappointments because I would often forget the last step. Thankfully, the problem gets caught in the CI, but this new workflow will be nicer.
 
 # A quest for holism
 
