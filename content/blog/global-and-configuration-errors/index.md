@@ -88,7 +88,13 @@ With these changes, I could remove almost all custom dependencies I set up in my
 
 # ignore-dirs and ignore-files
 
-TODO
+The CLI has two new flags, `--ignore-dirs` and `--ignore-files`. These will be especially useful when running with `--template`.
+
+In your local review configuration, you may have ignored some directories or files, for instance the directory for generated code. When you use `--template` (or `--config`), you'll use a configuration that will not have those exceptions.
+
+To remedy that, you can call `elm-review` with those flags, that will add additional directories/files to be ignored.
+
+You may also find it useful to add a new rule bit by bit.
 
 # elm-bump script
 
