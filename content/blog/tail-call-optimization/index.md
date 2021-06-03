@@ -309,7 +309,7 @@ fun2 n =
 
 ## Why you won't need to worry about it anymore
 
-As we have seen above, "misuses" of recursive functions can be found just be looking at the code. And when you're able to see the problem simply by looking at the code, the chances are high that you can detect this problem with [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/).
+As we have seen above, "misuses" of recursive functions can be found just by looking at the code. And when you're able to see the problem simply by looking at the code, the chances are high that you can detect this problem with [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/).
 
 So I am excited to release [`elm-review-performance`](https://package.elm-lang.org/packages/jfmengels/elm-review-performance/latest/)!
 
