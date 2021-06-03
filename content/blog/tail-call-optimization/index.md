@@ -189,7 +189,7 @@ factorialHelp n result =
         result
 
     else
-        factorial (result * n)
+        factorialHelp (result * n)
 ```
 
 and split the function into the one that will do recursive calls (above) and an "API-facing" function which will set the initial result value (below).
@@ -221,7 +221,7 @@ fun n =
         n
 ```
 
-The fix here consists of converting the recursive calls to ones that don't use the operator.
+The fix here consists of converting the recursive calls to ones that don't use a pipe operator.
 
 
 ### Calls appearing in || or && conditions
