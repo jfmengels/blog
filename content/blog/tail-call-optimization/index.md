@@ -11,7 +11,7 @@ Tail-call optimization (TCO) is a very neat trick that the Elm compiler does to 
 
 Evan Czaplicki [describes it very well in this article](https://functional-programming-in-elm.netlify.app/recursion/tail-call-elimination.html) and I recommend you go read it. He calls it tail-call elimination but it's a different name for the same thing.
 
-To resume Evan's article, a "tail-call optimized" function is a recursive function that gets compiled to using a loop instead of function calls to itself. Let's take the following code as an example.
+To summarize Evan's article, a "tail-call optimized" function is a recursive function that gets compiled to using a loop instead of function calls to itself. Let's take the following code as an example.
 
 ```elm
 factorial : Int -> Int
