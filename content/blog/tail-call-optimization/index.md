@@ -289,7 +289,7 @@ That said, calling the other function will still create a stack frame, just like
 fun1 n =
     if condition then
         -- Will be optimized for this branch
-        fun (n - 1)
+        fun1 (n - 1)
 
     else
         -- Will create a stack frame
