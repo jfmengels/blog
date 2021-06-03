@@ -242,7 +242,7 @@ isPrefixOf prefix list =
             p == x && isPrefixOf ps xs
 ```
 
-The fix here is consists of using if expressions instead.
+The fix here consists of using if expressions instead.
 
 ```elm
 isPrefixOf : List a -> List a -> Bool
