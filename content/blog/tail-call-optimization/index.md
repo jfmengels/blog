@@ -91,17 +91,39 @@ Checking it is applied is done by either adding a test that checks there is no s
 
 ### So what are these conditions?
 
-In my own understanding, the Elm compiler is able to apply tail-call optimization **only** when all the recursive calls **(1)** are simple function applications and **(2)** are the last operation that the function does in their branch.
+In my own understanding, the Elm compiler is able to apply tail-call optimization **only** when a recursive call **(1)** is a simple function application and **(2)** is the last operation that the function does in a branch.
 
 **(1)** means that while `recurse n = recurse (n - 1)` would be optimized, `recurse n = recurse <| n - 1` would not. Even though you may consider `<|` and `|>` as syntactic sugar for function calls, the compiler doesn't (at least with regard to TCO).
 
-As for **(2)**, the locations when a recursive call may happen are:
+As for **(2)**, the locations where a recursive call may happen are:
 - branches of an if expression
 - branches of a case expression
 - in the body of a let expression
 - inside simple parentheses
 
-and only if each of the above appeared at the root of the function or in one of the above locations themselves. Any recursive calls happening in other locations de-optimizes the function.
+and only if each of the above appeared at the root of the function or in one of the above locations themselves.
+
+#### ERRATA
+
+If you read a previous version of this article, I said "Any recursive calls happening in other locations de-optimizes the function.". That is not true.
+The compiler optimizes every recursive call that adheres to the rules above, and simply doesn't optimize the other branches which would call the function naively and add to the stack frame. It is therefore possible to have **partially tail-call optimized functions**.
+
+```elm
+recurse n =
+    if condition1 then
+        -- end condition, is not affected by TCO
+        n
+
+    else condition2 then
+        -- This branch is tail-optimized. A while loop will be added to the function
+        recurse (n - 1)
+
+    else
+        -- Won't be optimized: will call the function naively and add to the stack frame.
+        recurse (n - 1) * n
+```
+
+#### TCO through examples
 
 Let's go through what I mean in examples:
 
