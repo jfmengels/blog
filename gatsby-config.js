@@ -76,7 +76,7 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `content/assets/logo-elm-review.png`,
       },
     },
     `gatsby-plugin-react-helmet`,
