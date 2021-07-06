@@ -113,9 +113,6 @@ happen again (while I was there at least), but **why should it even be possible?
 There was no instance where we would ever want to allow this kind of code, yet there was no way to tell the tool to not allow
 disabling the rule.
 
-As far as I know, there is no static analysis tool out there that has disable comments and allows making some rules not
-disableable (please let me know if you know one!).
-
 
 #### Overly greedy disable comments
 
