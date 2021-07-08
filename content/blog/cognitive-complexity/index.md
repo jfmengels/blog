@@ -34,9 +34,10 @@ The rule is usually paired in a static analysis tool with a threshold, above whi
 needs to be simplified or split. In [ESLint's version](https://eslint.org/docs/rules/complexity) for instance, the threshold
 is set at 20 by default. Meaning that if a function has a higher total complexity than 20, the rule would report an error.
 
-In Elm, measuring complexity would not work well would because a lot `update` functions to be considered too complex, without a way for us to split them up in
-any reasonable way, meaning you'd need to resort to a disable comment ([which I love...](/disable-comments)). You _could_
-split the case expression into 2 using default branches, but that is just so much worse.
+In Elm, measuring complexity would not work well because a lot of the `update` functions for instance would be considered
+too complex, without a way for us to split them up in any reasonable way, meaning you'd need to resort to a disable
+comment ([which I love...](/disable-comments)). You _could_ split the case expression into 2 using default branches, but
+that is just so much worse.
 
 Overall I've rarely felt like cyclomatic complexity pushed me towards writing better code. Rather it pushed me towards
 disable comments most of the time, so I disabled the rule in my JavaScript projects and never wrote an `elm-review` rule
