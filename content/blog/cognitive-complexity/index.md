@@ -254,7 +254,7 @@ Please give me feedback when you try this rule out!
 
 For a better explained summary of the design and goals of the metric, go read the [white paper](https://www.sonarsource.com/resources/white-papers/cognitive-complexity/).
 If you're interested in learning more, [G. Ann Campbell](https://twitter.com/GAnnCampbell) recently recorded a webinar focused on [refactoring through cognitive complexity](https://community.sonarsource.com/t/webinar-refactoring-with-cognitive-complexity/45331) (including video and answers to Q&A).
-more. She did several [other talks on the subject](https://www.youtube.com/results?search_query=cognitive+complexity+cambell) if you really want to go in depth, some of them going more into the design of the metric.
+more. She did several [other talks on the subject](https://www.youtube.com/results?search_query=cognitive+complexity+campbell) if you really want to go in depth, some of them going more into the design of the metric.
 
 I hope you find value in this rule, and I'd like to thank to the team at SonarSource for designing the metric and for not
 restricting its use, and more specifically G. Ann Campbell for the different talks she made on the subject.
