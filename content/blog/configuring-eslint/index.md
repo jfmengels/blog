@@ -3,6 +3,10 @@ title: Configuring ESLint like elm-review
 date: '2021-06-15T12:00:00.000Z'
 ---
 
+TODO Rename to re-configure? Or something that mentions "ESLint's configuration system"
+
+TODO Mention explicitness, and composition over inheritance?
+
 I have used `ESLint` extensively in the past. As a user, as the "ESLint configurator" for my teams, and as a rule author.
 
 Since then, I have had even more experience designing and creating my own static analysis tool for the [`Elm` language](https://elm-lang.org/) named [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/), which was heavily inspired by my years of working with `ESLint`.
