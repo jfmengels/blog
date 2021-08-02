@@ -339,7 +339,7 @@ If people don't explicitly complain but you see a lot of disable comments, engag
 discussion because there is likely some friction (because they ultimately don't agree or because of other problematic aspects).
 
 `elm-review` has a whole section on
-[when (not to) enable a rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/#when-to-write-or-enable-a-rule)
+[when (not) to enable a rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/#when-to-write-or-enable-a-rule)
 (or write them, since you can create custom rules), including a checklist that I think is worth going through:
 
 ```markdown
