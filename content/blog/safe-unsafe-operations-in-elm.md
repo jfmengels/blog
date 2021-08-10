@@ -3,8 +3,6 @@ title: Safe unsafe operations in Elm
 date: '2020-04-27T00:00:00.000Z'
 ---
 
-(Updated on TODO DATE to use more recent versions of `elm-review`, which makes things simpler)
-
 In Elm, we often have modules around a data type which needs a validation when you initially create it.
 For instance, the [`elm/regex` package](https://package.elm-lang.org/packages/elm/regex/latest/) defines a [`Regex.fromString`](https://package.elm-lang.org/packages/elm/regex/latest/Regex#fromString) function, which people often use the following way:
 
@@ -106,7 +104,7 @@ What if we do call `fromLiteral someString`? Then the `elm-review` rule will war
 
 Our aim is to detect calls to the unsafe function with invalid regexes, like
 ```elm
-regex = Helpers.Regex.fromLiteral "(abc|"
+regex = Helpers.Regex.fromLiteral "(abc|"`
 ```
 
 We are going to start with a simple rule, and update it as we find things we need to handle. Let's start with an empty rule, that does nothing.
@@ -296,8 +294,8 @@ rule =
         |> Scope.addModuleVisitors
         -- We're adding a new import visitor
         |> Rule.withImportVisitor importVisitor
-        -- withSimpleExpressionVisitor -> withExpressionEnterVisitor
-        |> Rule.withExpressionEnterVisitor expressionVisitor
+        -- withSimpleExpressionVisitor -> withExpressionVisitor
+        |> Rule.withExpressionVisitor expressionVisitor
         |> Rule.fromModuleRuleSchema
 
 -- The data we're going to collect and use to infer things
@@ -332,12 +330,17 @@ importVisitor (Node.Node _ { moduleName, exposingList }) context =
         ( [], context )
 
 {- To access the context, we had to make the expression visitor non-simple.
-We now also need to return an updated context.
+A non-simple expression visitor takes an additional `Direction`, which
+tells us whether we entering or exiting the expression, i.e. have we
+visited the children already or not.
+
+It also takes the context we are interested in, and it needs to return an
+updated context.
 -}
-expressionVisitor : Node Expression -> Context -> ( List (Error {}), Context )
-expressionVisitor node context =
-    case Node.value node of
-        Expression.Application (function :: argument :: []) ->
+expressionVisitor : Node Expression -> Rule.Direction -> Context -> ( List (Error {}), Context )
+expressionVisitor node direction context =
+    case ( direction, Node.value node ) of
+        ( Rule.OnEnter, Expression.Application (function :: argument :: []) ) ->
             case Node.value function of
                 Expression.FunctionOrValue moduleName "fromLiteral" ->
                     -- Check if the fromLiteral we found comes from Helpers.Regex
@@ -407,10 +410,10 @@ targetFunctionName =
     "fromLiteral"
 
 
-expressionVisitor : Node Expression -> Context -> ( List (Error {}), Context )
-expressionVisitor node context =
-    case Node.value node of
-        Expression.Application (function :: argument :: []) ->
+expressionVisitor : Node Expression -> Rule.Direction -> Context -> ( List (Error {}), Context )
+expressionVisitor node direction context =
+    case ( direction, Node.value node ) of
+        ( Rule.OnEnter, Expression.Application (function :: argument :: []) ) ->
             case Node.value function of
                 Expression.FunctionOrValue moduleName functionName ->
                     if isTargetFunction context moduleName functionName then
@@ -431,7 +434,7 @@ expressionVisitor node context =
                     ( [], context )
 
         -- Check if the expression is the target function outside of a call
-        Expression.FunctionOrValue moduleName functionName ->
+        ( Rule.OnEnter, Expression.FunctionOrValue moduleName functionName ) ->
             if
                 isTargetFunction context moduleName functionName
                     -- If we've seen it in a function call, ignore it
@@ -497,7 +500,7 @@ moduleVisitor schema =
         -- We add a declaration list visitor that will check
         -- whether a `fromLiteral` function was defined.
         |> Rule.withDeclarationListVisitor declarationListVisitor
-        |> Rule.withExpressionEnterVisitor expressionVisitor
+        |> Rule.withExpressionVisitor expressionVisitor
 
 -- We now have a context for things related to the whole project
 type alias ProjectContext =
