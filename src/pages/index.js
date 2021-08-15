@@ -29,7 +29,9 @@ class BlogIndex extends React.Component {
           ]}
         />
         <Bio />
-        {posts.map(({ node }) => {
+        {posts
+        .filter(({ node }) => !node.frontmatter.hidden)
+        .map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
             <div key={node.fields.slug}>
@@ -71,6 +73,7 @@ export const pageQuery = graphql`
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
             title
+            hidden
           }
         }
       }
