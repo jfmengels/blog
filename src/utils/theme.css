@@ -164,3 +164,7 @@ pre[data-line] {
 .gatsby-resp-image-figcaption {
   text-align: center;
 }
+
+a.anchor.before {
+  box-shadow: none;
+}
