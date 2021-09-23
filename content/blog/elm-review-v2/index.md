@@ -178,17 +178,17 @@ I am also working on [a package to improve the quality of the documentation](htt
 
 ##### Philosophy-wise
 
-`Elm Analyse` is at the moment the de facto static code analysis tool for Elm, but it has [a different philosophy](https://stil4m.github.io/elm-analyse/#/contributing) from `elm-review`'s. `Elm Analyse` wants to improve the quality of the code by enabling rules that work for "everyone".
+`Elm Analyse` is at the moment the de facto static code analysis tool for Elm, but it has [a different philosophy](https://stil4m.github.io/elm-analyse/#/contributing) from `elm-review`. `Elm Analyse` wants to improve the quality of the code by enabling rules that work for "everyone".
 
 `elm-review` on the other hand aims to create guarantees tailored to your team and project, while enabling ways to improve the quality of the code too in a shareable manner.
 
-If you think you have a rule that could be use to everyone, you can share it by publishing it in the Elm package registry.
+If you think you have a rule that could be of use to everyone, you can share it by publishing it in the Elm package registry.
 
 ##### Functionality-wise
 
 Most checks (their naming for a rule) you can find in `Elm Analyse` are available in the packages I published or GitHub repos I have written. The remaining ones are ones that are outdated or that I disagree with, but these are reasonably easy to write using this package's API. (Exception for the checks for unused patterns and unused arguments which I plan to add). And anyone can publishing the missing ones if they care to.
 
-From the tests I have run, I found `elm-review` to be faster. I am guessing that that is mostly because rules are built in a way that avoid duplicate work.
+From the tests I have run, I found `elm-review` to be faster. I am guessing that that is mostly because rules are built in a way that avoids duplicate work.
 
 Here are the things that `Elm Analyse` has and `elm-review` does not:
 
