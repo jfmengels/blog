@@ -110,6 +110,10 @@ In general the recursive implementation is the most verbose, brittle and maybe c
 because it adds the least overhead (don't forget to benchmark though).
 It is also the most versatile, as you can choose to stop early ([to avoid lots of unnecessary computations](https://github.com/elm-community/result-extra/pull/29)) or even to explore more elements during the traversal (for tree-like data structures for instance).
 
+TODO A common advice to improve performance is to avoid doing unnecessary work. Preserving order is one of those pieces of work that could potentially be stripped.
+
+TODO Talk about the benefits of having an accumulator.
+
 ## Keeping the order
 
 If you have a keen eye or some experience with recursion/fold, then you'll notice there is one flaw in my recursive
