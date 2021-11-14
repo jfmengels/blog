@@ -1,6 +1,7 @@
 ---
 title: Stop the bleed
 date: '2021-11-15T12:00:00.000Z'
+description: Introducing elm-review suppress and a rule to report deprecated items.
 ---
 
 ![](blood-bag.jpg)
