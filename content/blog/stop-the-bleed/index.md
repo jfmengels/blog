@@ -213,7 +213,7 @@ The secondary way to deprecate things is through the documentation comments: If 
 where one of the lines starts with `@deprecated`, then it is tagged as such.
 
 This `@deprecated` tag is neither an official nor a standard way to deprecate something, because there is neither in the Elm community.
-I made a proposal in this [Discourse post](TODO link), and I'd love to have feedback so that we can make something nicer
+I made a proposal in this [Discourse post](https://discourse.elm-lang.org/t/finding-a-standard-way-to-deprecate-elm-code/7913), and I'd love to have feedback so that we can make something nicer
 together.
 
 For dependencies, you can configure the rule to report usages of elements from specific dependencies, in case you want
@@ -257,8 +257,8 @@ I haven't mentioned it yet, but by far the biggest downside of this feature for 
 to ignore errors, for bad or slightly okay reasons. For your own sake, I hope you don't misuse this feature in that way.
 
 I am open to feedback, which you can share either in the #elm-review channel in the ELm Slack, in
-a [GitHub issue](https://github.com/jfmengels/elm-review/issues/new), or in the [Discourse post](TODO link) for this
-announcement. Please also pitch in for the [discussion around deprecation](TODO link).
+a [GitHub issue](https://github.com/jfmengels/elm-review/issues/new), or in the [Discourse post](https://discourse.elm-lang.org/t/new-elm-review-release-stop-the-bleed/7912) for this
+announcement. Please also pitch in for the [discussion around deprecation](https://discourse.elm-lang.org/t/finding-a-standard-way-to-deprecate-elm-code/7913).
 
 As usual, if you want to support me or `elm-review`, you can do so through [GitHub sponsors](https://github.com/sponsors/jfmengels/).
 If your company benefits from my work, please consider asking your boss to help me out.
