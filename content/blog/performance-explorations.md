@@ -28,7 +28,7 @@ There are a few functions like the ones for `List` where applying the same funct
 ```elm
 [ 1, 2, 3 ]
 	|> List.map (fn1 >> fn2)
-	|> List.filter (fn3 >> fn4)
+	|> List.filter (\a -> fn3 a && fn4 a)
 	|> List.map fn5
 ```
 
@@ -56,31 +56,34 @@ someValue =
 		|> List.map fn2
 ```
 
-gets compiled to the following
+gets compiled to the following (roughly, I've removed the confusing AX wrappers)
 
 ```js
-var $author$project$Api$someValue = A2(
-	$elm$core$List$map,
-	fn2,
-	A2(
-		$elm$core$List$map,
-		fn1,
-		_List_fromArray(
-			[1, 2, 3])));
+var $author$project$Api$someValue =
+	$elm$core$List$map(
+        fn2,
+        $elm$core$List$map(
+            fn1,
+            _List_fromArray([1, 2, 3])
+        )
+    );
 ```
 
 But JavaScript Arrays are a lot faster to run functions like `map` on than `List.map` is. So an improvement we could do is, whenever we detect `$elm$core$List$map` being applied to anything wrapped in `_List_fromArray`, we instead apply a native JavaScript`map` function, and wrap the result in `_List_fromArray`.
 
 
 ```js
-var $author$project$Api$someValue = A2(
-	$elm$core$List$map,
-	fn2,
-	_List_fromArray(
-		[1, 2, 3].map(fn1)));
+var $author$project$Api$someValue =
+	$elm$core$List$map(
+        fn2,
+        _List_fromArray([1, 2, 3]).map(fn1)
+    );
 ```
 
-This is a lot faster already (More than 2x on list of 10 elements, more than 4x on 1000 elements), but we can do better, because we can actually use a mutating map function. Since `_List_fromArray` works on JavaScript values, that are never read in Elm-land (nor in lazy at the moment), we can be sure that mutating its argument never causes a side-effect, and therefore it's safe to mutate (I'm pretty sure, but would love for someone to triple-check that, considering the impact).
+This is a lot faster already (More than 2x on list of 10 elements, more than 4x on 1000 elements), but we can do better,
+because we can actually use a mutating map function. Since `_List_fromArray` works on JavaScript values, that are never
+read in Elm-land, we can be sure that mutating its argument never causes a side-effect, and therefore it's safe to mutate
+(I'm pretty sure, but would love for someone to triple-check that, considering the impact).
 
 ```js
 function _mutatingJsArrayMap(mapper, arr) {
@@ -91,11 +94,13 @@ function _mutatingJsArrayMap(mapper, arr) {
   return arr;
 }
 
-var $author$project$Api$someValue = A2(
-	$elm$core$List$map,
-	fn2,
-	_List_fromArray(
-		_mutatingJsArrayMap(fn1, [1, 2, 3])));
+var $author$project$Api$someValue =
+	$elm$core$List$map(
+        fn2,
+        _List_fromArray(
+            _mutatingJsArrayMap(fn1, [1, 2, 3])
+        )
+    );
 ```
 
 [I benchmarked this](https://github.com/jfmengels/elm-benchmarks/blob/master/src/NativeJsArrayExploration/OpportunisticJsArrayLoop.elm) and the results are pretty wild.
@@ -110,10 +115,13 @@ And this improvement bubbles up nicely, so the example above can evolve simply t
 var $author$project$Api$someValue =
 	_List_fromArray(
 		_mutatingJsArrayMap(
-				fn2,
-				_mutatingJsArrayMap(
-					fn1,
-					[1, 2, 3])));
+            fn2,
+            _mutatingJsArrayMap(
+                fn1,
+                [1, 2, 3]
+            )
+        )
+    );
 ```
 
 I already have a branch in my fork of `elm-optimize-level-2` that applies this optimization on several functions ([implementation](https://github.com/jfmengels/elm-optimize-more/blob/native-list/src/transforms/nativeListTransformer.ts) and [tests/examples](https://github.com/jfmengels/elm-optimize-more/blob/28bd346dc2dedf02a83075d87618048920797ba8/test/useNativeListTransformer.test.ts)).
@@ -170,10 +178,12 @@ Here is a [benchmark on a simple List.map call](https://github.com/jfmengels/elm
 
 We can apply this technique on other things. For instance, `Set.fromList [1, 2, 3]` compiles to the following code:
 
-```elm
+```js
 $elm$core$Set$fromList(
 	_List_fromArray(
-		[1, 2, 3]));
+		[1, 2, 3]
+    )
+);
 ```
 
 Another `_List_fromArray`. Anytime you need to create a `Set`, you take the JavaScript Array, fold over it to turn it into a `List`, then loop over it again to turn it into a `Set`.
@@ -314,9 +324,9 @@ One case where such an optimization would not work is when you keep references t
 someFunc n =
     let
         -- creates a new reference, possibly mutable
-        range = List.range 1 100
+        range = List.range 1 n
         -- but it's used here
-        increments = List.map increment n
+        increments = List.map increment range
         -- and here
         sum = List.sum range
     in
