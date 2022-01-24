@@ -184,9 +184,9 @@ function applyFormatting(formatting, string) {
 
 ![elm-review reporting unused custom type variant](./step5.png)
 
-This is the first case where an automatic fix is not offered, because we will need to remove the variant both in the custom type definition and in the different patterns, potentially in multiple files. In this case, it's safer to let the user remove the definition themselves and let the Elm compiler help them fix all the compiler errors that causes.
+This is the first case where an automatic fix is not offered (EDIT: this is also handled automatically nowadays!), because we will need to remove the variant both in the custom type definition and in the different patterns, potentially in multiple files. In this case, it's safer to let the user remove the definition themselves and let the Elm compiler help them fix all the compiler errors that causes.
 
-A tool could potentially do it, but at least for now, `elm-review` doesn't. This is how the user would likely remove the unused variant.
+~~A tool could potentially do it, but at least for now, `elm-review` doesn't.~~ This is how the user would likely remove the unused variant.
 
 ```diff
 ...
@@ -241,6 +241,8 @@ Similarly but in a slightly different way, [`NoUnused.Dependencies`](https://pac
 Since we removed the only import of the `ReCase` module contained in that dependency and there are no other imports of modules from that package left in our codebase, we can safely remove the dependency from the project.
 
 ![elm-review reporting an unused dependency](./step8.png)
+
+(EDIT: Once again, an automatic fix is provided nowadays 🥳)
 
 ### Recap
 
