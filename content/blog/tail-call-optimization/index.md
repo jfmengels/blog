@@ -16,7 +16,7 @@ To summarize Evan's article, a "tail-call optimized" function is a recursive fun
 ```elm
 factorial : Int -> Int
 factorial n =
-    factorialHelp n 0
+    factorialHelp n 1
 
 factorialHelp : Int -> Int -> Int
 factorialHelp n result =
