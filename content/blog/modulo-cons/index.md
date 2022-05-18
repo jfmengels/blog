@@ -453,7 +453,7 @@ I went through all of `elm/core` and `elm-community/list-extra` and rewrote most
 
 For the bundle size, the compiled output is larger than without TRMC. It's hard to measure by how much for a total
 project though, because it depends on how often it gets applied. From my shallow testing though, the bundle size barely
-increases by that much after minification and gzip.
+increases after minification and gzip.
 
 As for speed, I'd like to make a joke about how TRMC makes functions slower, but no, TRMC-optimized code goes from being
 just as fast as stack-safe alternatives code, to being several times faster, especially for lists because we can avoid
