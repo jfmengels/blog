@@ -214,7 +214,7 @@ sometimes you just need to know that something exists or to know how something i
 
 ### Tail recursion, but modulo cons
 
-Tail Recursion Modulo Cons (TRMC) is a technique described back in the 1970 which allows tail optimization to be applied
+Tail Recursion Modulo Cons (TRMC) is a technique described back in the 1970s which allows tail optimization to kick in
 when an operation is applied on the result of a recursive call, as long as that operation is only "cons"tructing data,
 such as with the "cons" (`::`) operator.
 
@@ -314,7 +314,7 @@ A benefit from that, is that recursive function calls like `recursiveCall <| n`,
 compiler ([see why](/tail-call-optimization)), are now optimized. Since this is one of the most common issues with failing TCO, this satisfies me greatly.
 
 I also made it so that recursive calls done like `condition || recursiveCall n` or `condition && recursiveCall n`
-benefit from TCO, as well, preventing the need to write [some comments](https://github.com/elm/core/blob/1.0.5/src/List.elm#L298).
+benefit from TCO as well, preventing the need to write [some comments](https://github.com/elm/core/blob/1.0.5/src/List.elm#L298).
 
 Now on to TRMC-specific operations.
 
