@@ -21,8 +21,7 @@ function Bio() {
               src={profilePic}
               alt={author}
               style={{
-                marginRight: rhythm(1 / 2),
-                marginBottom: 0,
+                margin: rhythm(1 / 2),
                 width: 50,
                 height: 50,
                 borderRadius: `100%`,
@@ -32,9 +31,10 @@ function Bio() {
               Written by <strong>{author}</strong>, author of{' '}
               <a href="https://package.elm-lang.org/packages/jfmengels/elm-review/latest/">
                 elm-review
-              </a>
-              . If you like what you read, you can follow me on{' '}
-              <a href={`https://twitter.com/${social.twitter}`}>Twitter</a> or <a href={"https://github.com/sponsors/jfmengels"}>sponsor me</a>.
+              </a>.
+              If you like what you read or what I made, you can follow me on{' '}
+              <a href={`https://twitter.com/${social.twitter}`}>Twitter</a> or <a href={"https://github.com/sponsors/jfmengels"}>sponsor me</a>{' '}
+              so that I can one day do more of this full-time ❤️.
             </p>
           </div>
         )
