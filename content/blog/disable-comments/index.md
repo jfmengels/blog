@@ -145,7 +145,7 @@ them access to the items they wanted to purchase. Your customers will be very ha
 I wrote a rule to [forbid](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-abusive-eslint-disable.md)
  [disable all comments](https://github.com/sindresorhus/eslint-plugin-unicorn/pull/33) back in my `ESLint` days. In `ESLint`'s case, not
 specifying which rule to disable means disabling all the rules, which is I think a bad default behaviour.
-Make the nice things easy and the bad things harder, not the opposite.
+Make the nice things easy and the bad things hard, not the opposite.
 
 I found many places where this kind of disable comment was used where listing specific rules would have been better.
 They would be caught by the rule I wrote, but I don't expect this rule to be enabled in most projects that use `ESLint`
@@ -490,7 +490,7 @@ understand it and help you clean it up if appropriate.
 
 I believe that being able to make this distinction is important.
 
-Not yet but likely sometime in the future, `elm-review` will support a system that allows temporarily suppressed errors.
+Not yet but likely sometime in the future (**Edit**: [this feature now exists!](/stop-the-bleed)), `elm-review` will support a system that allows temporarily suppressed errors.
 The idea is that when you are adding a rule or need to unblock yourself temporarily, you can generate a file that puts
 all the reported errors in an ignore list that is explicit and visible (so that any addition is readable in a Git diff).
 
@@ -534,7 +534,7 @@ In order not to have users use a disable comment, the rule allows users—throug
 from dependencies have phantom type variables, which fills all the knowledge gaps the rule previously had.
 
 The next time the user writes similar code, there won't be a need to add a disable comment because the rule will
-time already have sufficient knowledge, which beats multiplying the number of disable comments.
+already have sufficient knowledge, which beats multiplying the number of disable comments.
 
 ### Rethinking rules
 
