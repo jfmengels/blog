@@ -131,7 +131,7 @@ rule =
         |> Rule.withModuleContextUsingContextCreator
             { fromModuleToProject = fromModuleToProject
             , fromProjectToModule = Rule.initContextCreator (\_ -> ())
-            , foldProjectContexts = Dict.union
+            , foldProjectContexts = foldProjectContexts
             }
         |> Rule.withDataExtractor dataExtractor
         |> Rule.fromProjectRuleSchema
