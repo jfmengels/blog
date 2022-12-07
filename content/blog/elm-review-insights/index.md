@@ -347,9 +347,9 @@ new things!
 
 ## Testing data extracts
 
-`elm-review`'s testing module has always aimed at being very exhaustive in its checks. If you rule reports an error in a
+`elm-review`'s testing module has always aimed at being very exhaustive in its checks. If your rule reports an error in a
 given test case, then you need to provide an expectation of the specific message, details and location of the error.
-Should it provide automatics fixes, then you need to provide the expected source code after the fix. And so on.
+Should it provide automatic fixes, then you need to provide the expected source code after the fix. And so on.
 
 While it may feel annoying, I believe that this has worked out very well for the quality of the rules we've had. Rules
 definitely feel more reliable when everything is tested rather than when only some parts are. And there is the benefit
