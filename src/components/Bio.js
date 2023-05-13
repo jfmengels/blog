@@ -29,7 +29,7 @@ function Bio() {
                 borderRadius: `100%`,
               }}
             />
-            <p>
+            <p className='intro-text'>
               Written by <strong>{author}</strong>, author of{' '}
               <a href="https://package.elm-lang.org/packages/jfmengels/elm-review/latest/">
                 elm-review
