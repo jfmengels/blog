@@ -20,6 +20,8 @@ function Bio() {
             <img
               src={profilePic}
               alt={author}
+              width="50"
+              height="50"
               style={{
                 margin: rhythm(1 / 2),
                 width: 50,
