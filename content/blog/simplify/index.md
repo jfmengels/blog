@@ -149,7 +149,7 @@ getItemsFromTheGarden items =
 	|> List.map (\item -> { item | name = item.name ++ " (from the garden)" })
 ```
 
-Should we notice that `InTheGarden` is never used (because you recently moved to a flat in Paris for instance), then `NoUnused.CustomTypeConstructors` will suggest this fix
+Should we notice that `InTheGarden` is never used (because you recently moved to a flat in Paris for instance), then `NoUnused.CustomTypeConstructors` will suggest this fix:
 
 ```diff
 type alias Item =
@@ -189,28 +189,28 @@ getItemsFromTheGarden items =
 -	|> List.map (\item -> { item | name = item.name ++ " (from the garden)" })
 ```
 
-Now through the magic of tiny steps, we notice that the function does pretty much nothing anymore. [`NoUnused.Parameters`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Parameters) will now report that `items` it not used, at which point (because that rule doesn't provide an automatic fix) you might address the issue by removing the function entirely.
+Now through the magic of tiny steps, we notice that the function does pretty much nothing anymore. [`NoUnused.Parameters`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Parameters) will now report that the `items` parameter is not used, at which point (because that rule doesn't provide an automatic fix) you might address the issue by removing the function entirely.
 
 
 ### Benefits of Simplify
 
-##### An elm-format-like platform
+#### An elm-format-like platform
 
-As discussed on the [Elm Radio about elm-format](https://elm-radio.com/episode/elm-format), Dillon and I write terrible-looking Elm code, and let `elm-format` clean it up for us. Similarly to that, I want `Simplify` to be a platform that users and other rules can rely on to do the dirty work.
+As discussed on the [Elm Radio episode about elm-format](https://elm-radio.com/episode/elm-format), Dillon and I write terrible-looking Elm code, and let `elm-format` clean it up for us. Similarly to that, I want `Simplify` to be a platform that users and other rules can rely on to do the dirty work.
 
-`NoUnused.CustomTypeConstructors`'s job is to report and remove constructors, nothing more. It will sometimes change code to `condition || False` by necessity but doing any more will in practice be pretty complex to do. The existence of `Simplify` allows `NoUnused.CustomTypeConstructors` to write dumb code and get away with it.
+`NoUnused.CustomTypeConstructors`'s job is to report and remove constructors, nothing more. It will sometimes change code to `condition || False` by necessity, but doing anything more will in practice be pretty complex to do. The existence of `Simplify` allows `NoUnused.CustomTypeConstructors` to write dumb code and get away with it.
 
 Similarly, this rule relies heavily on `elm-format` being applied after `elm-review` (which happens automatically 😉) because writing beautiful fixes is hard (again, fond memories of doing this in ESLint when formatters were not widely adopted).
 
-##### Detecting hardcoded code or bugs
+#### Detecting hardcoded code or bugs
 
-Dillon and I also like to do work in [tiny incremental steps](https://elm-radio.com/episode/incremental-steps), and that sometimes includes writing very dumb or hardcoded code, which Dillon presented well in his [Elm Europe talk](https://www.youtube.com/watch?v=mrwn2HuWUiA). It's possible that we forget to make some code more general-purpose and therefore keep some of the hardcoded code in there. In this case, `Simplify` would report errors that would make us remember to finish the abstraction.
+Dillon and I also like to do work in [tiny incremental steps](https://elm-radio.com/episode/incremental-steps), and that sometimes includes writing very dumb or hardcoded code, which Dillon presented well in his [Elm Europe talk](https://www.youtube.com/watch?v=mrwn2HuWUiA). It's possible that we forget to make some code more general-purpose and therefore keep some of the hardcoded code in there. In this case, `Simplify` would report errors that would remind us to finish the abstraction.
 
-Just like all the `NoUnused` rules, having this rule trigger when you don't expect it can be a sign that something fishy happened, like an unexpected bug. Applying the fix is not always the right course of action (Don't accept fixes blindly!), and sometimes you have to go look at what change led to unused or simplifiable code and undo the root cause.
+Just like all the `NoUnused` rules, having this rule trigger when you don't expect it can be a sign that something fishy happened, like an unexpected bug. Applying the fix is not always the right course of action (don't accept fixes blindly!), and sometimes you have to go look at what change led to unused or simplifiable code and undo the root cause.
 
 When applied fully, and as seen in an example above, I hope that simplifying code will lead to detecting unused code, which as I have [described elsewhere](/safe-dead-code-removal) can trigger a snowball effect of other code.
 
-##### Reducing production build sizes
+#### Reducing production build sizes
 
 I know of some people wanting to be able to remove code like `if IS_PRODUCTION then [code] else [code, devCode]` from their production builds, where `IS_PRODUCTION` would be injected by a build script.
 
@@ -218,7 +218,7 @@ Running `Simplify` on the built Elm code could remove references to `devCode` an
 
 In some cases, `Simplify` will make the code run a tiny bit faster because it will remove operations. I don't think it will be noticeable though.
 
-##### More idiomatic Elm code
+#### More idiomatic Elm code
 
 Thanks to the wide-spread adoption of `elm-format`, Elm's small language and The Elm Architecture, Elm code in one codebase tends to look like Elm code in another codebase, and I'd like to make it even more so.
 
@@ -227,7 +227,7 @@ I have decided on some "simplifications" that takes code written one way and cha
 - Changing `case .. of True -> ...` to `if .. then .. else` (more idiomatic) and `[ 1 ] ++ [ 2 ]` to `[ 1, 2 ]`
 - Using dedicated functions when available, like going from `String.join "" list` to `String.concat list`
 
-##### Goal: Don't lose the code's intent
+#### Goal: Don't lose the code's intent
 
 On that note, **I don't want** the rule to be too annoying or restrictive in how people write their code though, and I want people to keep writing code in a way that makes sense to them.
 
