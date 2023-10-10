@@ -3,6 +3,12 @@ import Wordpress2016 from 'typography-theme-wordpress-2016'
 
 Wordpress2016.overrideThemeStyles = () => {
   return {
+    'h1': {
+      fontFamily: "Montserrat, Georgia, sans-serif",
+    },
+    ".intro-text": {
+      fontSize: "104%",
+    },
     'a.gatsby-resp-image-link': {
       boxShadow: `none`,
     },
