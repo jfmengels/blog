@@ -45,7 +45,7 @@ function fn() {
     return x;
     // eslint-disable-next-line no-unreachable
     x = 3;
-}é
+}
 ```
 
 ```python
