@@ -60,7 +60,7 @@ Testing rules is also part of the experience of writing review rules, that's why
 
 In addition to global errors, we are introducing `configuration errors`. These are errors that will be the result of parsing or validating the arguments of a rule, and noticing a problem with those.
 
-Since the configuration is written in Elm, it gives a good experience to the user when the compiler is the one reporting configuration errors, which rule authors can do by custom types for instance.
+Since the configuration is written in Elm, it gives a good experience to the user when the compiler is the one reporting configuration errors, which rule authors can do through custom types for instance.
 
 That said, it is not possible or practical to validate everything only with that: Positive integers, strings with certain shapes, non-empty sets/dicts, lists without duplicate items, etc.
 
@@ -89,9 +89,9 @@ rule threshold =
 
 Without a configuration error but with global errors, authors would have to create a dummy rule, with a visitor and that reports a single error, or add a lot of conditionals in every visitor.
 
-In practice, a configuration is almost that: a dummy rule that reports a single error. With the side-benefit that the `elm-review` CLI will abort early and report the configuration errors before reviewing the entire project. So the feedback is a lot faster, which will be useful on large projects.
+In practice, a configuration error is almost that: a dummy rule that reports a single error. With the side-benefit that the `elm-review` CLI will abort early and report the configuration errors before reviewing the entire project. So the feedback is a lot faster, which will be useful on large projects.
 
-Again, there are dedicated tools to assert that the rule [reports a configuration error](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Test#expectGlobalErrors).
+Again, there are dedicated testing tools to assert that the rule [reports a configuration error](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Test#expectGlobalErrors).
 
 ## Test dependencies
 
