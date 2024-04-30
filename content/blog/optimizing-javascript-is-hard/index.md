@@ -108,7 +108,7 @@ Then we check if the types of both are different, in which case a `TypeError` is
 
 These are a lot of operations (some of which I skimmed over) for what looks like a very simple operation.
 
-It is frustrating to me that we can't share the knowledge that we have about Elm code (something is definitely a number, something is definitely a string, ...) to the JavaScript runtime. We can't use the `Number:add` operation directly because that is not part of the exposed JavaScript language. Therefore, we can only compiled `a + b` to... `a + b`.
+It is frustrating to me that we can't share the knowledge that we have about Elm code (something is definitely a number, something is definitely a string, ...) to the JavaScript runtime. We can't use the `Number::add` operation directly because that is not part of the exposed JavaScript language. Therefore, we can only compiled `a + b` to... `a + b`.
 
 I believe we could make Elm code perform much faster if we had direct access to these building blocks, or if we could give some hints to the runtime that these are numbers for sure.
 
@@ -119,7 +119,7 @@ Is it useful to have JIT and on-the-fly optimizations for JavaScript? Yes, becau
 
 How does this engine optimize this code? Is X faster, or is Y faster? How does this operation get optimized in this benchmark? How does this operation get optimized in real situations?
 
-Not easily being able to figure out the answer to all of these questions make it very hard to optimize a language that compiles to JavaScript.
+Not easily being able to figure out the answer to all of these questions makes it very hard to optimize a language that compiles to JavaScript.
 Because it's hard to find the changes that make the code run faster for every JS engine, and to discover the consequences of the changes in seemingly unrelated functions.
 
 In a way it's a guessing game because that's what the optimizer does as well: guess that a piece of code will always behave like what it has seen before and roll with that.
@@ -138,8 +138,8 @@ One part where I believe things would improve is for the basic operations like a
 
 If you're interested in learning more, [Robin Hansen](https://twitter.com/robheghan) wrote [a great suite of articles](https://blogg.bekk.no/successes-and-failures-in-optimizing-elms-runtime-performance-c8dc88f4e623) explaining his process, successes AND failures at optimizing the compiled JavaScript for Elm code. It goes into a lot more depth that this article.
 
-We talked about Elm and WebAssembly more on this [podcast episode](https://elm-radio.com/episode/optimizing-elm) with the same Robin.
+We talked about Elm and WebAssembly more on this [podcast episode](https://elm-radio.com/episode/optimizing-elm), again with Robin.
 
-If you're interested particularly about the performance of JavaScript "shapes", go read [What's up with monomorphism?](https://mrale.ph/blog/2015/01/11/whats-up-with-monomorphism.html)
+If you're interested particularly about the performance of JavaScript "shapes", go read the excellent [What's up with monomorphism?](https://mrale.ph/blog/2015/01/11/whats-up-with-monomorphism.html).
 
 I also have a [repository with benchmarks](https://github.com/jfmengels/elm-benchmarks) for a bunch of optimization ideas. Though maybe I shouldn't be sharing this with you.
