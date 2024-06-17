@@ -91,7 +91,7 @@ What `elm-review` does with these files is the following: it reviews the project
 the reported errors per rule and file. If the number of errors in a group corresponds to the tally in the suppression file,
 they all get suppressed and none get reported.
 
-What if you introduce a new errors you ask? Then all the errors from that group get reported again (they get "unsuppressed").
+What if you introduce a new error you ask? Then all the errors from that group get reported again (they get "unsuppressed").
 
 ![elm-review output reporting unsuppressed errors.](output-when-more-errors.png)
 
@@ -161,7 +161,7 @@ elm-format src/ tests/ --validate \
 
 ## Tackling suppressed errors
 
-As you may have seen, you still have a reminder of how many suppressed you have, hopefully nudging you towards
+As you may have seen, you still get a reminder of how many suppressed errors you have, hopefully nudging you towards
 tackling these errors from time to time. But you still need the tools to do so.
 
 `elm-review` now has these additional flags:
