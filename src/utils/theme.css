@@ -70,12 +70,12 @@ code[class*='language-'] ::selection {
   text-shadow: none;
   background: hsla(0, 0%, 93%, 0.15);
 }
-
+  
 /* Inline code */
 :not(pre) > code[class*='language-'] {
   border-radius: 0.3em;
-  background: rgba(255, 229, 100, 0.2);
-  color: #1a1a1a;
+  background: var(--bg-code);
+  color: var(--text-code);
   padding: 0.15em 0.2em 0.05em;
   white-space: normal;
 }
