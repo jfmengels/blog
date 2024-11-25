@@ -20,6 +20,8 @@ function Bio() {
             <img
               src={profilePic}
               alt={author}
+              width="50"
+              height="50"
               style={{
                 margin: rhythm(1 / 2),
                 width: 50,
@@ -27,7 +29,7 @@ function Bio() {
                 borderRadius: `100%`,
               }}
             />
-            <p>
+            <p className='intro-text'>
               Written by <strong>{author}</strong>, author of{' '}
               <a href="https://package.elm-lang.org/packages/jfmengels/elm-review/latest/">
                 elm-review
