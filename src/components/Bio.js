@@ -33,7 +33,7 @@ function Bio() {
                 elm-review
               </a>.
               If you like what you read or what I made, you can follow me on{' '}
-              <a href={`https://twitter.com/${social.twitter}`}>Twitter</a> or <a href={"https://github.com/sponsors/jfmengels"}>sponsor me</a>{' '}
+              <a href="https://bsky.app/profile/jfmengels.bsky.social">BlueSky</a>/<a href="https://mastodon.cloud/@jfmengels">Mastodon</a> or <a href={"https://github.com/sponsors/jfmengels"}>sponsor me</a>{' '}
               so that I can one day do more of this full-time ❤️.
             </p>
           </div>
