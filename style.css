@@ -32,3 +32,7 @@ code.not-prose {
   background: rgba(255,229,100,.2);
   padding: .15em .2em .05em;
 }
+
+.prose :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  color: inherit;
+}
