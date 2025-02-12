@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
+    "autoprefixer": "^10.4.20",
     "elm-codegen": "^0.6.1",
     "elm-optimize-level-2": "^0.3.5",
     "elm-pages": "^3.0.20",
