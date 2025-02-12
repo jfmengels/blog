@@ -238,7 +238,7 @@ view showMenu onMenuToggle body =
                 , viewMenu showMenu onMenuToggle
                 ]
             , Html.main_ [ Attrs.class "w-full mb-auto" ] body
-            , Html.footer [ Attrs.class "mt-16 flex flex-col items-center" ]
+            , Html.footer [ Attrs.class "py-8 flex flex-col items-center" ]
                 [ Html.div
                     [ Attrs.class "mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400"
                     ]
@@ -247,7 +247,7 @@ view showMenu onMenuToggle body =
                     , Html.div []
                         [ Html.text "•" ]
                     , Html.div []
-                        [ Html.text "© 2023" ]
+                        [ Html.text "© 2025" ]
                     , Html.div []
                         [ Html.text "•" ]
                     , Html.a
@@ -255,17 +255,6 @@ view showMenu onMenuToggle body =
                         , Attrs.class "hover:underline"
                         ]
                         [ Html.text Settings.title ]
-                    ]
-                , Html.div
-                    [ Attrs.class "mb-8 text-sm text-gray-500 dark:text-gray-400"
-                    ]
-                    [ Html.a
-                        [ Attrs.target "_blank"
-                        , Attrs.rel "noopener noreferrer"
-                        , Attrs.href "https://github.com/kraklin/elm-pages-blog-starter"
-                        , Attrs.class "hover:underline"
-                        ]
-                        [ Html.text "elm-pages blog template" ]
                     ]
                 ]
             ]
