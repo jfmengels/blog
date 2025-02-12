@@ -46,23 +46,32 @@ menu =
 logo : Html msg
 logo =
     Html.div
-        [ Attrs.class "mr-1 text-primary-600 dark:text-primary-500"
+        [ Attrs.class "mr-1 text-primary-600 dark:text-primary-500 flex gap-x-4 mr-4"
         ]
-        [ Svg.svg
-            [ SvgAttrs.width "80"
-            , SvgAttrs.height "80"
-            , SvgAttrs.viewBox "0 0 700 351"
+        [ Html.img
+            [ Attrs.alt "avatar"
+            , Attrs.attribute "loading" "lazy"
+            , Attrs.width 38
+            , Attrs.height 38
+            , Attrs.attribute "decoding" "async"
+            , Attrs.attribute "data-nimg" "1"
+            , Attrs.class "h-12 w-12 hidden sm:block"
+            , Attrs.style "color" "transparent"
+            , Attrs.src "/images/logo.png"
             ]
-            [ Svg.g
-                [ SvgAttrs.fill "currentColor"
-                , SvgAttrs.fillRule "evenodd"
-                ]
-                [ Svg.path
-                    [ SvgAttrs.d "M529.5 169 700 0H359zM349.7 349l79.7-79H270zM266.2 86.5l79 79.7V6.8zM352 180h168l-82 82H270zM175.77 176.5l84.85-84.85 84.85 84.85-84.85 84.85zM353.03 173.3l166.87-1.4L354.44 6.42zM170.5 182 341 351H0z"
-                    ]
-                    []
-                ]
+            []
+        , Html.img
+            [ Attrs.alt "avatar"
+            , Attrs.attribute "loading" "lazy"
+            , Attrs.width 38
+            , Attrs.height 38
+            , Attrs.attribute "decoding" "async"
+            , Attrs.attribute "data-nimg" "1"
+            , Attrs.class "h-12 w-12 rounded-full hidden sm:block"
+            , Attrs.style "color" "transparent"
+            , Attrs.src "/images/authors/default.png"
             ]
+            []
         ]
 
 
