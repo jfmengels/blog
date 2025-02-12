@@ -12,7 +12,7 @@ import LanguageTag.Region as Region
 
 canonicalUrl : String
 canonicalUrl =
-    "https://elm-pages-blog-template.netlify.com"
+    "https://jfmengels.net"
 
 
 locale : Maybe ( Language.Language, Region.Region )
@@ -22,7 +22,7 @@ locale =
 
 title : String
 title =
-    "elm blog"
+    "jfmengels' blog"
 
 
 subtitle : String
@@ -32,4 +32,4 @@ subtitle =
 
 author : String
 author =
-    "Tomas Latal"
+    "Jeroen Engels"
