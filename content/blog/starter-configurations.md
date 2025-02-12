@@ -1,5 +1,6 @@
 ---
 title: Starter configurations for elm-review
+content/blog/starter-configurations.md
 published: "2022-04-26"
 ---
 

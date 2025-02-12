@@ -1,5 +1,6 @@
 ---
 title: elm-review v2!
+content/blog/elm-review-v2/index.md
 published: "2020-04-08"
 ---
 

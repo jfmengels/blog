@@ -1,5 +1,6 @@
 ---
 title: Great compiler messages? Great test failure messages!
+content/blog/great-failure-messages/index.md
 published: "2021-02-18"
 featuredImage: whitespace.png
 ---

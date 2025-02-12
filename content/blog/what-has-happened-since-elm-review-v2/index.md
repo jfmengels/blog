@@ -1,5 +1,6 @@
 ---
 title: What has happened since elm-review v2?
+content/blog/what-has-happened-since-elm-review-v2/index.md
 published: "2020-08-26"
 ---
 

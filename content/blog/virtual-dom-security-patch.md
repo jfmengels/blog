@@ -1,5 +1,6 @@
 ---
 title: Fixing vulnerabilities in Elm's virtual DOM
+content/blog/virtual-dom-security-patch.md
 published: "2022-05-23"
 ---
 

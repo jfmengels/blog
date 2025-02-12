@@ -1,5 +1,6 @@
 ---
 title: Measuring cognitive complexity with elm-review
+slug: cognitive-complexity
 published: "2021-07-07"
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: Test-only values
+content/blog/test-only-values/index.md
 published: "2020-12-22"
 ---
 

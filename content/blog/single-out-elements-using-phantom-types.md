@@ -1,5 +1,6 @@
 ---
 title: Single out elements using phantom types
+content/blog/single-out-elements-using-phantom-types.md
 published: "2020-05-04"
 ---
 

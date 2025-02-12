@@ -1,5 +1,6 @@
 ---
 title: The omniscient linter
+content/blog/the-omniscient-linter/index.md
 published: "2023-08-13"
 ---
 

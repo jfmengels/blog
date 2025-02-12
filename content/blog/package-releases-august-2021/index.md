@@ -1,5 +1,6 @@
 ---
 title: Package releases (August 2021)
+content/blog/package-releases-august-2021/index.md
 published: "2021-08-15"
 ---
 

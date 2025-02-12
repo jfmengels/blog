@@ -1,5 +1,6 @@
 ---
 title: Tail-call optimization in Elm
+content/blog/tail-call-optimization/index.md
 published: "2021-06-01"
 ---
 

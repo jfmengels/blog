@@ -1,5 +1,6 @@
 ---
 title: Optimizing for JavaScript is hard
+content/blog/optimizing-javascript-is-hard/index.md
 published: "2022-08-15"
 ---
 

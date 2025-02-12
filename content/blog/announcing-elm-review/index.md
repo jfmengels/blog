@@ -1,6 +1,7 @@
 ---
 title: Announcing elm-review
 published: "2019-09-29"
+slug: announcing-elm-review
 redirect_from:
   - /announcing-elm-lint/
 ---

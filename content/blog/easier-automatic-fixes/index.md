@@ -1,5 +1,6 @@
 ---
 title: Easier automatic fixes in elm-review
+content/blog/easier-automatic-fixes/index.md
 published: "2021-08-06"
 ---
 

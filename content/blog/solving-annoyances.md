@@ -1,5 +1,6 @@
 ---
 title: Solving annoyances
+content/blog/solving-annoyances.md
 published: "2022-08-25"
 ---
 

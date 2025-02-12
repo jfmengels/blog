@@ -1,5 +1,6 @@
 ---
 title: Simplify
+content/blog/simplify/index.md
 published: "2021-04-24"
 ---
 

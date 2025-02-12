@@ -1,5 +1,6 @@
 ---
 title: A nice round ball
+slug: a-nice-round-ball
 published: "2023-01-27"
 ---
 

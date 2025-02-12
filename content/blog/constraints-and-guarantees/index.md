@@ -1,5 +1,6 @@
 ---
 title: Constraints and guarantees
+slug:content/blog/constraints-and-guarantees
 published: "2024-09-16"
 ---
 

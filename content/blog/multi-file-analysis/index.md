@@ -1,5 +1,6 @@
 ---
 title: Implementing multi-file analysis for linters
+content/blog/multi-file-analysis/index.md
 published: "2023-03-24"
 ---
 

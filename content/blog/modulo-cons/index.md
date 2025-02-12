@@ -1,5 +1,6 @@
 ---
 title: Tail recursion, but modulo cons
+content/blog/modulo-cons/index.md
 published: "2022-02-28"
 ---
 

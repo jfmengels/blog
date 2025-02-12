@@ -1,5 +1,6 @@
 ---
 title: What if ESLint's configuration worked like elm-review?
+slug: configuring-eslint
 published: "2021-08-09"
 ---
 

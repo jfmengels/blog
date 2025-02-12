@@ -1,5 +1,6 @@
 ---
 title: Hacktoberfest 2020
+content/blog/hacktoberfest-2020.md
 published: "2020-09-29"
 ---
 

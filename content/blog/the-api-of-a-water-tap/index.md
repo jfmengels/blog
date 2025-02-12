@@ -1,5 +1,6 @@
 ---
 title: The API of a water tap
+content/blog/the-api-of-a-water-tap/index.md
 published: "2019-01-02"
 ---
 

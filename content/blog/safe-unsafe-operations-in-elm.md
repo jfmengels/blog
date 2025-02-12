@@ -1,5 +1,6 @@
 ---
 title: Safe unsafe operations in Elm
+content/blog/safe-unsafe-operations-in-elm.md
 published: "2020-04-27"
 ---
 

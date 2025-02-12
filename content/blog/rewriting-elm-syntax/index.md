@@ -1,5 +1,6 @@
 ---
 title: Rewriting elm-syntax and future plans
+content/blog/rewriting-elm-syntax/index.md
 published: "2024-07-27"
 ---
 
