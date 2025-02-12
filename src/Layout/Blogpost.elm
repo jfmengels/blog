@@ -238,35 +238,31 @@ viewListItem metadata =
             [ Attrs.class "space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0"
             ]
             [ Html.div
-                [ Attrs.class "space-y-5 xl:col-span-3"
-                ]
-                [ Html.div
-                    []
-                    [ Html.div [ Attrs.class "space-y-4 xl:space-y-2" ]
-                        [ Html.h2
-                            [ Attrs.class "text-2xl font-bold leading-8 tracking-tight"
-                            ]
-                            [ Route.Slug_ { slug = metadata.slug }
-                                |> Route.link
-                                    [ Attrs.class "text-gray-900 hover:underline decoration-primary-600 dark:text-gray-100"
-                                    ]
-                                    [ Html.text metadata.title ]
-                            ]
-                        , Html.Extra.viewIf (not <| List.isEmpty metadata.tags)
-                            (Html.div [ Attrs.class "flex flex-wrap space-x-4 xl:space-x-2" ]
-                                (List.map Layout.Tags.viewTag metadata.tags)
-                            )
+                []
+                [ Html.div [ Attrs.class "space-y-4 xl:space-y-2" ]
+                    [ Html.h2
+                        [ Attrs.class "text-2xl font-bold leading-8 tracking-tight"
                         ]
-                    , viewPublishedDate metadata.status
-                    , Html.Extra.viewMaybe
-                        (\description ->
-                            Html.div
-                                [ Attrs.class "prose max-w-none text-gray-500 dark:text-gray-400"
+                        [ Route.Slug_ { slug = metadata.slug }
+                            |> Route.link
+                                [ Attrs.class "text-gray-900 hover:underline decoration-primary-600 dark:text-gray-100"
                                 ]
-                                [ Html.text description ]
+                                [ Html.text metadata.title ]
+                        ]
+                    , Html.Extra.viewIf (not <| List.isEmpty metadata.tags)
+                        (Html.div [ Attrs.class "flex flex-wrap space-x-4 xl:space-x-2" ]
+                            (List.map Layout.Tags.viewTag metadata.tags)
                         )
-                        metadata.description
                     ]
+                , viewPublishedDate metadata.status
+                , Html.Extra.viewMaybe
+                    (\description ->
+                        Html.div
+                            [ Attrs.class "prose max-w-none text-gray-500 dark:text-gray-400"
+                            ]
+                            [ Html.text description ]
+                    )
+                    metadata.description
                 ]
             ]
         ]
