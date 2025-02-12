@@ -27,7 +27,7 @@ title =
 
 subtitle : String
 subtitle =
-    "A blog starter kit created with elm-pages and TailwindCSS"
+    "Written by Jeroen Engels, author of elm-review. If you like what you read or what I made, you can follow me on BlueSky/Mastodon or sponsor me so that I can one day do more of this full-time ❤️"
 
 
 author : String
