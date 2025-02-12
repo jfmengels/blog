@@ -1,6 +1,6 @@
 ---
 title: Gaining insight into your codebase with elm-review
-content/blog/elm-review-insights/index.md
+slug: elm-review-insights
 published: "2022-12-06"
 ---
 

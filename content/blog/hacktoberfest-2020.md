@@ -1,6 +1,6 @@
 ---
 title: Hacktoberfest 2020
-content/blog/hacktoberfest-2020.md
+slug: hacktoberfest-2020
 published: "2020-09-29"
 ---
 

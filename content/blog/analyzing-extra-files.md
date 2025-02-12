@@ -1,6 +1,6 @@
 ---
 title: Analyzing extra files in elm-review
-content/blog/analyzing-extra-files.md
+slug: analyzing-extra-files
 published: "2024-06-14"
 ---
 

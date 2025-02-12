@@ -1,6 +1,6 @@
 ---
 title: Multi-files fixes
-content/blog/multi-file-fixes/index.md
+slug: multi-file-fixes
 published: "2025-02-11"
 ---
 

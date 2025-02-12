@@ -1,6 +1,6 @@
 ---
 title: How disable comments make static analysis tools worse
-content/blog/disable-comments/index.md
+slug: disable-comments
 published: "2021-07-05"
 ---
 

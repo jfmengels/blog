@@ -1,6 +1,6 @@
 ---
 title: Much, much faster fixes
-content/blog/much-faster-fixes/index.md
+slug: much-faster-fixes
 published: "2022-11-08"
 ---
 

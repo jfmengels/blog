@@ -1,6 +1,6 @@
 ---
 title: Safe dead code removal in a pure functional language
-content/blog/safe-dead-code-removal/index.md
+slug: safe-dead-code-removal
 published: "2021-01-28"
 ---
 

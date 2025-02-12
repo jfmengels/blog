@@ -1,6 +1,6 @@
 ---
 title: Global and configuration errors
-content/blog/global-and-configuration-errors/index.md
+slug: global-and-configuration-errors
 published: "2021-04-06"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Pushing unused exports detection one step further
-content/blog/pushing-unused-exports/index.md
+slug: pushing-unused-exports
 published: "2023-07-28"
 ---
 

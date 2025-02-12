@@ -1,6 +1,6 @@
 ---
 title: Stop the bleed
-content/blog/stop-the-bleed/index.md
+slug: stop-the-bleed
 published: "2021-11-15"
 description: Introducing elm-review suppress and a rule to report deprecated items.
 ---

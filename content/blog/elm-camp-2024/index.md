@@ -1,6 +1,6 @@
 ---
 title: Elm Camp 2024
-content/blog/elm-camp-2024/index.md
+slug: elm-camp-2024
 published: "2024-07-12"
 ---
 

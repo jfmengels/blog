@@ -1,6 +1,6 @@
 ---
 title: A tale of failing to design rule boundaries - Data-last functions
-content/blog/data-last-rule-failure/index.md
+slug: data-last-rule-failure
 published: "2023-09-18"
 ---
 

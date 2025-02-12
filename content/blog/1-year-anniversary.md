@@ -1,6 +1,6 @@
 ---
 title: 1 year of elm-review. What lies ahead?
-content/blog/1-year-anniversary.md
+slug: 1-year-anniversary
 published: "2020-09-29"
 ---
 

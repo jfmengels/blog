@@ -1,6 +1,6 @@
 ---
 title: ESLint equivalents in Elm
-content/blog/eslint-equivalents-in-elm/index.md
+slug: eslint-equivalents-in-elm
 published: "2022-08-16"
 ---
 

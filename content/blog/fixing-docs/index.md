@@ -1,6 +1,6 @@
 ---
 title: There, fixed the docs for you
-content/blog/fixing-docs/index.md
+slug: fixing-docs
 published: "2021-09-27"
 ---
 

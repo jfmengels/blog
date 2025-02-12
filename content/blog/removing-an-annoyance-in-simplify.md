@@ -1,6 +1,6 @@
 ---
 title: Removing an annoyance in elm-review-simplify
-content/blog/removing-an-annoyance-in-simplify.md
+slug: removing-an-annoyance-in-simplify
 published: "2022-08-31"
 ---
 

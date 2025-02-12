@@ -1,6 +1,6 @@
 ---
 title: Test-only values
-content/blog/test-only-values/index.md
+slug: test-only-values
 published: "2020-12-22"
 ---
 
