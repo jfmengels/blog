@@ -56,7 +56,7 @@ Martin talked about the state of the project, and how people could help out. If 
 
 ## HVM
 
-Martin also talked about [HVM](https://higherorderco.com/), a potential different compilation target for Elm, allowing it to compile to binaries. The promise of this runtime is that everything that "**any** work that can be done in parallel **will** be done in parallel".
+Martin also talked about [HVM](https://higherorderco.com/), a potential different compilation target for Elm, allowing it to compile to binaries. The promise of this runtime is that everything that "**any** work that can be done in parallel **will** be done in parallel".
 
 Martin talked about [his work](https://github.com/Janiczek/elm-bend) on getting Elm to compile to HVM (or rather to Bend, which is an intermediate compilation step). Bend is a very simple Elm-like pure functional language, making it in theory quite easy to port Elm to Bend.
 

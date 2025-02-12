@@ -19,33 +19,33 @@ The new `Enter` and `Exit` variants of the different visitors will support the s
 -- BEFORE
 rule : Rule
 rule =
-  Rule.newModuleRuleSchema "RuleName" initialContext
-    |> Rule.withExpressionVisitor expressionVisitor
-    |> Rule.fromModuleRuleSchema
+  Rule.newModuleRuleSchema "RuleName" initialContext
+    |> Rule.withExpressionVisitor expressionVisitor
+    |> Rule.fromModuleRuleSchema
 
 expressionVisitor : Node Expression -> Direction -> Context -> ( List (Error {}), Context )
 expressionVisitor node direction context =
-    case ( direction, Node.value node ) of
-        ( Rule.OnEnter, Expression.FunctionOrValue moduleName name ) ->
-            -- do something
-        _ ->
-            ( [], context )
+    case ( direction, Node.value node ) of
+        ( Rule.OnEnter, Expression.FunctionOrValue moduleName name ) ->
+            -- do something
+        _ ->
+            ( [], context )
 
 -- AFTER
 
 rule : Rule
 rule =
-  Rule.newModuleRuleSchema "RuleName" initialContext
-    |> Rule.withExpressionEnterVisitor expressionVisitor
-    |> Rule.fromModuleRuleSchema
+  Rule.newModuleRuleSchema "RuleName" initialContext
+    |> Rule.withExpressionEnterVisitor expressionVisitor
+    |> Rule.fromModuleRuleSchema
 
 expressionVisitor : Node Expression -> Context -> ( List (Error {}), Context )
 expressionVisitor node context =
-    case Node.value node of
-        Expression.FunctionOrValue moduleName name ->
-            -- do something
-        _ ->
-            ( [], context )
+    case Node.value node of
+        Expression.FunctionOrValue moduleName name ->
+            -- do something
+        _ ->
+            ( [], context )
 ```
 
 Other than that, the package releases have several times improved performance and improved the test failure messages and assertions. I haven't benchmarked the performance much, but I confirmed that the test failure messages have made some people's testing easier.
@@ -98,7 +98,7 @@ Just note that I recently renamed all of my own packages. I used to name them `r
 
 [`NoUnused.Exports`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports), which reports exposed elements that are never used outside the module (don't worry, it doesn't report problems for exposed modules inside package projects!), got an automatic fix. Running `elm-review --fix-all` with `NoUnused.Variables` and `NoUnused.Exports` enabled does wonders for removing a lot of dead code 🧹. On a 160K LOC project I work on, this combo applied hundreds of fixes, ultimately uncovering and removing 4500 LOC! 🤯 I recommend running with **only** those two rules enabled if you're doing this for the first time because it can take a while especially if you have other rules enabled. Consecutive fixes are not well optimized at the moment, but I see ways of drastically improving this in the future.
 
-[Phill Sparks (@sparksp)](https://github.com/sparksp/) wrote 2 rules 💪 that were added to the package: [`NoUnused.Parameters`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Parameters) and [`NoUnused.Patterns`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Patterns), which help a lot with uncovering unused code and simplifying your codebase.
+[Phill Sparks (@sparksp)](https://github.com/sparksp/) wrote 2 rules 💪 that were added to the package: [`NoUnused.Parameters`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Parameters) and [`NoUnused.Patterns`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Patterns), which help a lot with uncovering unused code and simplifying your codebase.
 
 #### elm-review-common (previously review-common)
 
