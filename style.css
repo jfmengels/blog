@@ -27,3 +27,8 @@ code.elmsh {
   opacity: 0.3;
 }
 
+code.not-prose {
+  border-radius: .3em;
+  background: rgba(255,229,100,.2);
+  padding: .15em .2em .05em;
+}
