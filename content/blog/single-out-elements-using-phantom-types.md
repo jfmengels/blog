@@ -1,6 +1,6 @@
 ---
 title: Single out elements using phantom types
-date: '2020-05-04T00:00:00.000Z'
+published: "2020-05-04"
 ---
 
 Today, I will showcase a technique to single out elements from a type, through the medium of a puzzle (which you can try to solve or ignore).

@@ -1,6 +1,6 @@
 ---
 title: ESLint equivalents in Elm
-date: '2022-08-16T00:00:00.000Z'
+published: "2022-08-16"
 ---
 
 In the JavaScript community, [ESLint](https://eslint.org/) is a widely adopted linter for JavaScript that is a huge help in making JS code more maintainable.

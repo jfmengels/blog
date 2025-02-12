@@ -1,6 +1,6 @@
 ---
 title: Implementing multi-file analysis for linters
-date: '2023-03-24T08:00:00.000Z'
+published: "2023-03-24"
 ---
 
 Recently I've been in a few discussions about adding support for multi-file analysis in several single-file linters.

@@ -1,6 +1,6 @@
 ---
 title: Solving annoyances
-date: '2022-08-25T12:00:00.000Z'
+published: "2022-08-25"
 ---
 
 I just cut [`v2.9.0`](https://github.com/jfmengels/elm-review/blob/master/CHANGELOG.md#290---2022-08-23) of the [`jfmengels/elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/) Elm package,

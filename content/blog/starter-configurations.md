@@ -1,6 +1,6 @@
 ---
 title: Starter configurations for elm-review
-date: '2022-04-26T12:00:00.000Z'
+published: "2022-04-26"
 ---
 
 One of the more recurring complaints I have heard about `elm-review` is that it is hard to get started with it. You have

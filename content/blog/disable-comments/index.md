@@ -1,6 +1,6 @@
 ---
 title: How disable comments make static analysis tools worse
-date: '2021-07-05T08:00:00.000Z'
+published: "2021-07-05"
 ---
 
 ```js

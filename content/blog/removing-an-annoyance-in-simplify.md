@@ -1,6 +1,6 @@
 ---
 title: Removing an annoyance in elm-review-simplify
-date: '2022-08-31T12:00:00.000Z'
+published: "2022-08-31"
 ---
 
 I just released v2.0.19 of [`elm-review-simplify`](https://package.elm-lang.org/packages/jfmengels/elm-review-simplify/latest/), an `elm-review` package to simplify your Elm code (with over 150 different kinds of simplifications in its single rule).

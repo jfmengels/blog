@@ -1,6 +1,6 @@
 ---
 title: Simplify
-date: '2021-04-24T15:00:00.000Z'
+published: "2021-04-24"
 ---
 
 Today, I'm releasing a new version (1.1.9) of [`jfmengels/elm-review-unused`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused), and releasing a very exciting new `elm-review` package!

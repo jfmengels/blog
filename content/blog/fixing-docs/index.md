@@ -1,6 +1,6 @@
 ---
 title: There, fixed the docs for you
-date: '2021-09-27T12:00:00.000Z'
+published: "2021-09-27"
 ---
 
 Hi all 👋

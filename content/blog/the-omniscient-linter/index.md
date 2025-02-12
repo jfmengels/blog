@@ -1,6 +1,6 @@
 ---
 title: The omniscient linter
-date: '2023-08-13T08:00:00.000Z'
+published: "2023-08-13"
 ---
 
 > Omniscient

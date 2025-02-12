@@ -1,6 +1,6 @@
 ---
 title: Hacktoberfest 2020
-date: '2020-09-29T11:59:00.000Z'
+published: "2020-09-29"
 ---
 
 [Hacktoberfest](https://hacktoberfest.digitalocean.com/) will be starting in two days, and it's a good opportunity to get started in open-source and help out the projects you like or depend on. It's a good opportunity because the maintainers will create a lot of issues labeled with `hacktoberfest`. These are usually approachable but they all try to bring value to the project, no "please fix that typo over there".

@@ -1,6 +1,6 @@
 ---
 title: Test-only values
-date: '2020-12-22T14:00:00.000Z'
+published: "2020-12-22"
 ---
 
 Opaque types is a great technique in Elm. It prevents misuse of a custom type by restricting the possible operations you can apply to it, and it reduces coupling allowing you to change implementation details without impacting the rest of the codebase. We've talked about quite a bit on a [dedicated Elm Radio episode](https://elm-radio.com/episode/intro-to-opaque-types).

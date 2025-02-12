@@ -1,6 +1,6 @@
 ---
 title: A nice round ball
-date: '2023-01-27T08:00:00.000Z'
+published: "2023-01-27"
 ---
 
 Someone recently asked me where I get the motivation to work on [`elm-review`](https://elm-review.com/) and other projects. I'm no motivation expert (far from it), but I can try and explain what seems to work for me and my projects.

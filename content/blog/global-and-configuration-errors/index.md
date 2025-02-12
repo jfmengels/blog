@@ -1,6 +1,6 @@
 ---
 title: Global and configuration errors
-date: '2021-04-06T12:00:00.000Z'
+published: "2021-04-06"
 ---
 
 I just released version `2.4.0` of the `jfmengels/elm-review`, and `2.5.0` of the `elm-review` CLI. The release of the Elm package contains some missing features that could be considered core to `elm-review`, and that will be useful to people who writing review rules. The focus has mostly been on reporting errors.

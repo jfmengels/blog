@@ -1,6 +1,6 @@
 ---
 title: Tail recursion, but modulo cons
-date: '2022-02-28T11:59:00.000Z'
+published: "2022-02-28"
 ---
 
 ![](RecursiveTree.jpeg)

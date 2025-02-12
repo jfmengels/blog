@@ -1,6 +1,6 @@
 ---
 title: Stop the bleed
-date: '2021-11-15T12:00:00.000Z'
+published: "2021-11-15"
 description: Introducing elm-review suppress and a rule to report deprecated items.
 ---
 

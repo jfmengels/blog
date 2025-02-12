@@ -1,6 +1,6 @@
 ---
 title: A tale of failing to design rule boundaries - Data-last functions
-date: '2023-09-18T11:00:00.000Z'
+published: "2023-09-18"
 ---
 
 In this blog, I usually talk about the things I release and that I believe can be valuable to people. This time, I'm going to talk about a failure: where I tried to make an `elm-review` rule and I could not design it in a satisfactory way.

@@ -1,6 +1,6 @@
 ---
 title: Much, much faster fixes
-date: '2022-11-08T12:00:00.000Z'
+published: "2022-11-08"
 ---
 
 There are new releases for `jfmengels/elm-review` (v2.10.0) and the `elm-review` CLI (v2.8.0) with a lot of new features

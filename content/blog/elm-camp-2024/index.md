@@ -1,6 +1,6 @@
 ---
 title: Elm Camp 2024
-date: '2024-07-12T00:00:00.000Z'
+published: "2024-07-12"
 ---
 
 I had the pleasure of going to [Elm camp 2024](https://elm.camp/24-uk/artifacts) this year, which was located in England.

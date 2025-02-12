@@ -1,6 +1,6 @@
 ---
 title: Multi-files fixes
-date: '2025-02-11T12:00:00.000Z'
+published: "2025-02-11"
 ---
 
 Today marks the release of a new important version for `elm-review`.

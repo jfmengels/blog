@@ -1,6 +1,6 @@
 ---
 title: Optimizing for JavaScript is hard
-date: '2022-08-15T00:00:00.000Z'
+published: "2022-08-15"
 ---
 
 JavaScript is a very hard language to optimize, especially as a compilation target. Since [Elm](https://elm-lang.org/) compiles to JavaScript and I occasionally like to try out optimization ideas, optimizing JavaScript is a problem I'm then confronted with.

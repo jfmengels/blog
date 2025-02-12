@@ -1,6 +1,6 @@
 ---
 title: Analyzing extra files in elm-review
-date: '2024-06-14T12:00:00.000Z'
+published: "2024-06-14"
 ---
 
 I have written quite a few times, including in my article [The omniscient linter](/the-omniscient-linter), that the more data that an analysis tool can have access to, the better it can do its job and the more things it is able to do.

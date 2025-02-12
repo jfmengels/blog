@@ -1,6 +1,6 @@
 ---
 title: The API of a water tap
-date: '2019-01-02T00:00:00.000Z'
+published: "2019-01-02"
 ---
 
 Let's say we wanted to represent a water tap. This tap will have two knobs, one to control cold water output and another one for warm water. To keep things relatively simple, each knob will be either closed or open all the way.

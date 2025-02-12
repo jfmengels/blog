@@ -1,6 +1,6 @@
 ---
 title: Measuring cognitive complexity with elm-review
-date: '2021-07-07T17:00:00.000Z'
+published: "2021-07-07"
 ---
 
 I just published a new [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/) package and

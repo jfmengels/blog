@@ -1,6 +1,6 @@
 ---
 title: Package releases (August 2021)
-date: '2021-08-15T15:00:00.000Z'
+published: "2021-08-15"
 ---
 
 I recently spent some time going through the existing issues and features ideas I had for some of my `elm-review` packages.

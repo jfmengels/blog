@@ -1,6 +1,6 @@
 ---
 title: Easier automatic fixes in elm-review
-date: '2021-08-06T12:00:00.000Z'
+published: "2021-08-06"
 ---
 
 Some weeks ago I released version `2.5.0` of the `jfmengels/elm-review`.

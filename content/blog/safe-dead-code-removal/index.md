@@ -1,6 +1,6 @@
 ---
 title: Safe dead code removal in a pure functional language
-date: '2021-01-28T12:00:00.000Z'
+published: "2021-01-28"
 ---
 
 A few months ago, a colleague of mine [wrote this](https://twitter.com/jfmengels/status/1311940821378387970) on Slack:

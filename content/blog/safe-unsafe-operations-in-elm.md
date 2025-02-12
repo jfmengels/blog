@@ -1,6 +1,6 @@
 ---
 title: Safe unsafe operations in Elm
-date: '2020-04-27T00:00:00.000Z'
+published: "2020-04-27"
 ---
 
 In Elm, we often have modules around a data type which needs a validation when you initially create it.

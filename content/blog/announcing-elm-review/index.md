@@ -1,6 +1,6 @@
 ---
 title: Announcing elm-review
-date: '2019-09-29T00:00:00.000Z'
+published: "2019-09-29"
 redirect_from:
   - /announcing-elm-lint/
 ---

@@ -1,6 +1,6 @@
 ---
 title: Fixing vulnerabilities in Elm's virtual DOM
-date: '2022-05-23T12:00:00.000Z'
+published: "2022-05-23"
 ---
 
 `elm/virtual-dom` version [`1.0.3`](https://package.elm-lang.org/packages/elm/virtual-dom/1.0.3) was released a few days

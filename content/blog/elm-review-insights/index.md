@@ -1,6 +1,6 @@
 ---
 title: Gaining insight into your codebase with elm-review
-date: '2022-12-06T12:00:00.000Z'
+published: "2022-12-06"
 ---
 
 ![](./img.png)

@@ -1,6 +1,6 @@
 ---
 title: Constraints and guarantees
-date: '2024-09-16T00:00:00.000Z'
+published: "2024-09-16"
 ---
 
 I love having guarantees, things that I know are true about the code or system that I'm working with. They make me more productive, less anxious about making a change, and they make others confident enough to send people to space.

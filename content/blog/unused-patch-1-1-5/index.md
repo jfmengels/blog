@@ -1,6 +1,6 @@
 ---
 title: You thought you had no dead code?
-date: '2021-02-20T12:00:00.000Z'
+published: "2021-02-20"
 ---
 
 Today I'm releasing a **big** patch release (v1.1.5) for [`elm-review-unused`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/), [`elm-review`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/)'s main package to detect and remove unused code from Elm code.

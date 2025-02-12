@@ -1,6 +1,6 @@
 ---
 title: Rewriting elm-syntax and future plans
-date: '2024-07-27T12:00:00.000Z'
+published: "2024-07-27"
 ---
 
 I'm happy to announce new versions `7.3.3` and `7.3.4` of [`stil4m/elm-syntax`](https://package.elm-lang.org/packages/stil4m/elm-syntax/latest/), the parser for Elm code written in Elm that is used in `elm-review` and other great projects.

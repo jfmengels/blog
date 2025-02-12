@@ -1,6 +1,6 @@
 ---
 title: What has happened since elm-review v2?
-date: '2020-08-26T14:00:00.000Z'
+published: "2020-08-26"
 ---
 
 I am in the final preparations for a new (and exciting) release of `elm-review`, and I noticed I didn't communicate all the changes that happened since `elm-review` [v2.0.0](/elm-review-v2/) was released back in April 2020. Well, a lot of things happened, so let's get into it.

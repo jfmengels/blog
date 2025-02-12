@@ -1,6 +1,6 @@
 ---
 title: Tail-call optimization in Elm
-date: '2021-06-01T12:00:00.000Z'
+published: "2021-06-01"
 ---
 
 ...or if you prefer a clickbaity title: "Tail-call optimization, [what it is](#what-is-tco), [why it's tricky](#why-is-tco-tricky), and [why you won't need to worry about it anymore](#why-you-wont-need-to-worry-about-it-anymore)". But that felt a bit long.

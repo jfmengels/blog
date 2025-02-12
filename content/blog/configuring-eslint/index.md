@@ -1,6 +1,6 @@
 ---
 title: What if ESLint's configuration worked like elm-review?
-date: '2021-08-09T12:00:00.000Z'
+published: "2021-08-09"
 ---
 
 I have used `ESLint` extensively in the past. As a user, as the "ESLint configurator" for my teams, and as a rule author.

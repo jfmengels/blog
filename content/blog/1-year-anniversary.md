@@ -1,6 +1,6 @@
 ---
 title: 1 year of elm-review. What lies ahead?
-date: '2020-09-29T12:00:00.000Z'
+published: "2020-09-29"
 ---
 
 elm-review v1 was released on September 29th 2019. Today therefore marks the first anniversary of its release! 🥳🎉

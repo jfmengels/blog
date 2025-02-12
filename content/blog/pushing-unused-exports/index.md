@@ -1,6 +1,6 @@
 ---
 title: Pushing unused exports detection one step further
-date: '2023-07-28T08:00:00.000Z'
+published: "2023-07-28"
 ---
 
 I just released a new version of [`jfmengels/elm-review-unused`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/) which is an [`elm-review`](https://elm-review.com) (a static analysis tool for the Elm language) package to report and remove unused code.
