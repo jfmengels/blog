@@ -13,34 +13,64 @@ import SyntaxHighlight
 
 
 language : Maybe String -> String -> Result (List DeadEnd) SyntaxHighlight.HCode
-language lang =
-    case lang of
-        Just "elm" ->
-            SyntaxHighlight.elm
+language lang source =
+    case Maybe.map (String.split ",") lang of
+        Just ("elm" :: otherLangs) ->
+            source
+                |> SyntaxHighlight.elm
+                |> Result.map (highlightLinesIfDiff otherLangs)
 
-        Just "css" ->
-            SyntaxHighlight.css
+        Just ("css" :: otherLangs) ->
+            source
+                |> SyntaxHighlight.css
+                |> Result.map (highlightLinesIfDiff otherLangs)
 
-        Just "sql" ->
-            SyntaxHighlight.sql
+        Just ("sql" :: otherLangs) ->
+            source
+                |> SyntaxHighlight.sql
+                |> Result.map (highlightLinesIfDiff otherLangs)
 
-        Just "xml" ->
-            SyntaxHighlight.xml
+        Just ("xml" :: otherLangs) ->
+            source
+                |> SyntaxHighlight.xml
+                |> Result.map (highlightLinesIfDiff otherLangs)
 
-        Just "html" ->
-            SyntaxHighlight.xml
+        Just ("html" :: otherLangs) ->
+            source
+                |> SyntaxHighlight.xml
+                |> Result.map (highlightLinesIfDiff otherLangs)
 
-        Just "nix" ->
-            SyntaxHighlight.nix
+        Just ("nix" :: otherLangs) ->
+            source
+                |> SyntaxHighlight.nix
+                |> Result.map (highlightLinesIfDiff otherLangs)
 
-        Just "json" ->
-            SyntaxHighlight.json
+        Just ("json" :: otherLangs) ->
+            source
+                |> SyntaxHighlight.json
+                |> Result.map (highlightLinesIfDiff otherLangs)
 
-        Just "python" ->
-            SyntaxHighlight.python
+        Just ("python" :: otherLangs) ->
+            source
+                |> SyntaxHighlight.python
+                |> Result.map (highlightLinesIfDiff otherLangs)
 
-        _ ->
-            SyntaxHighlight.noLang
+        Just otherLangs ->
+            source
+                |> SyntaxHighlight.noLang
+                |> Result.map (highlightLinesIfDiff otherLangs)
+
+        Nothing ->
+            SyntaxHighlight.noLang source
+
+
+highlightLinesIfDiff : List String -> SyntaxHighlight.HCode -> SyntaxHighlight.HCode
+highlightLinesIfDiff otherLangs hcode =
+    if List.member "diff" otherLangs then
+        SyntaxHighlight.highlightDiff hcode
+
+    else
+        hcode
 
 
 syntaxHighlight : { a | language : Maybe String, body : String } -> Html msg

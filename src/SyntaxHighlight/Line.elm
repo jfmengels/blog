@@ -1,6 +1,6 @@
 module SyntaxHighlight.Line exposing
     ( Line, Fragment, Highlight(..)
-    , highlightLines
+    , highlightLines, highlightDiffLines
     )
 
 {-| A parsed highlighted line.
@@ -10,7 +10,7 @@ module SyntaxHighlight.Line exposing
 
 ## Helpers
 
-@docs highlightLines
+@docs highlightLines, highlightDiffLines
 
 -}
 
@@ -61,6 +61,42 @@ highlightLines maybeHighlight start end lines =
                 end
     in
     List.indexedMap (highlightLinesHelp maybeHighlight start_ end_) lines
+
+
+highlightDiffLines : List Line -> List Line
+highlightDiffLines lines =
+    List.map highlightLine lines
+
+
+highlightLine : Line -> Line
+highlightLine line =
+    case line.fragments of
+        [] ->
+            line
+
+        fragment :: restOfFragments ->
+            if String.startsWith "-" fragment.text then
+                let
+                    newFragment : Fragment
+                    newFragment =
+                        { fragment | text = String.dropLeft 1 fragment.text }
+                in
+                { fragments = newFragment :: restOfFragments
+                , highlight = Just Del
+                }
+
+            else if String.startsWith "+" fragment.text then
+                let
+                    newFragment : Fragment
+                    newFragment =
+                        { fragment | text = String.dropLeft 1 fragment.text }
+                in
+                { fragments = newFragment :: restOfFragments
+                , highlight = Just Add
+                }
+
+            else
+                line
 
 
 highlightLinesHelp : Maybe Highlight -> Int -> Int -> Int -> Line -> Line

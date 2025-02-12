@@ -1,7 +1,7 @@
 module SyntaxHighlight exposing
     ( HCode
     , toBlockHtml, toInlineHtml, toStaticBlockHtml, toStaticInlineHtml
-    , Highlight(..), highlightLines
+    , Highlight(..), highlightLines, highlightDiff
     , css, elm, javascript, python, sql, xml, json, nix, noLang
     , Theme, useTheme, monokai, gitHub, oneDark
     , ConsoleOptions, toConsole
@@ -20,7 +20,7 @@ module SyntaxHighlight exposing
 
 ## Helpers
 
-@docs Highlight, highlightLines
+@docs Highlight, highlightLines, highlightDiff
 
 
 ## Languages
@@ -275,6 +275,12 @@ highlightLines maybeHighlight start end (HCode lines) =
                     Just Line.Del
     in
     Line.highlightLines maybeHighlight_ start end lines
+        |> HCode
+
+
+highlightDiff : HCode -> HCode
+highlightDiff (HCode lines) =
+    Line.highlightDiffLines lines
         |> HCode
 
 
