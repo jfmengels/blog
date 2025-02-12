@@ -235,7 +235,7 @@ viewListItem : Metadata -> Html.Html msg
 viewListItem metadata =
     Html.article [ Attrs.class "my-6" ]
         [ Html.div
-            [ Attrs.class "space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0"
+            [ Attrs.class "space-y-2 xl:items-baseline xl:space-y-0"
             ]
             [ Html.div
                 []
