@@ -250,6 +250,6 @@ But hey, sometimes not making a rule is okay.
 
 The code for the rule, in case you're interested, is available in this [pull request](https://github.com/jfmengels/elm-review-code-style/pull/11). Even though it's not published, you can try it out with the following command and see for yourself whether you think some things are okay or not:
 
-```
+```bash
 elm-review --template jfmengels/elm-review-code-style/preview#data-argument-last --rules DataArgumentShouldBeLast
 ```

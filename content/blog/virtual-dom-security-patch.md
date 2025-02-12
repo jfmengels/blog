@@ -45,7 +45,6 @@ find it either under `dependencies`, potentially in the `direct` object but more
         "indirect": {}
     }
 }
-
 ```
 
 Packages can also depend on `elm/virtual-dom`. As a package author, you can change your

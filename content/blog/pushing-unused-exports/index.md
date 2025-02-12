@@ -143,7 +143,8 @@ Even though this was not the point of the rule, I'm glad I was able to catch thi
 I hope you like this change to the rule and the changes it will cause on your codebase.
 
 Please look at the [documentation](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Exports) of the rule to try it out. You can also try a pre-configured version of it by running the following command:
-```
+
+```bash
 elm-review --template jfmengels/elm-review-unused/example-ignore-tests --rules NoUnused.Exports
 ```
 
