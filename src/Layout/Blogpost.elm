@@ -237,13 +237,11 @@ viewListItem metadata =
         [ Html.div
             [ Attrs.class "space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0"
             ]
-            [ viewPublishedDate metadata.status
-            , Html.div
+            [ Html.div
                 [ Attrs.class "space-y-5 xl:col-span-3"
                 ]
                 [ Html.div
-                    [ Attrs.class "space-y-6"
-                    ]
+                    []
                     [ Html.div [ Attrs.class "space-y-4 xl:space-y-2" ]
                         [ Html.h2
                             [ Attrs.class "text-2xl font-bold leading-8 tracking-tight"
@@ -259,6 +257,7 @@ viewListItem metadata =
                                 (List.map Layout.Tags.viewTag metadata.tags)
                             )
                         ]
+                    , viewPublishedDate metadata.status
                     , Html.Extra.viewMaybe
                         (\description ->
                             Html.div
