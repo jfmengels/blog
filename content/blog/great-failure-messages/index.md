@@ -54,7 +54,7 @@ It's pretty unclear here which assertion failed. What is equal to 5 when it shou
 
 One reason that Elm developers love Elm is because of the great error messages that the compiler gives us.
 
-![](compiler-error.png)
+![](/images/great-failure-message/compiler-error.png)
 
 In comparison to that, the error message we got from `elm-test` was lacking in helpfulness. If we only had a single assertion that would be just fine, but when we multiply the assertions, that becomes a problem.
 
@@ -174,7 +174,7 @@ Also, performance-wise, I can compute the error message only when a problem has 
 
 We can add boldness to the number 16 if that's what we wanted to highlight by doing `"I expected to find at least \u{001B}[1m16\u{001B}[22m!"`.
 
-![](with-colors.png)
+![](/images/great-failure-message/with-colors.png)
 
 You can find what is possible with ANSI codes [on the Internet](https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html#8-colors).
 
@@ -196,7 +196,7 @@ Its test helper runs a multitude of checks for you, and tries to report problems
 
 Here is an example where I had to be fancy with colors to make a specific problem around whitespace easy to resolve.
 
-![](whitespace.png)
+![](/images/great-failure-message/whitespace.png)
 
 You can go read [the file containing the possible error messages](https://github.com/jfmengels/elm-review/blob/5e2b633c5406a90677c8c5f06984053591aa9c32/src/Review/Test/FailureMessage.elm) or the [test module](https://github.com/jfmengels/elm-review/blob/5e2b633c5406a90677c8c5f06984053591aa9c32/src/Review/Test.elm) itself if you're curious.
 

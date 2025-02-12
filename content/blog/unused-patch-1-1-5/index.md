@@ -115,7 +115,7 @@ We usually detect unused functions by counting how many times they are reference
 
 `NoUnused.Variables` already reported recursive functions which are never called elsewhere, but we didn't do this for functions defined in a let expression.
 
-![](recursive-let.png)
+![](/images/unused-patch-1-1-5/recursive-let.png)
 
 A next step in this direction would be to detect unused indirectly-recursive functions. Things like `a` calling `b` calling `a` where neither is referenced elsewhere. That would be a bit trickier to keep track of, but it's definitely do-able!
 
@@ -140,13 +140,13 @@ Side-note on that: `elm-review` now reports more accurate [import cycles than th
 
 This one has been a thorn in my side for such a long time, especially since some IDE plugins for Elm would tell you about them already.
 
-![](./import-exposing-all.png)
+![](/images/unused-patch-1-1-5/./import-exposing-all.png)
 
 ### Unused type imports that expose the constructor
 
 Similarly, we were not reporting the importing of a custom type and its constructors even when that was possible.
 
-![](./import-type-all.png)
+![](/images/unused-patch-1-1-5/./import-type-all.png)
 
 If in the example above, the type `Weekday` was used in a type annotation but its constructors were not, then the proposed fix would be to only remove the `(..)`.
 
@@ -180,7 +180,7 @@ something value =
             model + 1
 ```
 
-![](./shadowing-imports.png)
+![](/images/unused-patch-1-1-5/./shadowing-imports.png)
 
 This is especially confusing because `id` can refer to different things even in the same function.
 
@@ -194,7 +194,7 @@ type ValidatedField
     | Body
 ```
 
-![](./redefine-variable.png)
+![](/images/unused-patch-1-1-5/./redefine-variable.png)
 
 I find this one to be very scary. If we take the example of `toUpper` above, removing the top-level declaration `toUpper` declaration will at best lead to a compiler error, and at worst, when the types are the same, a non-obvious change in the logic. So it's best to remove these early on while the problem hasn't shown up yet!
 
@@ -226,7 +226,7 @@ a = List.singleton 1
             []
 ```
 
-![](duplicate-patterns.png)
+![](/images/unused-patch-1-1-5/duplicate-patterns.png)
 
 ## Wildcard assignments
 

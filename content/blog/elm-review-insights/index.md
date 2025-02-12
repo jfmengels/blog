@@ -4,7 +4,7 @@ slug: elm-review-insights
 published: "2022-12-06"
 ---
 
-![](./img.png)
+![](/images/elm-review-insights/img.png)
 
 A few weeks ago, I announced a new version of [`elm-review`](elm-review.com). In [part 1](/much-faster-fixes), I wrote about how automatic fixes are now **much, much faster** than before.
 
@@ -234,7 +234,7 @@ parts of your codebase.
 
 A simple example is to draw the import graph of modules (example for [elm-spa-example](https://github.com/rtfeldman/elm-spa-example)).
 
-[![](./import-graph.svg)](./import-graph.svg)
+[![](/images/elm-review-insights/import-graph.svg)](./import-graph.svg)
 
 You can try this out on your project with the following commands:
 

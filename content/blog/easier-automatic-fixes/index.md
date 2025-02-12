@@ -85,7 +85,7 @@ Back to the example, what we could do is ([example in code](https://github.com/j
 
 And that's it!
 
-![](moving-if-branches.png)
+![](/images/easier-automatic-fixes/moving-if-branches.png)
 
 
 So what new rules are making use of this?
@@ -113,7 +113,7 @@ someFunction n =
 In the example above, we unnecessarily compute `value` if `needToCompute n` returns `False`. We might as well
 move that declaration to the "then" branch to avoid unnecessary work.
 
-![](no-premature-let-computation.png)
+![](/images/easier-automatic-fixes/no-premature-let-computation.png)
 
 I believe this rule will make your code nicer by co-locating related variables, and improve performance by avoiding
 unnecessary work (at no cost).
@@ -157,7 +157,7 @@ a =
 I believe that we may as well move the contents of `c` to after the `in` keyword and omit declaring it, which
 is what the rule reports and suggests an automatic fix for.
 
-![](no-simple-let-body.png)
+![](/images/easier-automatic-fixes/no-simple-let-body.png)
 
 `NoPrematureLetComputation` will sometimes introduce this kind of code, so having a way to automatically clean that up is
 pretty nice.

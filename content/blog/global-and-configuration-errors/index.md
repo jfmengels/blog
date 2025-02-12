@@ -29,7 +29,7 @@ npx elm-json upgrade
 
 In `elm-review`, all errors are tied to a location in the project, and more specifically to a file (an Elm module, `elm.json` or the `README`) and a position in the file (where you'd see the squiggly lines). Pointing to a specific location in a project is really useful for users to quickly go to the indicated location and fix the issue.
 
-![](regular-error.png)
+![](/images/global-and-configuration-errors/regular-error.png)
 
 Unfortunately it does not always make sense to point to a specific location. For instance, what if a rule is expecting a module or a function to exist somewhere in the project (a `main` function for instance, or something that the user provides as part of the configuration) and that can't be found? Well you can't point the user to the `main` saying that it doesn't exist. There's no specific location to point to.
 
@@ -112,7 +112,7 @@ Even though it was possible to report errors for it, it wasn't possible to provi
 
 One thing we'd like to use it for is for automatically removing unused dependencies, which would look something like this (work in progress):
 
-![](unused-dependency-fix.png)
+![](/images/global-and-configuration-errors/unused-dependency-fix.png)
 
 ## ignore-dirs and ignore-files
 

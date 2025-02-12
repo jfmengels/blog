@@ -5,7 +5,7 @@ published: "2021-11-15"
 description: Introducing elm-review suppress and a rule to report deprecated items.
 ---
 
-![](blood-bag.jpg)
+![](/images/stop-the-bleed/blood-bag.jpg)
 
 _Nothing to do with the release, but please consider giving your blood at your local blood donation center. This saves people's lives and there is always a demand!_
 

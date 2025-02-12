@@ -6,7 +6,7 @@ published: "2024-07-12"
 
 I had the pleasure of going to [Elm camp 2024](https://elm.camp/24-uk/artifacts) this year, which was located in England.
 
-![](elm-camp-24-attendees.jpg)
+![](/images/elm-camp-2024/elm-camp-24-attendees.jpg)
 
 While writing this, I am sure I am going to regret not writing this down earlier because I will forget great conversations and tidbits. I'm sorry if you feel like I should have mentioned you or our conversation or session! (And similarly, if you feel like I've misunderstood and mis-written something here, please let me know.)
 

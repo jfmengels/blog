@@ -251,12 +251,12 @@ The last new flag is for rule authors. Similar to the improvements for test fail
 
 Without the flag, you'll get to see this message:
 
-![](failure-succinct.png)
+![](/images/multi-file-fixes/failure-succinct.png)
 
 
 With the flag, you'll get to see this message:
 
-![](failure-detailed.png)
+![](/images/multi-file-fixes/failure-detailed.png)
 
 Again, please reach out or open an issue if you think the output can be improved.
 

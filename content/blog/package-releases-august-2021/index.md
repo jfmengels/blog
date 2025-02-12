@@ -90,7 +90,7 @@ last list unused =
             last rest unused
 ```
 
-![](unused.png)
+![](/images/package-releases-august-2021/unused.png)
 
 ### NoUnused.Variables
 
@@ -123,7 +123,7 @@ type Email
     = Email String
 ```
 
-![](exported-docs.png)
+![](/images/package-releases-august-2021/exported-docs.png)
 
 Since the rule doesn't report any issues for exposed modules of packages, this will not happen too often. This will in practice be more useful for developers who like to add nice documentation for their internal modules, both in applications and packages, and this change will prevent the code and documentation getting out of date.
 

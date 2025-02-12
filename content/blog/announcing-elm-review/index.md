@@ -18,7 +18,7 @@ The problem is that, sometimes these conventions are forgotten or were not well 
 
 `elm-review` provides you the ability to write rules that make this code review automatic. The result could look something like this:
 
-![](review-cli-output-example.png)
+![](/images/announcing-elm-review/review-cli-output-example.png)
 
 ## Get it
 
@@ -52,7 +52,7 @@ In the previous example about forbidding the creation of colors outside the `Ui.
 
 `elm-review` supports [automatic fixes](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Fix). This means that you can write a rule that suggests a solution to the reported problem. When running `elm-review`, it will tell you when an automatic fix is available for the problem. If you run `elm-review --fix`, you will be presented with automatic fixes one by one and you will be able to apply or ignore them.
 
-![](review-fix-output-example.png)
+![](/images/announcing-elm-review/review-fix-output-example.png)
 
 Even though the functionality exists, I think automatic fixes should only be provided in [restricted cases](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Fix#when-not-to-provide-an-automatic-fix-).
 

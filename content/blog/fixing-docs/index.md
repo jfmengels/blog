@@ -48,7 +48,7 @@ relative to the same version if done right, but authors would have to be careful
 And that's where this rule comes in: It finds all these links in the README and reports the ones that are relative, point to `latest`
 or to a different version than the one found in `elm.json`, and reports them. Sorry, did I say "report"? I meant "fix"!
 
-![](uptodate-readme-link.png)
+![](/images/fixing-docs/uptodate-readme-link.png)
 
 Thanks to this, I don't have to worry about updating my links anymore or having broken links in one of the versions of my package.
 

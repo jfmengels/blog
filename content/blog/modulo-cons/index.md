@@ -4,7 +4,7 @@ slug: modulo-cons
 published: "2022-02-28"
 ---
 
-![](RecursiveTree.jpeg)
+![](/images/modulo-cons/RecursiveTree.jpeg)
 
 If you have been programming for a while, you must have heard about recursion at one point or another.
 If you work with Elm or other functional programming languages, chances are high you use it regularly ([even though you
