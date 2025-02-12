@@ -59,12 +59,12 @@ but there is no location where this value actually gets created.
 I think I can fix this. Here is my proposal:
 
   5|     = Used
-- 6|     | Unused
+-  6|     | Unused
   7|
  ···
  17|
--18|        Unused ->
--19|            2
+- 18|        Unused ->
+- 19|            2
  20|
 
 ? Do you wish to apply this fix? › (Y/n)
@@ -101,15 +101,15 @@ someOtherFunction value =
 
 This limitation is however now a thing of the past: the rule is henceforth able to provide a fix that removes the variant in the entire codebase at once!
 
-```diff
+```elm,diff
 module MyModule exposing (MyType(..))
 
 type MyType
     = Used
--   | Unused
+-    | Unused
 ```
 
-```diff
+```elm,diff
 module OtherModule exposing (someValue)
 
 import MyModule
@@ -120,7 +120,7 @@ someValue =
 someOtherFunction value =
   case value of
     MyModule.Used -> 1
--   MyModule.Unused -> 2
+-    MyModule.Unused -> 2
 ```
 
 This should make the task of removing unused code much faster.
