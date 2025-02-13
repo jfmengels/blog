@@ -27,7 +27,7 @@ title =
 
 subtitle : String
 subtitle =
-    "Written by Jeroen Engels, author of elm-review. If you like what you read or what I made, you can follow me on BlueSky/Mastodon or sponsor me so that I can one day do more of this full-time ❤️"
+    "Written by Jeroen Engels, author of [elm-review](https://elm-review.com/). If you like what you read or what I made, you can follow me on [BlueSky](https://bsky.app/profile/jfmengels.bsky.social)/[Mastodon](https://mastodon.cloud/@jfmengels) or [sponsor me](https://github.com/sponsors/jfmengels/) so that I can one day do more of this full-time ❤️"
 
 
 author : String

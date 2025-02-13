@@ -11,6 +11,7 @@ import LanguageTag.Language as Language
 import LanguageTag.Region as Region
 import Layout
 import Layout.Blogpost
+import Layout.Markdown
 import Pages.Url
 import PagesMsg exposing (PagesMsg)
 import RouteBuilder exposing (App, StatelessRoute)
@@ -71,7 +72,7 @@ view app _ =
     { title = Settings.title
     , body =
         --TODO move to layout part
-        [ Html.p [ Attrs.class "text-lg leading-7 text-gray-500 dark:text-gray-400" ] [ Html.text Settings.subtitle ]
+        [ Html.p [ Attrs.class "prose text-lg leading-7 text-gray-500 dark:text-gray-400" ] (Layout.Markdown.toHtml Settings.subtitle)
         , Html.div [] <| List.map Layout.Blogpost.viewListItem app.data.blogpostMetadata
         ]
     }
