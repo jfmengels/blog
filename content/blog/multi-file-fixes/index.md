@@ -44,30 +44,30 @@ someOtherFunction value =
 
 This rule already provides an automatic fix which removes the unused variant:
 
-```diff
- -- ELM-REVIEW ERROR ----------------------------------------- src/MyType.elm:6:7
+```ansi
+[38;2;51;187;200m-- ELM-REVIEW ERROR ----------------------------------------- src/MyType.elm:5:7[39m
 
-NoUnused.CustomTypeConstructors: Type constructor `Unused` is not used.
+[38;2;255;0;0mNoUnused.CustomTypeConstructors[39m: Type constructor `Unused` is not used.
 
-5|     = Used
-6|     | Unused
-         ^^^^^^
+4|     = Used
+5|     | Unused
+         [38;2;255;0;0m^^^^^^[39m
+6|    -- ^^^^^^ This type constructor is never used
 
 This type constructor is never used. It might be handled everywhere it appears,
 but there is no location where this value actually gets created.
 
-I think I can fix this. Here is my proposal:
+[38;2;51;187;200mI think I can fix this. Here is my proposal:[39m
 
-  5|     = Used
--  6|     | Unused
-  7|
- ···
- 17|
-- 18|        Unused ->
-- 19|            2
- 20|
+ 4|     = Used
+[38;2;255;0;0m 5|     | Unused[39m
+ 6|    -- ^^^^^^ This type constructor is never used
+···
+13|     Used -> 1
+[38;2;255;0;0m14|     Unused -> 2[39m
+15|
 
-? Do you wish to apply this fix? › (Y/n)
+[?25l[2K[1G[36m?[39m [1mDo you wish to apply this fix?[22m [90m›[39m [90m(Y/n)[39m
 ```
 
 Unfortunately, this has a limitation: if the type is exposed to other modules and referenced elsewhere — even if it's still reported as unused — then no fix is provided, because fixing part of the issue and leaving the user with a compiler error is way worse than not providing a fix.
@@ -125,8 +125,43 @@ someOtherFunction value =
 
 When prompted by the CLI, it looks like this:
 
-![](/images/multi-file-fixes/prompt.png)
+```ansi
+[38;2;51;187;200m-- ELM-REVIEW ERROR ----------------------------------------- src/Route.elm:19:7[39m
 
+[38;2;255;0;0mNoUnused.CustomTypeConstructors[39m: Type constructor `Root` is not used.
+
+18|     = Home
+19|     | Root
+          [38;2;255;0;0m^^^^[39m
+20|     | Login
+
+This type constructor is never used. It might be handled everywhere it appears,
+but there is no location where this value actually gets created.
+
+[38;2;51;187;200mI think I can fix this. Here is my proposal:[39m
+
+[38;2;51;187;200m1/2 -------------------------------------------------------------- src/Route.elm[39m
+
+18|     = Home
+[38;2;255;0;0m19|     | Root[39m
+20|     | Login
+···
+82|
+[38;2;255;0;0m83|         Root ->[39m
+[38;2;255;0;0m84|             [][39m
+[38;2;255;0;0m85|[39m
+86|         Login ->
+
+[38;2;51;187;200m2/2 --------------------------------------------------------------- src/Main.elm[39m
+
+167|
+[38;2;255;0;0m168|         Just Route.Root ->[39m
+[38;2;255;0;0m169|             ( model, Route.replaceUrl (Session.navKey session) Route.Home )[39m
+[38;2;255;0;0m170|[39m
+171|         Just Route.Logout ->
+
+[?25l[2K[1G[36m?[39m [1mDo you wish to apply this fix?[22m [90m›[39m [90m(Y/n)[39m
+```
 
 This should make the task of removing unused code much faster.
 
@@ -144,22 +179,22 @@ As part of the multi-file fix focus, another feature made it in the fix mix: Del
 
 If you've used `elm-review` for a while, I'm sure you've seen the `NoUnused.Exports` rule (or formerly the `NoUnused.Modules` rule) report that a file was entirely unused, and should be removed. Well, that can now be automated!
 
-```
--- ELM-REVIEW ERROR ----------------------------------------- src/MyType.elm:1:8
+```ansi
+[38;2;51;187;200m-- ELM-REVIEW ERROR ----------------------------------------- src/MyType.elm:1:8[39m
 
-NoUnused.Exports: Module `MyType` is never used.
+[38;2;255;0;0mNoUnused.Exports[39m: Module `MyType` is never used.
 
 1| module MyType exposing (..)
-          ^^^^^^
+          [38;2;255;0;0m^^^^^^[39m
 
 This module is never used. You may want to remove it to keep your project clean,
 and maybe detect some unused code in your project.
 
-I think I can fix this. Here is my proposal:
+[38;2;51;187;200mI think I can fix this. Here is my proposal:[39m
 
-    REMOVE FILE src/MyType.elm
+[38;2;255;0;0m    REMOVE FILE src/MyType.elm[39m
 
-? Do you wish to apply this fix? › (Y/n)
+[?25l[2K[1G[36m?[39m [1mDo you wish to apply this fix?[22m [90m›[39m [90m(Y/n)[39m
 ```
 
 The fix is only applied if you run the CLI with `--allow-remove-files`. The main reason is to protect people from losing irrecoverable data by deleting a file with uncommitted changes or an entirely untracked file. In the future, I hope to find ways when such a change is reasonably safe to apply.
