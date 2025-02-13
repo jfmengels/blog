@@ -123,6 +123,11 @@ someOtherFunction value =
 -    MyModule.Unused -> 2
 ```
 
+When prompted by the CLI, it looks like this:
+
+![](/images/multi-file-fixes/prompt.png)
+
+
 This should make the task of removing unused code much faster.
 
 [`NoUnused.CustomTypeConstructors`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-CustomTypeConstructors) has been published with this change, so have fun with it.
