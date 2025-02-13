@@ -147,22 +147,8 @@ pre[data-line] {
   position: relative;
 }
 
-.gatsby-highlight-code-line {
-  background-color: hsla(207, 95%, 15%, 1);
-  display: block;
-  margin-right: -1em;
-  margin-left: -1em;
-  padding-right: 1em;
-  padding-left: 0.75em;
-  border-left: 0.25em solid #ffa7c4;
-}
-
 .language-text {
   font-size: 1rem;
-}
-
-.gatsby-resp-image-figcaption {
-  text-align: center;
 }
 
 a.anchor.before {

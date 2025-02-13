@@ -1,7 +1,7 @@
 {
   "name": "blog",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "jfmengels' blog",
   "version": "0.1.0",
   "author": "Jeroen Engels <jfm.engels@gmail.com>",
   "bugs": {
@@ -26,7 +26,13 @@
   },
   "homepage": "https://github.com/jfmengels/blog#readme",
   "keywords": [
-    "gatsby"
+    "blog",
+    "jfmengels",
+    "elm",
+    "elm-review",
+    "static-analysis",
+    "linter",
+    "programming"
   ],
   "license": "MIT",
   "main": "n/a",
@@ -37,14 +43,6 @@
   "scripts": {
     "postinstall": "elm-tooling install",
     "start": "INCLUDE_DRAFTS=true elm-pages dev",
-    "build": "elm-pages build",
-    "dev": "gatsby develop",
-    "lint": "eslint --ext .js,.jsx --ignore-pattern public .",
-    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
-    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js' 'src/**/*.md'",
-    "develop": "gatsby develop",
-    "start-gatsby": "npm run develop",
-    "build-gatsby": "gatsby build",
-    "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js"
+    "build": "elm-pages build"
   }
 }
