@@ -1,7 +1,7 @@
 ---
 title: Multi-files fixes
 slug: multi-file-fixes
-published: "2025-02-11"
+published: "2025-02-13"
 ---
 
 Today marks the release of a new important version for `elm-review`.
@@ -125,9 +125,13 @@ someOtherFunction value =
 
 This should make the task of removing unused code much faster.
 
+[`NoUnused.CustomTypeConstructors`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-CustomTypeConstructors) has been published with this change, so have fun with it.
+
 I am working on several other rules that can benefit from this too, such as [`NoUnused.Parameters`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Parameters) which doesn't provide fixes at all at the moment.
 
 To use this in your rule, check out the documentation for the [new provided functions](https://package.elm-lang.org/packages/jfmengels/elm-review/2.15.0/Review-Rule#multi-file-automatic-fixes).
+
+Related to fixes and edits, edits where the start appears after the end now cause the fix to fail. Removal edits that overlap are now merged together and don't cause the fix to fail.
 
 ## Deleting files
 
