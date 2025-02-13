@@ -30,7 +30,8 @@
             "elm-community/list-extra": "8.7.0",
             "justinmimbs/date": "4.1.0",
             "kuon/elm-string-normalize": "1.0.6",
-            "phosphor-icons/phosphor-elm": "2.1.0"
+            "phosphor-icons/phosphor-elm": "2.1.0",
+            "vito/elm-ansi": "10.0.1"
         },
         "indirect": {
             "Chadtech/elm-bool-extra": "2.4.2",

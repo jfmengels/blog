@@ -36,3 +36,11 @@ code.not-prose {
 .prose :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   color: inherit;
 }
+
+.terminal {
+  line-height: normal;
+}
+
+.ansi-bright-black-fg {
+  color: #404040;
+}

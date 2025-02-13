@@ -1,7 +1,10 @@
 module Layout.Markdown exposing (blogpostToHtml, toHtml)
 
+import Ansi.Log
+import Array
 import Html exposing (Html)
 import Html.Attributes as Attrs
+import Html.Lazy
 import Markdown.Block as Block
 import Markdown.Parser
 import Markdown.Renderer exposing (defaultHtmlRenderer)
@@ -76,6 +79,7 @@ highlightLinesIfDiff otherLangs hcode =
 syntaxHighlight : { a | language : Maybe String, body : String } -> Html msg
 syntaxHighlight codeBlock =
     let
+        sanitiseCodeBlock : String
         sanitiseCodeBlock =
             if String.endsWith "\n" codeBlock.body then
                 String.dropRight 1 codeBlock.body
@@ -84,10 +88,27 @@ syntaxHighlight codeBlock =
                 codeBlock.body
     in
     Html.div [ Attrs.class "no-prose mt-4" ]
-        [ language codeBlock.language sanitiseCodeBlock
-            |> Result.map (SyntaxHighlight.toBlockHtml (Just 1))
-            |> Result.withDefault
-                (Html.pre [] [ Html.code [] [ Html.text sanitiseCodeBlock ] ])
+        [ if codeBlock.language == Just "ansi" then
+            Html.Lazy.lazy renderAnsi sanitiseCodeBlock
+
+          else
+            language codeBlock.language sanitiseCodeBlock
+                |> Result.map (SyntaxHighlight.toBlockHtml (Just 1))
+                |> Result.withDefault
+                    (Html.pre [] [ Html.code [] [ Html.text sanitiseCodeBlock ] ])
+        ]
+
+
+renderAnsi : String -> Html msg
+renderAnsi source =
+    let
+        model : Ansi.Log.Model
+        model =
+            Ansi.Log.update source (Ansi.Log.init Ansi.Log.Cooked)
+    in
+    Html.pre []
+        [ Html.code [ Attrs.class "terminal" ]
+            (Array.toList (Array.map (Html.Lazy.lazy Ansi.Log.viewLine) model.lines))
         ]
 
 
