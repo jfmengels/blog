@@ -155,9 +155,11 @@ viewBlogpost { metadata, body, previousPost, nextPost } =
                     [ Html.p [ Attrs.class "font-bold" ] [ Html.text description ] ]
             )
             metadata.description
-        , Html.article
-            [ Attrs.class "mx-auto prose lg:prose-xl dark:prose-invert" ]
-            (Markdown.blogpostToHtml body)
+        , Html.div [ Attrs.class "flex flex-col justify-center items-center" ]
+            [ Html.article
+                [ Attrs.class "prose lg:prose-xl dark:prose-invert" ]
+                (Markdown.blogpostToHtml body)
+            ]
         , Html.div
             [ Attrs.class "mt-8 border-t grid grid-cols-1 text-sm font-medium sm:grid-cols-2 sm:text-base" ]
             [ previous, next ]
