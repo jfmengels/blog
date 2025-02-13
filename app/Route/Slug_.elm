@@ -93,7 +93,7 @@ head app =
             , dimensions = Nothing
             , mimeType = Nothing
             }
-        , description = Maybe.withDefault Settings.subtitle app.data.blogpost.metadata.description
+        , description = Maybe.withDefault app.data.blogpost.metadata.title app.data.blogpost.metadata.description
         , locale = Nothing
         , title = app.data.blogpost.metadata.title
         }
