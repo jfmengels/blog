@@ -4,14 +4,11 @@ import BackendTask exposing (BackendTask)
 import Content.Blogpost exposing (Metadata, TagWithCount)
 import FatalError exposing (FatalError)
 import Head
-import Head.Seo as Seo
 import Layout
 import Layout.Blogpost
-import Pages.Url
 import PagesMsg exposing (PagesMsg)
 import RouteBuilder exposing (App, StatelessRoute)
 import Shared
-import UrlPath
 import View exposing (View)
 
 

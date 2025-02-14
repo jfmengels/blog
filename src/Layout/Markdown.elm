@@ -144,6 +144,7 @@ blogpostRenderer =
         | heading =
             \{ level, rawText, children } ->
                 let
+                    id : String
                     id =
                         String.Normalize.slug rawText
                 in

@@ -1,13 +1,12 @@
-module Api exposing (manifest, routes)
+module Api exposing (routes)
 
 import ApiRoute exposing (ApiRoute)
 import BackendTask exposing (BackendTask)
-import Content.Blogpost exposing (Blogpost)
+import Content.Blogpost
 import FatalError exposing (FatalError)
 import Head
 import Html exposing (Html)
 import Pages
-import Pages.Manifest as Manifest
 import Route exposing (Route)
 import Rss
 import Settings
@@ -90,13 +89,3 @@ rss options itemsRequest =
                 [ Head.rssLink "/rss.xml"
                 ]
             )
-
-
-manifest : Manifest.Config
-manifest =
-    Manifest.init
-        { name = Settings.title
-        , description = Settings.subtitle
-        , startUrl = Route.Index |> Route.toPath
-        , icons = []
-        }

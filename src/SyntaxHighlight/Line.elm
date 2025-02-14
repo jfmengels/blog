@@ -43,6 +43,7 @@ type Highlight
 highlightLines : Maybe Highlight -> Int -> Int -> List Line -> List Line
 highlightLines maybeHighlight start end lines =
     let
+        length : Int
         length =
             List.length lines
 
