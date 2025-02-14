@@ -65,10 +65,12 @@ head :
     -> List Head.Tag
 head app =
     let
+        imagePath : String
         imagePath =
             app.data.blogpost.metadata.image
                 |> Maybe.withDefault "/media/blog-image.png"
 
+        authorsHeader : List Head.Tag
         authorsHeader =
             case app.data.blogpost.metadata.authors of
                 [] ->

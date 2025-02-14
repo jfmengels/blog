@@ -43,6 +43,7 @@ authorImages authors =
 viewBlogpost : Blogpost -> Html msg
 viewBlogpost { metadata, body, previousPost, nextPost } =
     let
+        blogpostAuthors : List { name : String, image : String }
         blogpostAuthors =
             metadata.authors
                 |> List.map
@@ -52,12 +53,14 @@ viewBlogpost { metadata, body, previousPost, nextPost } =
                         }
                     )
 
+        bottomLink : String -> String -> Html msg
         bottomLink slug title =
             Route.link
                 [ Attrs.class "text-primary-700 dark:text-primary-500 hover:text-primary-600 dark:hover:text-primary-400" ]
                 [ Html.text title ]
                 (Route.Slug_ { slug = slug })
 
+        previous : Html msg
         previous =
             previousPost
                 |> Html.Extra.viewMaybe
@@ -68,6 +71,7 @@ viewBlogpost { metadata, body, previousPost, nextPost } =
                             ]
                     )
 
+        next : Html msg
         next =
             nextPost
                 |> Html.Extra.viewMaybe
@@ -78,6 +82,7 @@ viewBlogpost { metadata, body, previousPost, nextPost } =
                             ]
                     )
 
+        authorsView : Html msg
         authorsView =
             Html.dl
                 [ Attrs.class "max-w-[65ch] py-4 xl:pb-8 xl:pt-12"
@@ -101,6 +106,7 @@ viewBlogpost { metadata, body, previousPost, nextPost } =
                     ]
                 ]
 
+        header : Html msg
         header =
             Html.div
                 [ Attrs.class "max-w-[65ch] m-auto space-y-1 xl:text-xl dark:border-gray-700"
@@ -273,6 +279,7 @@ viewListItem metadata =
 viewPostList : List TagWithCount -> List Metadata -> Maybe TagWithCount -> List (Html msg)
 viewPostList tags metadata selectedTag =
     let
+        header : Html msg
         header =
             case selectedTag of
                 Just tag ->
@@ -287,6 +294,7 @@ viewPostList tags metadata selectedTag =
                         ]
                         [ Html.text "All Posts" ]
 
+        allPostsLink : Html msg
         allPostsLink =
             case selectedTag of
                 Just _ ->

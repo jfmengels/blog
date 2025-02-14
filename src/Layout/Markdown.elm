@@ -119,27 +119,6 @@ renderer =
 
 blogpostRenderer : Markdown.Renderer.Renderer (Html msg)
 blogpostRenderer =
-    let
-        headingElement level id =
-            case level of
-                Block.H1 ->
-                    Html.h1 [ Attrs.id id ]
-
-                Block.H2 ->
-                    Html.h2 [ Attrs.id id ]
-
-                Block.H3 ->
-                    Html.h3 [ Attrs.id id ]
-
-                Block.H4 ->
-                    Html.h4 [ Attrs.id id ]
-
-                Block.H5 ->
-                    Html.h5 [ Attrs.id id ]
-
-                Block.H6 ->
-                    Html.h6 [ Attrs.id id ]
-    in
     { defaultHtmlRenderer
         | heading =
             \{ level, rawText, children } ->
@@ -167,6 +146,28 @@ blogpostRenderer =
             \block ->
                 syntaxHighlight block
     }
+
+
+headingElement : Block.HeadingLevel -> String -> List (Html msg) -> Html msg
+headingElement level id =
+    case level of
+        Block.H1 ->
+            Html.h1 [ Attrs.id id ]
+
+        Block.H2 ->
+            Html.h2 [ Attrs.id id ]
+
+        Block.H3 ->
+            Html.h3 [ Attrs.id id ]
+
+        Block.H4 ->
+            Html.h4 [ Attrs.id id ]
+
+        Block.H5 ->
+            Html.h5 [ Attrs.id id ]
+
+        Block.H6 ->
+            Html.h6 [ Attrs.id id ]
 
 
 blogpostToHtml : String -> List (Html msg)

@@ -7,7 +7,7 @@ import Html exposing (Html)
 import Html.Attributes as Attrs
 import Html.Extra
 import Layout.Markdown as Markdown
-import Pages.Url
+import Pages.Url exposing (Url)
 import Phosphor
 import Settings
 import UrlPath
@@ -16,6 +16,7 @@ import UrlPath
 seoHeaders : Author -> List Head.Tag
 seoHeaders author =
     let
+        imageUrl : Url
         imageUrl =
             author.avatar
                 |> Maybe.map (\authorAvatar -> Pages.Url.fromPath <| UrlPath.fromString authorAvatar)
@@ -41,32 +42,7 @@ seoHeaders author =
 socialsView : List ( String, String ) -> Html msg
 socialsView socials =
     let
-        icon socialName =
-            case socialName of
-                "email" ->
-                    Phosphor.envelopeSimple
-
-                "facebook" ->
-                    Phosphor.facebookLogo
-
-                "github" ->
-                    Phosphor.githubLogo
-
-                "twitter" ->
-                    Phosphor.twitterLogo
-
-                "linkedin" ->
-                    Phosphor.linkedinLogo
-
-                "youtube" ->
-                    Phosphor.youtubeLogo
-
-                "tiktok" ->
-                    Phosphor.tiktokLogo
-
-                _ ->
-                    Phosphor.link
-
+        socialLink : String -> String -> String
         socialLink name link =
             if name == "email" then
                 "mailto:" ++ link
@@ -74,6 +50,7 @@ socialsView socials =
             else
                 link
 
+        socialView : ( String, String ) -> Html msg
         socialView ( name, link ) =
             Html.a
                 [ Attrs.target "_blank"
@@ -93,6 +70,34 @@ socialsView socials =
         |> Html.div
             [ Attrs.class "flex space-x-3 pt-6"
             ]
+
+
+icon : String -> Phosphor.IconWeight -> Phosphor.IconVariant
+icon socialName =
+    case socialName of
+        "email" ->
+            Phosphor.envelopeSimple
+
+        "facebook" ->
+            Phosphor.facebookLogo
+
+        "github" ->
+            Phosphor.githubLogo
+
+        "twitter" ->
+            Phosphor.twitterLogo
+
+        "linkedin" ->
+            Phosphor.linkedinLogo
+
+        "youtube" ->
+            Phosphor.youtubeLogo
+
+        "tiktok" ->
+            Phosphor.tiktokLogo
+
+        _ ->
+            Phosphor.link
 
 
 view : Author -> Html msg

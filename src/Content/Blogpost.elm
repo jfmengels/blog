@@ -141,6 +141,7 @@ getPublishedDate { status } =
 allBlogposts : BackendTask FatalError (List Blogpost)
 allBlogposts =
     let
+        addPreviousNextPosts : BackendTask error (List Blogpost) -> BackendTask error (List Blogpost)
         addPreviousNextPosts orderedBlogposts =
             orderedBlogposts
                 |> BackendTask.map Array.fromList
@@ -157,14 +158,17 @@ allBlogposts =
                     )
                 |> BackendTask.map Array.toList
 
+        updateReadingTime : BackendTask error (List Blogpost) -> BackendTask error (List Blogpost)
         updateReadingTime blogposts =
             let
+                updatedMetadata : String -> Metadata -> Metadata
                 updatedMetadata blogpost metadata =
                     { metadata | readingTimeInMin = String.split " " blogpost |> List.length |> (\words -> words // 200) }
             in
             blogposts
                 |> BackendTask.map (List.map (\blogpost -> { blogpost | metadata = updatedMetadata blogpost.body blogpost.metadata }))
 
+        addDraftTag : Metadata -> Metadata
         addDraftTag metadata =
             case metadata.status of
                 Draft ->

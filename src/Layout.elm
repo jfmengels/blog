@@ -18,6 +18,7 @@ import UrlPath
 seoHeaders : List Tag
 seoHeaders =
     let
+        imageUrl : Pages.Url.Url
         imageUrl =
             [ "media", "blog-image.png" ] |> UrlPath.join |> Pages.Url.fromPath
     in
@@ -101,9 +102,11 @@ viewSideMainMenuItem onMenuToggle { label, route } =
 viewMenu : Bool -> msg -> Html msg
 viewMenu showMenu onMenuToggle =
     let
+        mainMenuItems : List (Html msg)
         mainMenuItems =
             List.map viewMainMenuItem menu
 
+        sideMenuItems : List (Html msg)
         sideMenuItems =
             { label = "Home", route = Route.Index }
                 :: menu
