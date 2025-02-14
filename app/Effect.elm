@@ -77,13 +77,13 @@ perform :
     }
     -> Effect pageMsg
     -> Cmd msg
-perform ({ fromPageMsg, key } as helpers) effect =
+perform helpers effect =
     case effect of
         None ->
             Cmd.none
 
         Cmd cmd ->
-            Cmd.map fromPageMsg cmd
+            Cmd.map helpers.fromPageMsg cmd
 
         Batch list ->
             Cmd.batch (List.map (perform helpers) list)
