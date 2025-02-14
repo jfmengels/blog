@@ -1,4 +1,4 @@
-module Shared exposing (Data, Model, Msg(..), SharedMsg(..), template)
+module Shared exposing (Data, Model, Msg(..), template)
 
 import BackendTask exposing (BackendTask)
 import Effect exposing (Effect)
@@ -30,10 +30,6 @@ type Msg
 
 type alias Data =
     ()
-
-
-type SharedMsg
-    = NoOp
 
 
 type alias Model =

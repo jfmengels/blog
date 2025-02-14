@@ -5,8 +5,8 @@ import Html
 import View exposing (View)
 
 
-type Msg
-    = NoOp
+type alias Msg =
+    Never
 
 
 type alias Model =
