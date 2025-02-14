@@ -41,8 +41,8 @@ numberTest : String -> String -> Test
 numberTest testName testStr =
     describe ("Number :" ++ testName)
         [ equalTest "number"
-            ( "{\"number\": " ++ testStr ++ "}" )
-            ( Ok [(C Object,"{"),(C ObjectKey,"\""),(C ObjectKey,"number"),(C ObjectKey,"\""),(C Object,":"),(Normal," "),(C Number,testStr),(C Object,"}")])
+            ("{\"number\": " ++ testStr ++ "}")
+            (Ok [ ( C Object, "{" ), ( C ObjectKey, "\"" ), ( C ObjectKey, "number" ), ( C ObjectKey, "\"" ), ( C Object, ":" ), ( Normal, " " ), ( C Number, testStr ), ( C Object, "}" ) ])
         ]
 
 

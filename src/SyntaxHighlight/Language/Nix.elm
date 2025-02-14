@@ -1,13 +1,13 @@
 module SyntaxHighlight.Language.Nix exposing
     ( Syntax(..)
-    , syntaxToStyle
-      -- Exposing for test purposes
+    ,  syntaxToStyle
+       -- Exposing for test purposes
 
     , toLines
     , toRevTokens
     )
 
-import Parser exposing((|.), DeadEnd, Parser, Step(..), andThen, backtrackable, getChompedString, loop, map, oneOf, succeed, symbol)
+import Parser exposing ((|.), DeadEnd, Parser, Step(..), andThen, backtrackable, getChompedString, loop, map, oneOf, succeed, symbol)
 import Regex exposing (Regex)
 import Set exposing (Set)
 import SyntaxHighlight.Language.Helpers exposing (Delimiter, chompIfThenWhile, delimited, escapable, isEscapable, isLineBreak, isSpace, isWhitespace, thenChompWhile)
@@ -120,7 +120,6 @@ keywordParser revTokens s =
 
     else
         succeed (( T.Normal, s ) :: revTokens)
-
 
 
 isKeyword : String -> Bool
@@ -341,4 +340,3 @@ syntaxToStyle syntax =
 
         Literal ->
             ( Style7, "nix-l" )
-
