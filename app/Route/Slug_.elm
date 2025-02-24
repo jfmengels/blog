@@ -102,9 +102,6 @@ head app =
         |> Seo.website
     )
         ++ authorsHeader
-        ++ [ Head.metaName "twitter:label2" <| Head.raw "Reading time"
-           , Head.metaName "twitter:data2" <| Head.raw <| String.fromInt app.data.blogpost.metadata.readingTimeInMin ++ " min"
-           ]
 
 
 view :

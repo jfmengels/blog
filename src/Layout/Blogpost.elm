@@ -95,13 +95,7 @@ viewBlogpost { metadata, body, previousPost, nextPost } =
                     [ authorImages blogpostAuthors
                     , Html.div [ Attrs.class "flex flex-col justify-around items-start sm:pl-4" ]
                         [ Html.span [ Attrs.class "text-lg font-bold text-black dark:text-white" ] [ Html.text <| String.join ", " <| List.map .name blogpostAuthors ]
-                        , Html.div [ Attrs.class "flex space-x-4 text-base" ]
-                            [ viewPublishedDate metadata.status
-                            , Html.span []
-                                [ Html.text <| String.fromInt metadata.readingTimeInMin
-                                , Html.text " min reading time"
-                                ]
-                            ]
+                        , viewPublishedDate metadata.status
                         ]
                     ]
                 ]
