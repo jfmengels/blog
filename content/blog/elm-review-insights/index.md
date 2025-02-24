@@ -4,8 +4,6 @@ slug: elm-review-insights
 published: "2022-12-06"
 ---
 
-![](/images/elm-review-insights/img.png)
-
 A few weeks ago, I announced a new version of [`elm-review`](elm-review.com). In [part 1](/much-faster-fixes), I wrote about how automatic fixes are now **much, much faster** than before.
 
 In this second and final part (*disappointed audience sighing*), I will talk about an entirely new feature of `elm-review`, which allows you to gain arbitrary insight into your codebase.
