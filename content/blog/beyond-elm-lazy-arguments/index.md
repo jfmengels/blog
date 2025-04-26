@@ -115,8 +115,13 @@ but we're going to patch it to the following:
 ```javascript
 var $author$project$Html$LazyExtra$lazyShallow = F2(function(func, record)
 {
+  var args = [func];
+  for (var key in record)
+  {
+    args.push(record[key]);
+  }
   return _VirtualDom_thunk(
-    [func].concat(Object.values(record)),
+    args,
     function() {
       return func(record);
     }
@@ -126,7 +131,7 @@ var $author$project$Html$LazyExtra$lazyShallow = F2(function(func, record)
 
 The main thing this patched version does is take the fields from the record and put them in an array, just like the underlying lazification function (`_VirtualDom_thunk`) expects.
 
-`_VirtualDom_thunk` takes a list of arguments (and the function) to be compared with the previous/next set of arguments, and a function to run when lazification failed (basically equivalent to our unpatched function).
+`_VirtualDom_thunk` takes a list of arguments (and the function) to be compared with the previous/next set of arguments, and a function to run when lazification fails (basically equivalent to our unpatched function).
 
 You can compare it to `Html.Lazy.lazy3` if that helps your understanding.
 
