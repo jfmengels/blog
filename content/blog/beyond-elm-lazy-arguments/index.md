@@ -115,12 +115,12 @@ but we're going to patch it to the following:
 ```javascript
 var $author$project$Html$LazyExtra$lazyShallow = F2(function(func, record)
 {
-  var args = Object.entries(record)
-    .sort(function([key1], [key2]) { return key1 < key2; })
-    .map(function([key, value]) { return value; });
-  return _VirtualDom_thunk([func].concat(args), function() {
-    return func(record);
-  });
+  return _VirtualDom_thunk(
+    [func].concat(Object.values(record)),
+    function() {
+      return func(record);
+    }
+  );
 });
 ```
 
@@ -133,9 +133,12 @@ You can compare it to `Html.Lazy.lazy3` if that helps your understanding.
 ```javascript
 var _VirtualDom_lazy3 = F4(function(func, a, b, c)
 {
-	return _VirtualDom_thunk([func, a, b, c], function() {
-		return A3(func, a, b, c);
-	});
+  return _VirtualDom_thunk(
+    [func, a, b, c],
+    function() {
+      return A3(func, a, b, c);
+    }
+  );
 });
 ```
 
