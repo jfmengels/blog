@@ -85,7 +85,7 @@ viewBlogpost { metadata, body, previousPost, nextPost } =
         authorsView : Html msg
         authorsView =
             Html.dl
-                [ Attrs.class "max-w-[65ch] py-4 xl:pb-8 xl:pt-12"
+                [ Attrs.class "py-4 xl:pb-8 xl:pt-12"
                 ]
                 [ Html.dt
                     [ Attrs.class "sr-only"
@@ -103,7 +103,7 @@ viewBlogpost { metadata, body, previousPost, nextPost } =
         header : Html msg
         header =
             Html.div
-                [ Attrs.class "max-w-[65ch] m-auto space-y-1 xl:text-xl dark:border-gray-700"
+                [ Attrs.class "max-w-[65ch] lg:max-w-none m-auto space-y-1 xl:text-xl dark:border-gray-700"
                 ]
                 [ SyntaxHighlight.useTheme SyntaxHighlight.oneDark
                 , Html.div
