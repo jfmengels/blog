@@ -69,7 +69,7 @@ We added one piece of code, got 2 compiler errors that required more changes—a
 
 In the Elm community (among others) we often refer to this as following the compiler (or compiler driven development), and the end result as "if it compiles, it works".
 
-Some folks even made an [workshop to teach Elm](https://github.com/jgrenat/elm-compiler-driven-development) (in French) based on exercises where all you need to do is to follow the compiler error messages.
+Some folks even made a [workshop to teach Elm](https://github.com/jgrenat/elm-compiler-driven-development) (in French) based on exercises where all you need to do is to follow the compiler error messages.
 
 Type and exhaustiveness checks are the main drivers behind this example (there are others). You could therefore say that compiler reminders goes hand in hand with type safety and statically typed languages, but that's not necessarily the case.
 
