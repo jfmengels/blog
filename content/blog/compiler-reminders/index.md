@@ -14,54 +14,54 @@ We like this so much in Elm that a common task for beginners is to take the basi
 
 1. We add a button: `button [ onClick Reset ] [ text "Reset" ]` somewhere in the `view`.
 
-```ansi
-[36m-- NAMING ERROR --------------------------------------------------- src/Main.elm[0m
+   ```ansi
+   [36m-- NAMING ERROR --------------------------------------------------- src/Main.elm[0m
 
-I cannot find a `Reset` variant:
+   I cannot find a `Reset` variant:
 
-38|         , button [ onClick Reset ] [ text "Reset" ]
-                               [91m^^^^^[0m
-```
+   38|         , button [ onClick Reset ] [ text "Reset" ]
+                                  [91m^^^^^[0m
+   ```
 
 2. We get a compiler error saying that the `Reset` value is unknown, so we add it to the list of variants for the `Msg` type.
 
-```elm
-type Msg
-    = Increment
-    | Decrement
-    | Reset
-```
+   ```elm
+   type Msg
+       = Increment
+       | Decrement
+       | Reset
+   ```
 
-```ansi
-[36m-- MISSING PATTERNS ----------------------------------------------- src/Main.elm[0m
+   ```ansi
+   [36m-- MISSING PATTERNS ----------------------------------------------- src/Main.elm[0m
 
-This `case` does not have branches for all possibilities:
+   This `case` does not have branches for all possibilities:
 
-25|[91m>[0m    case msg of
-26|[91m>[0m        Increment ->
-27|[91m>[0m            { model | count = model.count + 1 }
-28|[91m>[0m
-29|[91m>[0m        Decrement ->
-30|[91m>[0m            { model | count = model.count - 1 }
+   25|[91m>[0m    case msg of
+   26|[91m>[0m        Increment ->
+   27|[91m>[0m            { model | count = model.count + 1 }
+   28|[91m>[0m
+   29|[91m>[0m        Decrement ->
+   30|[91m>[0m            { model | count = model.count - 1 }
 
-Missing possibilities include:
+   Missing possibilities include:
 
-    [33mReset[0m
+       [33mReset[0m
 
-I would have to crash if I saw one of those. Add branches for them!
-```
+   I would have to crash if I saw one of those. Add branches for them!
+   ```
 
 3. We get a compiler error saying that the `update` function does not have a branch for the `Reset` variant (because of the compiler's exhaustiveness checking), so we add the branch where the counter is set to 0.
 
-```elm
-update : Msg -> Model -> Model
-update msg model =
-    case msg of
-        -- ...other branches...
+   ```elm
+   update : Msg -> Model -> Model
+   update msg model =
+       case msg of
+           -- ...other branches...
 
-        Reset ->
-            { model | count = 0 }
-```
+           Reset ->
+               { model | count = 0 }
+   ```
 
 And the feature is then complete!
 
