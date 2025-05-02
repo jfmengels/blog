@@ -114,7 +114,7 @@ allUserKinds =
   [ User, Admin ]
 ```
 
-Say that we add a new type of user such as `Guest`, we would like to not be able to forget adding the value in `allUserTypes` (and that could be us or a colleague). At work we have a linter rule to remind us to add it. Not a compiler reminder, but the same idea and kind of benefit.
+Say that we add a new type of user such as `Guest`, we would like to not be able to forget adding the value in `allUserTypes` (and that could be us or a colleague). At work we use a linter rule ([`NoMissingTypeConstructor`](https://package.elm-lang.org/packages/Arkham/elm-review-no-missing-type-constructor/1.0.3/NoMissingTypeConstructor)) to remind us to add it. Not a compiler reminder, but the same idea and kind of benefit.
 
 Different tools can yield different kinds of reminders (or [guarantees](/constraints-and-guarantees)). Even writing a test can be used to create one.
 
