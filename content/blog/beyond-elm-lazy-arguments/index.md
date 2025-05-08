@@ -12,7 +12,7 @@ If you've already read the article and just want the solution, **[here is the co
 
 By the way, if you have other problems with the use of `Html.Lazy` (which can be tricky to use correctly), I helped write a small guide on how to use it well on [Elmcraft](https://elmcraft.org/faqs/html-lazy-not-working/).
 
-I love to do deep dives into the topics I cover so that they become good resources, but I'll try to stick to the topic as much as possible. If you'd like me to do a separate write-up about how laziness works under the hood, let me know—I found it interesting at least!
+I love to do deep dives into the topics I cover so that they become good resources, but I'll try to stick to the topic as much as possible. I have written a separate article on [how laziness works under the hood](/caching-behind-elm-lazy) if you want to know more about that part.
 
 ## The problem
 
@@ -47,7 +47,7 @@ close though:
     [33mHtml.Lazy.lazy4[0m
 ```
 
-The knee-jerk reaction is to put some arguments in a tuple `( arg8, arg9 )` or in a record `{ arg8 = arg8, arg9 = arg9 }`. Unfortunately doing that will cause the lazification to fail **always** (I'd love to explain why in a new post wink wink), so that is not an option.
+The knee-jerk reaction is to put some arguments in a tuple `( arg8, arg9 )` or in a record `{ arg8 = arg8, arg9 = arg9 }`. Unfortunately doing that will cause the lazification to fail **always**, so that is not an option.
 
 When you hit this point, you can start using some of the workarounds described in the previously linked [Elmcraft guide](https://elmcraft.org/faqs/html-lazy-not-working/). In my projects, we often had to resort to the encoding technique.
 
