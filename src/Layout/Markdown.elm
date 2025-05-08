@@ -23,6 +23,16 @@ language lang source =
                 |> SyntaxHighlight.elm
                 |> Result.map (highlightLinesIfDiff otherLangs)
 
+        Just ("js" :: otherLangs) ->
+            source
+                |> SyntaxHighlight.javascript
+                |> Result.map (highlightLinesIfDiff otherLangs)
+
+        Just ("javascript" :: otherLangs) ->
+            source
+                |> SyntaxHighlight.javascript
+                |> Result.map (highlightLinesIfDiff otherLangs)
+
         Just ("css" :: otherLangs) ->
             source
                 |> SyntaxHighlight.css
