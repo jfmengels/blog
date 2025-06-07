@@ -172,7 +172,7 @@ The memory taken by this caching solution is only a single virtual DOM node, whi
 
 The function and its arguments are also stored. That memory was already allocated so that's free again, but having it stored might therefore delay the garbage collector from freeing them. But if these are objects, then either you kept a reference to them somewhere or at the next `view` call the lazy check will fail, which means it won't be delayed by much. Overall, I'd say this part is very cheap too.
 
-Remember though that if you use `lazy` at the root of your `view` (which is a pretty good idea by the way), then this virtual DOM is your entire DOM.
+Remember though that if you use `lazy` at the root of your `view` ([which is a pretty good idea by the way](/make-your-roots-lazy)), then this virtual DOM is your entire DOM.
 
 If we were to store multiple versions such as through a global cache, then for very large pages, keeping a wider history could make your application use a lot more memory which would be terrible for performance.
 
