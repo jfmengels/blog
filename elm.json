@@ -10,6 +10,7 @@
         "direct": {
             "danyx23/elm-mimetype": "4.0.1",
             "dillonkearns/elm-bcp47-language-tag": "2.0.0",
+            "dillonkearns/elm-date-or-date-time": "2.0.0",
             "dillonkearns/elm-form": "3.0.1",
             "dillonkearns/elm-markdown": "7.0.1",
             "dillonkearns/elm-pages": "10.2.0",
@@ -39,7 +40,6 @@
             "billstclair/elm-xml-eeue56": "2.1.0",
             "danfishgold/base64-bytes": "1.1.0",
             "dillonkearns/elm-cli-options-parser": "3.2.0",
-            "dillonkearns/elm-date-or-date-time": "2.0.0",
             "dmy/elm-imf-date-time": "1.0.2",
             "elm/file": "1.0.5",
             "elm/random": "1.0.0",

@@ -2,6 +2,7 @@ module Route.Slug_ exposing (ActionData, Data, Model, Msg, RouteParams, route)
 
 import BackendTask exposing (BackendTask)
 import Content.Blogpost exposing (Blogpost)
+import DateOrDateTime
 import FatalError exposing (FatalError)
 import Head
 import Head.Seo as Seo
@@ -99,7 +100,19 @@ head app =
         , locale = Nothing
         , title = app.data.blogpost.metadata.title
         }
-        |> Seo.website
+        |> Seo.article
+            { tags = app.data.blogpost.metadata.tags
+            , section = Nothing
+            , publishedTime =
+                case app.data.blogpost.metadata.status of
+                    Content.Blogpost.PublishedWithDate date ->
+                        Just (DateOrDateTime.Date date)
+
+                    _ ->
+                        Nothing
+            , modifiedTime = Nothing
+            , expirationTime = Nothing
+            }
     )
         ++ authorsHeader
 
