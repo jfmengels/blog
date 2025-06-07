@@ -20,7 +20,7 @@ seoHeaders =
     let
         imageUrl : Pages.Url.Url
         imageUrl =
-            [ "media", "blog-image.png" ] |> UrlPath.join |> Pages.Url.fromPath
+            [ "images", "logo.png" ] |> UrlPath.join |> Pages.Url.fromPath
     in
     Seo.summaryLarge
         { canonicalUrlOverride = Nothing
