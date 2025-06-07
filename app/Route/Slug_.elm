@@ -68,7 +68,7 @@ head app =
         imagePath : String
         imagePath =
             app.data.blogpost.metadata.image
-                |> Maybe.withDefault "/media/blog-image.png"
+                |> Maybe.withDefault "/images/logo.png"
 
         authorsHeader : List Head.Tag
         authorsHeader =
