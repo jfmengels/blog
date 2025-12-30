@@ -9,7 +9,7 @@ A few months ago, a colleague of mine [wrote this](https://twitter.com/jfmengels
 > Thanks to elm-review I was able to remove ~7300 lines of code in the front end in 225 different files.
 > Something I could have never done without its aid. Thank you Jeroen!
 
-Also some time ago, I [tweeted this](https://twitter.com/jfmengels/status/1330854406615674883):
+Also, some time ago I [tweeted this](https://twitter.com/jfmengels/status/1330854406615674883):
 
 > Just cleaned up a lot of Elm code. I wanted to remove our usage of a module that brought no value. Manually removed the main places where it was used and followed the compiler errors. That was about 200 lines.
 > elm-review took care of the other 2700 lines of the then dead code.
