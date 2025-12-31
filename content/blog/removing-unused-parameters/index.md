@@ -225,12 +225,12 @@ config =
 
 - Files that are ignored (`Rule.ignoreErrors*` functions) are considered as not fixable.
 - Through [`Review.Rule.ignoreFixesFor`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#withIsFileFixable),
-rules can be made aware of which files are not fixable, allowing them to change their behavior if needed. 
+rules can be made aware of which files are not fixable, allowing them to change their behavior if needed.
 
 #### Glob ignores
 
 I added [`Review.Rule.ignoreErrorsFor`](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#ignoreErrorsFor)
-as an alternative to `ignoreErrorsForDirectories`/`ignoreErrorsForErrors`/`filterErrorsForFiles` to be able to specify ignores using Glob patterns.
+as an alternative to `ignoreErrorsForDirectories` / `ignoreErrorsForErrors` / `filterErrorsForFiles` to be able to specify ignores using Glob patterns.
 
 ```elm
 Some.Rule.rule
