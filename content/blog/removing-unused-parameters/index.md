@@ -204,7 +204,7 @@ value = ()
 
 #### Ignoring fixes
 
-In [Multi-files fixes](/multi-file-fixes), I announced that [`NoUnused.CustomTypeConstructors`] supported files across
+In [Multi-files fixes](/multi-file-fixes), I announced that [`NoUnused.CustomTypeConstructors`] supported fixes across
 multiple files. One thing I didn't anticipate, which some people reported, and became even more obvious with the
 previously mentioned change to `NoUnused.Parameters`, is that ignored files would sometimes be modified by these multi-file fixes.
 This would be most annoying when those files are generated, and when a compiler error would show up when re-generating
