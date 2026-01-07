@@ -115,6 +115,7 @@ But don't get frightened by very high complexity values, since they can potentia
 
 The result in `elm-review` looks like the following:
 
+<anchor id="error-example"/>
 ```ansi
 [38;2;51;187;200m-- ELM-REVIEW ERROR ------------------------------------ src/MyModule.elm:116:1[39m
 

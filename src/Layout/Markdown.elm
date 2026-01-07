@@ -6,6 +6,7 @@ import Html exposing (Html)
 import Html.Attributes as Attrs
 import Html.Lazy
 import Markdown.Block as Block
+import Markdown.Html
 import Markdown.Parser
 import Markdown.Renderer exposing (defaultHtmlRenderer)
 import Parser exposing (DeadEnd)
@@ -152,9 +153,13 @@ blogpostRenderer =
         , codeSpan =
             \context ->
                 Html.code [ Attrs.class "not-prose" ] [ Html.text context ]
-        , codeBlock =
-            \block ->
-                syntaxHighlight block
+        , codeBlock = syntaxHighlight
+        , html =
+            Markdown.Html.oneOf
+                [ Markdown.Html.tag "anchor"
+                    (\id children -> Html.span [ Attrs.id id ] children)
+                    |> Markdown.Html.withAttribute "id"
+                ]
     }
 
 
