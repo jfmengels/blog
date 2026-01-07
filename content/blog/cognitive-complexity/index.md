@@ -115,7 +115,33 @@ But don't get frightened by very high complexity values, since they can potentia
 
 The result in `elm-review` looks like the following:
 
-![Cognitive complexity error report](error.png)
+```ansi
+[38;2;51;187;200m-- ELM-REVIEW ERROR ------------------------------------ src/MyModule.elm:116:1[39m
+
+[38;2;255;0;0mCognitiveComplexity[39m: tooComplexFunction has a cognitive complexity of 22,
+higher than the allowed 15
+
+115| tooComplexFunction : Config -> ComplexResult
+116| tooComplexFunction config =
+     [38;2;255;0;0m^^^^^^^^^^^^^^^^^^[39m
+117|     if config.someValue == config.otherValue then
+
+This metric is a heuristic to measure how easy to understand a piece of code is,
+primarily through increments for breaks in the linear flow and for nesting those
+breaks.
+
+The most common ways to reduce complexity is to extract sections into functions
+and to unnest control flow structures. Following is a breakdown of where
+complexity was found:
+
+Line 117: +1 for the if expression
+Line 118: +2 for the case expression (including 1 for nesting)
+Line 123: +3 for the case expression (including 2 for nesting)
+Line 128: +4 for the case expression (including 3 for nesting)
+Line 129: +1 for the indirect recursive call to someOtherFunction
+Line 157: +5 for the if expression (including 4 for nesting)
+Line 167: +6 for the case expression (including 5 for nesting)
+```
 
 ## Reducing complexity through refactoring
 
