@@ -15,7 +15,7 @@ Highlights:
 
 I hinted at this coming in the [last release](/global-and-configuration-errors), but [`NoUnused.Dependencies`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Dependencies) now proposes a fix for removing your unused dependencies.
 
-![Proposal for removing a dependency](unused-dependency.png)
+![Proposal for removing a dependency](/images/simplify/unused-dependency.png)
 
 As you may have seen recently if you were a target of such a pull request or if you've read the announcement, [Martin Stewart](https://github.com/MartinSStewart/) created [a bot to remove unused packages from dependencies](https://discourse.elm-lang.org/t/i-created-218-pull-requests-in-3-days/7276) using [Lamdera](https://lamdera.app/) and `elm-review`.
 
@@ -27,7 +27,7 @@ In v1.1.5 [in other posts](/unused-patch-1-1-5/#detection-of-custom-type-constru
 
 In this version, the rule now proposes automatic fixes!
 
-![Proposal for removing a constructor](constructors-fix.png)
+![Proposal for removing a constructor](/images/simplify/constructors-fix.png)
 
 `elm-review` only supports fixes for a single file at a time, so you'll see this if a constructor is only ever referenced or pattern matched in the file it was defined in.
 

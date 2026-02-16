@@ -106,7 +106,7 @@ grantAdminRights user =
     { user | role = Role.admin_TESTS_ONLY }
 ```
 
-![Screenshot of elm-review error: Forbidden use of test-only value `test_admin` in production source code. This value was marked as being meant to only be used in test-related code, but I found it being used in code that will go to production. You should either stop using it or rename it to not start with `test_`.](error-preview.png)
+![Screenshot of elm-review error: Forbidden use of test-only value `test_admin` in production source code. This value was marked as being meant to only be used in test-related code, but I found it being used in code that will go to production. You should either stop using it or rename it to not start with `test_`.](/images/test-only-values/error-preview.png)
 
 Once you add this rule to your configuration, you can safely expose a tagged constructor value and write the tests you wished to write originally.
 

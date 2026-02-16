@@ -80,7 +80,7 @@ formatUserName user =
 
 Here we could **safely**—without changing the behavior of the program—report that the whole declaration of `userInfo` can be removed, the call to `formatUserInfo` included, and propose to automatically fix it.
 
-![elm-review reporting the unused variable and proposing a fix](./step1.png)
+![elm-review reporting the unused variable and proposing a fix](/images/safe-dead-code-removal/step1.png)
 
 
 ```elm
@@ -118,7 +118,7 @@ formatUserInfo user =
 
 When we look at this module, it seems that `formatUserInfo` is never used in any way: It is not exposed to the other modules nor is it used in any of the other functions. So we can safely remove it too!
 
-![elm-review reporting formatUserInfo and proposing a fix](./step2.png)
+![elm-review reporting formatUserInfo and proposing a fix](/images/safe-dead-code-removal/step2.png)
 
 #### Step 3
 
@@ -158,14 +158,14 @@ module Formatting exposing (formatLastName, formatRole)
 module Formatting exposing (formatLastName)
 ```
 
-![elm-review reporting unused export and proposing a fix](./step3.png)
+![elm-review reporting unused export and proposing a fix](/images/safe-dead-code-removal/step3.png)
 
 
 #### Step 4
 
 Now it looks like `formatRole` was not used internally inside the `Formatting` module either, so we can remove it entirely just like we did for `formatUserInfo` back in step 2.
 
-![elm-review reporting unused formatRole function and proposing a fix](./step4.png)
+![elm-review reporting unused formatRole function and proposing a fix](/images/safe-dead-code-removal/step4.png)
 
 
 #### Step 5
@@ -183,7 +183,7 @@ function applyFormatting(formatting, string) {
 }
 ```
 
-![elm-review reporting unused custom type variant](./step5.png)
+![elm-review reporting unused custom type variant](/images/safe-dead-code-removal/step5.png)
 
 This is the first case where an automatic fix is not offered (EDIT: this is also handled automatically nowadays!), because we will need to remove the variant both in the custom type definition and in the different patterns, potentially in multiple files. In this case, it's safer to let the user remove the definition themselves and let the Elm compiler help them fix all the compiler errors that causes.
 
@@ -221,15 +221,15 @@ In Elm, importing a module is free of side effects. Meaning that we can safely r
 
 Similarly, the import of `ReCase` has become redundant, so we can remove it in the same manner (let's count that as step 6.5 for brevity's sake).
 
-![elm-review reporting unused import and proposing a fix](./step6-1.png)
+![elm-review reporting unused import and proposing a fix](/images/safe-dead-code-removal/step6-1.png)
 then
-![elm-review reporting another unused import and proposing a fix](./step6-2.png)
+![elm-review reporting another unused import and proposing a fix](/images/safe-dead-code-removal/step6-2.png)
 
 #### Step 7
 
 [`NoUnused.Modules`](https://package.elm-lang.org/packages/jfmengels/elm-review-unused/latest/NoUnused-Modules) tells us that the `Diacritics` module that we created in our project is actually never imported anywhere. Well, if we never import the module, we can remove the entire file!
 
-![elm-review reporting an unused module](./step7.png)
+![elm-review reporting an unused module](/images/safe-dead-code-removal/step7.png)
 
 Once that file has been removed, we could look at all the functions and types defined in the modules `Diacritics` imported.
 
@@ -241,7 +241,7 @@ Similarly but in a slightly different way, [`NoUnused.Dependencies`](https://pac
 
 Since we removed the only import of the `ReCase` module contained in that dependency and there are no other imports of modules from that package left in our codebase, we can safely remove the dependency from the project.
 
-![elm-review reporting an unused dependency](./step8.png)
+![elm-review reporting an unused dependency](/images/safe-dead-code-removal/step8.png)
 
 (EDIT: Once again, an automatic fix is provided nowadays 🥳)
 

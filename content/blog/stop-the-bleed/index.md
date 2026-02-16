@@ -83,7 +83,7 @@ errors, you'd get the following `review/suppressed/NoUnused.Variables.json` file
 
 Now, when you run `elm-review` the way you usually do, `elm-review` will not report any errors.
 
-![elm-review output saying: I found no errors! There are still 194 suppressed errors to address.](output-when-no-errors.png)
+![elm-review output saying: I found no errors! There are still 194 suppressed errors to address.](/images/stop-the-bleed/output-when-no-errors.png)
 
 Every suppression file tallies how many errors are being reported for the associated rule for a given file, and does so for
 every file that have errors reported for.
@@ -94,7 +94,7 @@ they all get suppressed and none get reported.
 
 What if you introduce a new error you ask? Then all the errors from that group get reported again (they get "unsuppressed").
 
-![elm-review output reporting unsuppressed errors.](output-when-more-errors.png)
+![elm-review output reporting unsuppressed errors.](/images/stop-the-bleed/output-when-more-errors.png)
 
 Since `elm-review` only keeps track of a tally, it doesn't know which errors are new and which ones were previously
 suppressed, so all errors in the rule+file group get reported. As the user, you only need to fix enough errors to go back
@@ -102,7 +102,7 @@ to the previous tally, but you are welcome to fix more.
 
 What if instead you fix one of the suppressed errors? Then we celebrate!
 
-![elm-review output saying: I found no errors! There are still 193 suppressed errors to address, of which you fixed 1!](output-when-less-errors.png)
+![elm-review output saying: I found no errors! There are still 193 suppressed errors to address, of which you fixed 1!](/images/stop-the-bleed/output-when-less-errors.png)
 
 (I wanted to have 🥳🎉 emojis, but terminals don't all like that 😢)
 
@@ -149,7 +149,7 @@ are uncommitted changes in `review/suppressed` (using Git).
 If there are none, it exits with a success code. Otherwise, it exits with a failure code and lets you know that you need
 to commit these files, but that you also don't need to bother running your tests again, since they all otherwise passed.
 
-![elm-review output saying: You have uncommitted changes in review/suppressed. However, all tests have passed, so you don't need to run tests again after committing these changes.](check-after-tests.png)
+![elm-review output saying: You have uncommitted changes in review/suppressed. However, all tests have passed, so you don't need to run tests again after committing these changes.](/images/stop-the-bleed/check-after-tests.png)
 
 ```bash
 # Example test suite

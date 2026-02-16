@@ -140,13 +140,13 @@ Side-note on that: `elm-review` now reports more accurate [import cycles than th
 
 This one has been a thorn in my side for such a long time, especially since some IDE plugins for Elm would tell you about them already.
 
-![](/images/unused-patch-1-1-5/./import-exposing-all.png)
+![](/images/unused-patch-1-1-5/import-exposing-all.png)
 
 ### Unused type imports that expose the constructor
 
 Similarly, we were not reporting the importing of a custom type and its constructors even when that was possible.
 
-![](/images/unused-patch-1-1-5/./import-type-all.png)
+![](/images/unused-patch-1-1-5/import-type-all.png)
 
 If in the example above, the type `Weekday` was used in a type annotation but its constructors were not, then the proposed fix would be to only remove the `(..)`.
 
@@ -180,7 +180,7 @@ something value =
             model + 1
 ```
 
-![](/images/unused-patch-1-1-5/./shadowing-imports.png)
+![](/images/unused-patch-1-1-5/shadowing-imports.png)
 
 This is especially confusing because `id` can refer to different things even in the same function.
 
@@ -194,7 +194,7 @@ type ValidatedField
     | Body
 ```
 
-![](/images/unused-patch-1-1-5/./redefine-variable.png)
+![](/images/unused-patch-1-1-5/redefine-variable.png)
 
 I find this one to be very scary. If we take the example of `toUpper` above, removing the top-level declaration `toUpper` declaration will at best lead to a compiler error, and at worst, when the types are the same, a non-obvious change in the logic. So it's best to remove these early on while the problem hasn't shown up yet!
 

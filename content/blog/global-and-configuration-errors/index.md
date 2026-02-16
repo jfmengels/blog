@@ -49,7 +49,7 @@ error moduleName =
         }
 ```
 
-![Global error saying: The threshold needs to be strictly positive. A threshold less than 1 means that you can't use case expressions at all, which is not the intent of this rule. Please change the threshold to a higher value.](global-error.png)
+![Global error saying: The threshold needs to be strictly positive. A threshold less than 1 means that you can't use case expressions at all, which is not the intent of this rule. Please change the threshold to a higher value.](/images/global-and-configuration-errors/global-error.png)
 
 
 
@@ -85,7 +85,7 @@ rule threshold =
       }
 ```
 
-![Condiguration error saying: The threshold needs to be strictly positive. A threshold less than 1 means that you can't use case expressions at all, which is not the intent of this rule. Please change the threshold to a higher value.](configuration-error.png)
+![Condiguration error saying: The threshold needs to be strictly positive. A threshold less than 1 means that you can't use case expressions at all, which is not the intent of this rule. Please change the threshold to a higher value.](/images/global-and-configuration-errors/configuration-error.png)
 
 
 Without a configuration error but with global errors, authors would have to create a dummy rule, with a visitor and that reports a single error, or add a lot of conditionals in every visitor.
@@ -128,7 +128,7 @@ When you run `elm-review --fix-all` and there are a lot of errors, it can take q
 
 When `elm-review` applies more than a certain number of fixes and to comfort the user in the idea that something is happening, it will display a message saying that it **is** doing work!
 
-![I am applying fixes, I have applied X already, and I see about Z more!](progress-bar.gif)
+![I am applying fixes, I have applied X already, and I see about Z more!](/images/global-and-configuration-errors/progress-bar.gif)
 
 I will probably tweak the message some more later, but at least knowing that something is happening makes for a much better experience.
 
