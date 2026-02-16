@@ -5,6 +5,7 @@ import Content.Blogpost exposing (Metadata, TagWithCount)
 import FatalError exposing (FatalError)
 import Head
 import Head.Seo as Seo
+import Html
 import Layout.Blogpost
 import Pages.Url
 import PagesMsg exposing (PagesMsg)
@@ -99,5 +100,10 @@ view :
     -> View (PagesMsg Msg)
 view app _ =
     { title = "Tag: TODO"
-    , body = Layout.Blogpost.viewPostList app.data.tags app.data.blogposts app.data.selectedTag
+    , body =
+        [ View.freeze
+            (Html.div []
+                (Layout.Blogpost.viewPostList app.data.tags app.data.blogposts app.data.selectedTag)
+            )
+        ]
     }

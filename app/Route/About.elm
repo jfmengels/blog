@@ -61,5 +61,5 @@ view :
 view app _ =
     { title = "About"
     , body =
-        [ Layout.About.view app.data.author ]
+        [ View.freeze (Layout.About.view app.data.author) ]
     }

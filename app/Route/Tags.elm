@@ -60,5 +60,5 @@ view :
 view app _ =
     { title = "Tags"
     , body =
-        [ Layout.Tags.view app.data ]
+        [ View.freeze (Layout.Tags.view app.data) ]
     }

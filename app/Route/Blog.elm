@@ -4,6 +4,7 @@ import BackendTask exposing (BackendTask)
 import Content.Blogpost exposing (Metadata, TagWithCount)
 import FatalError exposing (FatalError)
 import Head
+import Html
 import Layout
 import Layout.Blogpost
 import PagesMsg exposing (PagesMsg)
@@ -67,5 +68,9 @@ view :
 view app _ =
     { title = "Blog"
     , body =
-        Layout.Blogpost.viewPostList app.data.tags app.data.blogposts Nothing
+        [ View.freeze
+            (Html.div []
+                (Layout.Blogpost.viewPostList app.data.tags app.data.blogposts Nothing)
+            )
+        ]
     }

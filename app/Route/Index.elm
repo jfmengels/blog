@@ -67,7 +67,7 @@ view app _ =
     { title = Settings.title
     , body =
         --TODO move to layout part
-        [ Html.p [ Attrs.class "prose text-lg leading-7 text-gray-500 dark:text-gray-400" ] (Layout.Markdown.toHtml Settings.subtitle)
-        , Html.div [] <| List.map Layout.Blogpost.viewListItem app.data.blogpostMetadata
+        [ View.freeze (Html.p [ Attrs.class "prose text-lg leading-7 text-gray-500 dark:text-gray-400" ] (Layout.Markdown.toHtml Settings.subtitle))
+        , View.freeze (Html.div [] <| List.map Layout.Blogpost.viewListItem app.data.blogpostMetadata)
         ]
     }
