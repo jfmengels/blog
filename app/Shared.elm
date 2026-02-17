@@ -97,11 +97,11 @@ body showMenu onMenuToggle pageViewBody =
             [ Html.header
                 [ Attrs.class "flex items-center justify-between py-10"
                 ]
-                [ Layout.viewLogo
+                [ View.freeze Layout.viewLogo
                 , Layout.viewMenu showMenu onMenuToggle
                 ]
             , Html.main_ [ Attrs.class "w-full mb-auto" ] pageViewBody
-            , Layout.viewFooter
+            , View.freeze Layout.viewFooter
             ]
         ]
     ]
