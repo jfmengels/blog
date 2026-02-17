@@ -179,44 +179,54 @@ view showMenu onMenuToggle body =
             [ Html.header
                 [ Attrs.class "flex items-center justify-between py-10"
                 ]
-                [ Html.div []
-                    [ Html.a
-                        [ Attrs.attribute "aria-label" Settings.title
-                        , Attrs.href "/"
-                        ]
-                        [ Html.div
-                            [ Attrs.class "flex items-center justify-between"
-                            ]
-                            [ logo
-                            , Html.div
-                                [ Attrs.class "h-6 text-2xl font-semibold dark:text-white"
-                                ]
-                                [ Html.text Settings.title ]
-                            ]
-                        ]
-                    ]
+                [ viewLogo
                 , viewMenu showMenu onMenuToggle
                 ]
             , Html.main_ [ Attrs.class "w-full mb-auto" ] body
-            , Html.footer [ Attrs.class "py-8 flex flex-col items-center" ]
-                [ Html.div
-                    [ Attrs.class "mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400"
-                    ]
-                    [ Html.div []
-                        [ Html.text Settings.author ]
-                    , Html.div []
-                        [ Html.text "•" ]
-                    , Html.div []
-                        [ Html.text "© 2025" ]
-                    , Html.div []
-                        [ Html.text "•" ]
-                    , Html.a
-                        [ Attrs.href "/"
-                        , Attrs.class "hover:underline"
-                        ]
-                        [ Html.text Settings.title ]
-                    ]
-                ]
+            , viewFooter
             ]
         ]
     ]
+
+
+viewLogo : Html msg
+viewLogo =
+    Html.div []
+        [ Html.a
+            [ Attrs.attribute "aria-label" Settings.title
+            , Attrs.href "/"
+            ]
+            [ Html.div
+                [ Attrs.class "flex items-center justify-between"
+                ]
+                [ logo
+                , Html.div
+                    [ Attrs.class "h-6 text-2xl font-semibold dark:text-white"
+                    ]
+                    [ Html.text Settings.title ]
+                ]
+            ]
+        ]
+
+
+viewFooter : Html msg
+viewFooter =
+    Html.footer [ Attrs.class "py-8 flex flex-col items-center" ]
+        [ Html.div
+            [ Attrs.class "mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400"
+            ]
+            [ Html.div []
+                [ Html.text Settings.author ]
+            , Html.div []
+                [ Html.text "•" ]
+            , Html.div []
+                [ Html.text "© 2025" ]
+            , Html.div []
+                [ Html.text "•" ]
+            , Html.a
+                [ Attrs.href "/"
+                , Attrs.class "hover:underline"
+                ]
+                [ Html.text Settings.title ]
+            ]
+        ]
