@@ -48,6 +48,7 @@ pages =
 
 type alias Data =
     { blogpost : Blogpost
+    , title : String
     }
 
 
@@ -57,7 +58,7 @@ type alias ActionData =
 
 data : RouteParams -> BackendTask FatalError Data
 data routeParams =
-    BackendTask.map Data
+    BackendTask.map (\blogpost -> { blogpost = blogpost, title = blogpost.metadata.title })
         (Content.Blogpost.blogpostFromSlug routeParams.slug)
 
 
@@ -122,6 +123,6 @@ view :
     -> Shared.Model
     -> View (PagesMsg Msg)
 view app _ =
-    { title = app.data.blogpost.metadata.title
+    { title = app.data.title
     , body = [ View.freeze (Layout.Blogpost.viewBlogpost app.data.blogpost) ]
     }
