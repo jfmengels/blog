@@ -4,6 +4,7 @@ import BackendTask exposing (BackendTask)
 import Effect exposing (Effect)
 import FatalError exposing (FatalError)
 import Html exposing (Html)
+import Html.Attributes as Attrs
 import Layout
 import Pages.Flags
 import Pages.PageUrl exposing (PageUrl)
@@ -84,6 +85,23 @@ view :
     -> View msg
     -> { body : List (Html msg), title : String }
 view _ _ model toMsg pageView =
-    { body = Layout.view model.showMenu (toMsg MenuClicked) pageView.body
+    { body = body model.showMenu (toMsg MenuClicked) pageView.body
     , title = pageView.title
     }
+
+
+body : Bool -> msg -> List (Html msg) -> List (Html msg)
+body showMenu onMenuToggle pageViewBody =
+    [ Html.div [ Attrs.class "mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0" ]
+        [ Html.div [ Attrs.class "flex h-screen flex-col justify-between font-sans" ]
+            [ Html.header
+                [ Attrs.class "flex items-center justify-between py-10"
+                ]
+                [ Layout.viewLogo
+                , Layout.viewMenu showMenu onMenuToggle
+                ]
+            , Html.main_ [ Attrs.class "w-full mb-auto" ] pageViewBody
+            , Layout.viewFooter
+            ]
+        ]
+    ]
