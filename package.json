@@ -44,7 +44,7 @@
   "scripts": {
     "postinstall": "elm-tooling install",
     "start": "INCLUDE_DRAFTS=true elm-pages dev",
-    "build": "elm-pages build",
+    "build": "elm-pages build --strict",
     "test": "npm-run-all --print-name --silent --sequential build test:format test:run test:review",
     "test:format": "elm-format src/ tests/ --validate",
     "test:run": "elm-test",
