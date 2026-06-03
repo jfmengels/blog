@@ -232,7 +232,7 @@ parts of your codebase.
 
 A simple example is to draw the import graph of modules (example for [elm-spa-example](https://github.com/rtfeldman/elm-spa-example)).
 
-[![](/images/elm-review-insights/import-graph.svg)](./import-graph.svg)
+[![](/images/elm-review-insights/import-graph.svg)](/images/elm-review-insights/import-graph.svg)
 
 You can try this out on your project with the following commands:
 
