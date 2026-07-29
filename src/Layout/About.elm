@@ -21,7 +21,7 @@ seoHeaders author =
             author.avatar
                 |> Maybe.map (\authorAvatar -> Pages.Url.fromPath <| UrlPath.fromString authorAvatar)
                 |> Maybe.withDefault
-                    ([ "images", "logo.png" ] |> UrlPath.join |> Pages.Url.fromPath)
+                    ([ "images", "logo.svg" ] |> UrlPath.join |> Pages.Url.fromPath)
     in
     Seo.summary
         { canonicalUrlOverride = Nothing

@@ -22,7 +22,8 @@ head =
     , Head.sitemapLink "/sitemap.xml"
     , Head.metaName "apple-mobile-web-app-capable" (Head.raw "yes")
     , Head.metaName "apple-mobile-web-app-status-bar-style" (Head.raw "black-translucent")
-    , Head.icon [ ( 32, 32 ) ] MimeType.Png (Pages.Url.fromPath [ "favicon/favicon-32x32.png" ])
-    , Head.icon [ ( 16, 16 ) ] MimeType.Png (Pages.Url.fromPath [ "favicon/favicon-16x16.png" ])
+    , Head.icon [] (MimeType.OtherImage "x-icon") (Pages.Url.fromPath [ "/favicon.ico" ])
+    , Head.icon [ ( 32, 32 ) ] MimeType.Png (Pages.Url.fromPath [ "favicon-32x32.png" ])
+    , Head.icon [ ( 16, 16 ) ] MimeType.Png (Pages.Url.fromPath [ "favicon-16x16.png" ])
     ]
         |> BackendTask.succeed

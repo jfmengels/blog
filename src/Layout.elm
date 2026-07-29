@@ -20,7 +20,7 @@ seoHeaders =
     let
         imageUrl : Pages.Url.Url
         imageUrl =
-            [ "images", "logo.png" ] |> UrlPath.join |> Pages.Url.fromPath
+            [ "images", "logo.svg" ] |> UrlPath.join |> Pages.Url.fromPath
     in
     Seo.summaryLarge
         { canonicalUrlOverride = Nothing
@@ -58,7 +58,7 @@ logo =
             , Attrs.attribute "data-nimg" "1"
             , Attrs.class "h-12 w-12 hidden sm:block"
             , Attrs.style "color" "transparent"
-            , Attrs.src "/images/logo.png"
+            , Attrs.src "/images/logo.svg"
             ]
             []
         , Html.img
