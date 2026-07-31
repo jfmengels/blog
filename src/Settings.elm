@@ -1,8 +1,8 @@
 module Settings exposing
     ( author
     , canonicalUrl
+    , description
     , locale
-    , subtitle
     , title
     )
 
@@ -25,9 +25,9 @@ title =
     "jfmengels' blog"
 
 
-subtitle : String
-subtitle =
-    "Written by Jeroen Engels, author of [elm-review](https://elm-review.com/). If you like what you read or what I made, you can follow me on [BlueSky](https://bsky.app/profile/jfmengels.bsky.social)/[Mastodon](https://mastodon.cloud/@jfmengels) or [sponsor me](https://github.com/sponsors/jfmengels/) so that I can one day do more of this full-time ❤️"
+description : String
+description =
+    "Articles by Jeroen Engels, mostly around Elm, static analysis and more generally programming"
 
 
 author : String

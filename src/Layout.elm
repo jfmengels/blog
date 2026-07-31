@@ -31,7 +31,7 @@ seoHeaders =
             , dimensions = Just { width = 500, height = 333 }
             , mimeType = Nothing
             }
-        , description = Settings.subtitle
+        , description = Settings.description
         , locale = Just ( Language.en, Region.us )
         , title = Settings.title
         }

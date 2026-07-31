@@ -67,7 +67,12 @@ view app _ =
     { title = Settings.title
     , body =
         --TODO move to layout part
-        [ View.freeze (Html.p [ Attrs.class "prose text-lg leading-7 text-gray-500 dark:text-gray-400" ] (Layout.Markdown.toHtml Settings.subtitle))
+        [ View.freeze (Html.p [ Attrs.class "prose text-lg leading-7 text-gray-500 dark:text-gray-400" ] (Layout.Markdown.toHtml subtitle))
         , View.freeze (Html.div [] <| List.map Layout.Blogpost.viewListItem app.data.blogpostMetadata)
         ]
     }
+
+
+subtitle : String
+subtitle =
+    "Written by Jeroen Engels, author of [elm-review](https://elm-review.com/). If you like what you read or what I made, you can follow me on [BlueSky](https://bsky.app/profile/jfmengels.bsky.social)/[Mastodon](https://mastodon.cloud/@jfmengels) or [sponsor me](https://github.com/sponsors/jfmengels/) so that I can one day do more of this full-time ❤️"
