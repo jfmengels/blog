@@ -1,6 +1,6 @@
 ---
 name: Jeroen Engels
-avatar: /images/authors/default.png
+avatar: /images/authors/jeroen.png
 socials:
   email: jfm.engels@gmail.com
   github: https://github.com/jfmengels

@@ -70,7 +70,7 @@ logo =
             , Attrs.attribute "data-nimg" "1"
             , Attrs.class "h-12 w-12 rounded-full hidden sm:block"
             , Attrs.style "color" "transparent"
-            , Attrs.src "/images/authors/default.png"
+            , Attrs.src "/images/authors/jeroen.png"
             ]
             []
         ]
